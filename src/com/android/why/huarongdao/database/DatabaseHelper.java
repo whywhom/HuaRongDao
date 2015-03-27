@@ -69,15 +69,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		ArrayList<ScoreItem> fl1 = new ArrayList<ScoreItem>();
 		mDb = getWritableDatabase();
 		String q = "SELECT *" + " FROM " + DATABASE_TABLE + " WHERE "
-				+ KEY_LEVEL_COLUMN + "=? " + " order by " +KEY_SCORE_COLUMN+ " desc" ;
+				+ KEY_LEVEL_COLUMN + "=? " + " order by " +KEY_SCORE_COLUMN+ " asc" ;
 		String[] whereValues = { "" + level };
 		Cursor cursor = mDb.rawQuery(q, whereValues);
 		if (cursor != null && cursor.moveToFirst()) {
-			while(cursor.moveToNext()){
+			while(cursor.isAfterLast() == false){
 				score = cursor.getInt(cursor.getColumnIndex(KEY_SCORE_COLUMN));
 				name = cursor.getString(cursor.getColumnIndex(KEY_PLAYER_COLUMN));
 				ScoreItem sItem = new ScoreItem(score, name, level);
 				fl1.add(sItem);
+				cursor.moveToNext();
 			}
 		}
 		cursor.close();

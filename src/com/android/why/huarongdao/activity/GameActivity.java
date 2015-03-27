@@ -27,7 +27,10 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class GameActivity extends Activity{
+	private final static String TAG = "GameActivity";
 	private int level = 0;
 	private RelativeLayout view = null;
 	private TextView tv_step = null;
@@ -48,7 +52,8 @@ public class GameActivity extends Activity{
 	private boolean bMusic = false;
 	private boolean bSound = false;
 	private Intent musicIntent = null;
-	private Map<Integer, Integer> soundPoolMap = new HashMap<Integer, Integer>();   
+	private Map<Integer, Integer> soundPoolMap = new HashMap<Integer, Integer>();
+	protected int DATA_OK;   
 	public static interface OnStepListener {
 
 		void onEvent(int step, boolean bWin);
@@ -142,6 +147,7 @@ public class GameActivity extends Activity{
 	};
 	
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -171,7 +177,7 @@ public class GameActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				SaveRecord(total_step);
+//				SaveRecord(total_step);
 				Intent intent = new Intent();
 				intent.setClass(GameActivity.this,
 						RankActivity.class);
@@ -271,15 +277,15 @@ public class GameActivity extends Activity{
 	private void releaseSound(){
 		sp.release();
 	}
-	private void SaveRecord(int total_step) {
+	private long SaveRecord(int total_step) {
 		// TODO Auto-generated method stub
 		ArrayList<ScoreItem> fl1 = AppContext.dbHelper.getItems(getString(GameLevels.chessNameArray[level]));
 		if(fl1 == null){
-			
+			return -1;
 		}else{
 			for(ScoreItem si:fl1){
 				if(si.score == total_step){
-					return;
+					return -1;
 				}
 			}
 		}
@@ -287,8 +293,9 @@ public class GameActivity extends Activity{
 		ScoreItem si = new ScoreItem(total_step,AppContext.player,getString(GameLevels.chessNameArray[level]));
 		long id = AppContext.dbHelper.saveItems(si);
 		if(id < 0){
-			
+			Log.e(TAG, "write to database err!");
 		}
+		return id;
 	}
 	private ServiceConnection conn = new ServiceConnection() {  
         
