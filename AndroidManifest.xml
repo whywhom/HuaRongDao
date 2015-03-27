@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.why.huarongdao"
+    android:versionCode="20150326"
+    android:versionName="1.0.3.5" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
+	<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> 
+	
+    <application
+        android:name=".AppContext"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- SDK 所需Service和Activity声明 -->
+        <service
+            android:name="com.qq.e.comm.DownloadService"
+            android:exported="false" >
+        </service>
+
+        <activity
+            android:name="com.qq.e.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+        
+        <activity android:name="com.android.why.huarongdao.activity.RSplashActivity" android:label="@string/app_name"  
+		    android:screenOrientation="portrait"
+		    android:theme="@android:style/Theme.NoTitleBar" >
+		    <intent-filter>
+				<action android:name="android.intent.action.MAIN" /> 
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.GameActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.HelpActivity"
+            android:label="@string/about"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.LevelsActivity"
+            android:label="@string/select_gamestart"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.IntroduceActivity"
+            android:label="@string/menu_introduce"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.DetailActivity"
+            android:label="@string/menu_introduce"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.GameSetting"
+            android:label="@string/menu_gamesetting"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.why.huarongdao.activity.RankActivity"
+            android:label="@string/bt_rank"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+         <service 
+            android:name="com.android.why.huarongdao.service.AudioService" />
+    </application>
+
+</manifest>

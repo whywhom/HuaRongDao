@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/caocao"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/ccjs"
+                android:drawablePadding="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/caocao"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/guanyu"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/gyjs"
+                android:drawablePadding="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/guanyu"
+                android:textColor="@android:color/white" />
+            
+            <TextView
+                android:id="@+id/zhangfei"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/zfjs"
+                android:drawablePadding="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/zhangfei"
+                android:textColor="@android:color/white" />
+            
+            <TextView
+                android:id="@+id/zhaoyun"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/zyjs"
+                android:drawablePadding="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/zhaoyun"
+                android:textColor="@android:color/white" />
+            
+            <TextView
+                android:id="@+id/machao"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/mcjs"
+                android:drawablePadding="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/machao"
+                android:textColor="@android:color/white" />
+            
+            <TextView
+                android:id="@+id/huangzhong"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/hzjs"
+                android:drawablePadding="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/huangzhong"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
