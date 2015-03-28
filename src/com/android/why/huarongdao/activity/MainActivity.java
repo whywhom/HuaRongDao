@@ -13,6 +13,9 @@ import com.qq.e.ads.AdListener;
 import com.qq.e.ads.AdRequest;
 import com.qq.e.ads.AdSize;
 import com.qq.e.ads.AdView;
+import com.tencent.stat.StatConfig;
+import com.tencent.stat.StatReportStrategy;
+import com.tencent.stat.StatService;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,6 +51,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		initGDT();
 		initData();
 		this.bannerContainer = (RelativeLayout) this.findViewById(R.id.bannercontainer);
 		lv = (ListView) findViewById(R.id.lv_gamemenu);
@@ -142,6 +146,85 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	private void initGDT() {
+		// TODO Auto-generated method stub
+		// 打开debug开关，可查看mta上报日志或错误
+		// 发布时，请务必要删除本行或设为false
+		StatConfig.setDebugEnable(false);
+
+		// 获取MTA MID等信息
+//		logger.d(StatConfig.getDeviceInfo(this).toString());
+		// 用户自定义UserId
+		// StatConfig.setCustomUserId(this, "1234");
+		java.util.UUID.randomUUID();
+		// androidManifest.xml指定本activity最先启动，因此，MTA的初始化工作需要在onCreate中进行
+		// 为了使得MTA配置及时生效，请确保MTA配置在调用StatService之前已被调用。
+		// 推荐是在Activity.onCreate处初始化MTA设置
+		// 根据不同的模式：调试或发布，初始化MTA设置
+		initMTAConfig(false);
+
+		/**
+		 * 调用MTA一般需要3步：
+		 * 1：配置manifest.xml权限
+		 * 2：调用StatConfig相关的配置接口配置MTA
+		 * 3:调用StatService相关的接口，开始统计！
+		 */
+
+		// StatCommonHelper.getLogger().setLogLevel(Log.VERBOSE);
+		// 初始化并启动MTA
+		// 第三方SDK必须按以下代码初始化MTA，其中appkey为规定的格式!!!
+		// 其它普通的app可自行选择是否调用
+		// try {
+		// // 第三个参数必须为：com.tencent.stat.common.StatConstants.VERSION
+		// // 用于MTA SDK版本冲突检测
+		// StatService.startStatService(this, "A6TPGR6K3V94",
+		// com.tencent.stat.common.StatConstants.VERSION);
+		// } catch (com.tencent.stat.MtaSDkException e) {
+		// // MTA初始化失败
+		// logger.error("MTA start failed.");
+		// }
+
+		// // 获取在线参数
+		// String onlineValue = StatConfig.getCustomProperty("onlineKey");
+		// if(onlineValue.equalsIgnoreCase("on")){
+		// // do something
+		// }else{
+		// // do something
+		// }
+	}
+	/**
+	 * 根据不同的模式，建议设置的开关状态，可根据实际情况调整，仅供参考。
+	 * 
+	 * @param isDebugMode
+	 *            根据调试或发布条件，配置对应的MTA配置
+	 */
+	private void initMTAConfig(boolean isDebugMode) {
+		if (isDebugMode) { // 调试时建议设置的开关状态
+			// 查看MTA日志及上报数据内容
+			StatConfig.setDebugEnable(true);
+			// 禁用MTA对app未处理异常的捕获，方便开发者调试时，及时获知详细错误信息。
+			// StatConfig.setAutoExceptionCaught(false);
+			// StatConfig.setEnableSmartReporting(false);
+			// Thread.setDefaultUncaughtExceptionHandler(new
+			// UncaughtExceptionHandler() {
+			//
+			// @Override
+			// public void uncaughtException(Thread thread, Throwable ex) {
+			// logger.error("setDefaultUncaughtExceptionHandler");
+			// }
+			// });
+			// 调试时，使用实时发送
+			StatConfig.setStatSendStrategy(StatReportStrategy.INSTANT);
+		} else { // 发布时，建议设置的开关状态，请确保以下开关是否设置合理
+			// 禁止MTA打印日志
+			StatConfig.setDebugEnable(false);
+			// 根据情况，决定是否开启MTA对app未处理异常的捕获
+			StatConfig.setAutoExceptionCaught(true);
+			// 选择默认的上报策略
+			StatConfig.setStatSendStrategy(StatReportStrategy.APP_LAUNCH);
+
+		}
+	}
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -153,12 +236,16 @@ public class MainActivity extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		// 如果本Activity是继承基类BaseActivity的，可注释掉此行。
+		StatService.onPause(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		this.showBannerAD();
+		// 如果本Activity是继承基类BaseActivity的，可注释掉此行。
+		StatService.onResume(this);
 	}
 	private void initData() {
 		dataList.add(getString(R.string.menu_gamestart));

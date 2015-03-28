@@ -3,11 +3,8 @@ package com.android.why.huarongdao;
 import com.android.why.huarongdao.database.DatabaseHelper;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.sqlite.SQLiteDatabase;
-import android.media.AudioManager;
 import android.media.SoundPool;
 
 public class AppContext extends Application{

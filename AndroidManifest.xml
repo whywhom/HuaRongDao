@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.why.huarongdao"
-    android:versionCode="20150327"
-    android:versionName="1.0.3.5" >
+    android:versionCode="20150328"
+    android:versionName="1.0.3.6" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -15,6 +15,15 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> 
 	
+    <!-- 请将MTA_APPKEY改为MTA分配的appkey -->
+    <meta-data
+        android:name="TA_APPKEY"
+        android:value="Aqc1104395836" />
+    <!-- 请将CHANNAL改为app的发布渠道 -->
+    <meta-data
+        android:name="InstallChannel"
+        android:value="play" />
+
     <application
         android:name=".AppContext"
         android:allowBackup="true"
