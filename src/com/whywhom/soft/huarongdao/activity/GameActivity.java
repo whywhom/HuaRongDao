@@ -1,19 +1,15 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.android.why.huarongdao.AppContext;
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.id;
-import com.android.why.huarongdao.R.layout;
-import com.android.why.huarongdao.R.raw;
-import com.android.why.huarongdao.R.string;
-import com.android.why.huarongdao.service.AudioService;
-import com.android.why.huarongdao.service.AudioService.AudioBinder;
-import com.android.why.huarongdao.util.GameLevels;
-import com.android.why.huarongdao.util.ScoreItem;
+import com.whywhom.soft.huarongdao.R;
+import com.whywhom.soft.huarongdao.AppContext;
+import com.whywhom.soft.huarongdao.service.AudioService;
+import com.whywhom.soft.huarongdao.service.AudioService.AudioBinder;
+import com.whywhom.soft.huarongdao.util.GameLevels;
+import com.whywhom.soft.huarongdao.util.ScoreItem;
 
 import android.app.Activity;
 import android.app.AlertDialog;

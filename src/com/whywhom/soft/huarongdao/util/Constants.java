@@ -1,4 +1,4 @@
-package com.android.why.huarongdao.util;
+package com.whywhom.soft.huarongdao.util;
 
 public class Constants {
 	public static final String APPId = "1104395836";

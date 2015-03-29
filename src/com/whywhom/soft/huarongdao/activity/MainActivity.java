@@ -1,14 +1,8 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
 import java.util.ArrayList;
 
-import com.android.why.huarongdao.AppContext;
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.drawable;
-import com.android.why.huarongdao.R.id;
-import com.android.why.huarongdao.R.layout;
-import com.android.why.huarongdao.R.string;
-import com.android.why.huarongdao.util.Constants;
+import com.whywhom.soft.huarongdao.R;
 import com.qq.e.ads.AdListener;
 import com.qq.e.ads.AdRequest;
 import com.qq.e.ads.AdSize;
@@ -16,6 +10,8 @@ import com.qq.e.ads.AdView;
 import com.tencent.stat.StatConfig;
 import com.tencent.stat.StatReportStrategy;
 import com.tencent.stat.StatService;
+import com.whywhom.soft.huarongdao.AppContext;
+import com.whywhom.soft.huarongdao.util.Constants;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,8 +1,6 @@
-package com.android.why.huarongdao.service;
+package com.whywhom.soft.huarongdao.service;
 
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.raw;
-
+import com.whywhom.soft.huarongdao.R;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;

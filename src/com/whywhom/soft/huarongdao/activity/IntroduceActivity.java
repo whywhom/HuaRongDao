@@ -1,10 +1,6 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.id;
-import com.android.why.huarongdao.R.layout;
-import com.android.why.huarongdao.R.string;
-
+import com.whywhom.soft.huarongdao.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

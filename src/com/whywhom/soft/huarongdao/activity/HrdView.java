@@ -1,11 +1,11 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
-import com.android.why.huarongdao.AppContext;
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.activity.GameActivity.OnSoundListener;
-import com.android.why.huarongdao.activity.GameActivity.OnStepListener;
-import com.android.why.huarongdao.util.Chess;
-import com.android.why.huarongdao.util.GameLevels;
+import com.whywhom.soft.huarongdao.R;
+import com.whywhom.soft.huarongdao.AppContext;
+import com.whywhom.soft.huarongdao.activity.GameActivity.OnSoundListener;
+import com.whywhom.soft.huarongdao.activity.GameActivity.OnStepListener;
+import com.whywhom.soft.huarongdao.util.Chess;
+import com.whywhom.soft.huarongdao.util.GameLevels;
 
 import android.app.AlertDialog;
 import android.content.Context;

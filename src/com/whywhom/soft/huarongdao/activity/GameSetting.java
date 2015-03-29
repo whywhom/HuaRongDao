@@ -1,7 +1,7 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
-import com.android.why.huarongdao.AppContext;
-import com.android.why.huarongdao.R;
+import com.whywhom.soft.huarongdao.R;
+import com.whywhom.soft.huarongdao.AppContext;
 
 import android.app.Activity;
 import android.content.Intent;

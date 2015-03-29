@@ -1,8 +1,8 @@
-package com.android.why.huarongdao.database;
+package com.whywhom.soft.huarongdao.database;
 
 import java.util.ArrayList;
 
-import com.android.why.huarongdao.util.ScoreItem;
+import com.whywhom.soft.huarongdao.util.ScoreItem;
 
 import android.content.ContentValues;
 import android.content.Context;

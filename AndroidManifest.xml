@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.why.huarongdao"
+    package="com.whywhom.soft.huarongdao"
     android:versionCode="20150328"
     android:versionName="1.0.3.6" >
 
@@ -25,7 +25,7 @@
         android:value="play" />
 
     <application
-        android:name=".AppContext"
+        android:name="com.whywhom.soft.huarongdao.AppContext"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -42,8 +42,9 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:theme="@android:style/Theme.Translucent" >
         </activity>
-        
-        <activity android:name="com.android.why.huarongdao.activity.RSplashActivity" android:label="@string/app_name"  
+        <activity
+            android:name="com.whywhom.soft.huarongdao.activity.RSplashActivity" 
+            android:label="@string/app_name"  
 		    android:screenOrientation="portrait"
 		    android:theme="@android:style/Theme.NoTitleBar" >
 		    <intent-filter>
@@ -52,7 +53,7 @@
 			</intent-filter>
 		</activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.MainActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.MainActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
@@ -61,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.GameActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.GameActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
@@ -70,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.HelpActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.HelpActivity"
             android:label="@string/about"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
@@ -78,7 +79,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.LevelsActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.LevelsActivity"
             android:label="@string/select_gamestart"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
@@ -86,7 +87,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.IntroduceActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.IntroduceActivity"
             android:label="@string/menu_introduce"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
@@ -94,7 +95,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.DetailActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.DetailActivity"
             android:label="@string/menu_introduce"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
@@ -102,7 +103,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.GameSetting"
+            android:name="com.whywhom.soft.huarongdao.activity.GameSetting"
             android:label="@string/menu_gamesetting"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
@@ -110,15 +111,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.why.huarongdao.activity.RankActivity"
+            android:name="com.whywhom.soft.huarongdao.activity.RankActivity"
             android:label="@string/bt_rank"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-         <service 
-            android:name="com.android.why.huarongdao.service.AudioService" />
+        <service android:name="com.whywhom.soft.huarongdao.service.AudioService" />
     </application>
 
 </manifest>

@@ -1,25 +1,26 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.id;
-import com.android.why.huarongdao.R.layout;
-import com.android.why.huarongdao.R.string;
-
+import com.whywhom.soft.huarongdao.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
-public class HelpActivity extends Activity{
+public class DetailActivity  extends Activity{
 	TextView tv = null;
+	int id = R.string.caocaojs;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_help);
+		setContentView(R.layout.activity_detail);
+		Intent intent = getIntent();
+		if(intent != null){
+			id = intent.getIntExtra("ID",R.string.caocaojs);
+		}
 		tv = (TextView)findViewById(R.id.tv);
-		tv.setText(getString(R.string.doc));
+		tv.setText(getString(id));
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class HelpActivity extends Activity{
 		case KeyEvent.KEYCODE_BACK:
 			//点后退键的时候,为了防止点得过快,触发两次后退事件,故做此设置.
 			if(event.getRepeatCount() == 0){
-	            HelpActivity.this.finish(); 
+				DetailActivity.this.finish(); 
 			}
 			break;
 		default:

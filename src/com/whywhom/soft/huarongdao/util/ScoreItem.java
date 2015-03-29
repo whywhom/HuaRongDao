@@ -1,4 +1,4 @@
-package com.android.why.huarongdao.util;
+package com.whywhom.soft.huarongdao.util;
 
 public class ScoreItem {
 	public int score = 0;

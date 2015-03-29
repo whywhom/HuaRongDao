@@ -1,6 +1,6 @@
-package com.android.why.huarongdao;
+package com.whywhom.soft.huarongdao;
 
-import com.android.why.huarongdao.database.DatabaseHelper;
+import com.whywhom.soft.huarongdao.database.DatabaseHelper;
 
 import android.app.Application;
 import android.content.SharedPreferences;

@@ -1,16 +1,14 @@
-package com.android.why.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
 import java.util.ArrayList;
 
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.id;
-import com.android.why.huarongdao.R.layout;
-import com.android.why.huarongdao.util.Constants;
-import com.android.why.huarongdao.util.GameLevels;
+import com.whywhom.soft.huarongdao.R;
 import com.qq.e.ads.AdListener;
 import com.qq.e.ads.AdRequest;
 import com.qq.e.ads.AdSize;
 import com.qq.e.ads.AdView;
+import com.whywhom.soft.huarongdao.util.Constants;
+import com.whywhom.soft.huarongdao.util.GameLevels;
 
 import android.app.Activity;
 import android.content.Context;

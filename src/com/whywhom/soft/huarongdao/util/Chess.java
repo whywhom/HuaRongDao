@@ -1,4 +1,4 @@
-package com.android.why.huarongdao.util;
+package com.whywhom.soft.huarongdao.util;
 
 import android.graphics.Bitmap;
 

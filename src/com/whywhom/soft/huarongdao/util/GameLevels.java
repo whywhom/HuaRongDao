@@ -1,7 +1,6 @@
-package com.android.why.huarongdao.util;
+package com.whywhom.soft.huarongdao.util;
 
-import com.android.why.huarongdao.R;
-import com.android.why.huarongdao.R.string;
+import com.whywhom.soft.huarongdao.R;
 
 public class GameLevels {
 	public static int[] chessNameArray = {
