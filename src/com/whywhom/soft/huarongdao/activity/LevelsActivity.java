@@ -67,7 +67,7 @@ public class LevelsActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		this.showBannerAD();
+		//this.showBannerAD();
 	}
 	private void selectLevel(int level) {
 		Intent intent = new Intent();
