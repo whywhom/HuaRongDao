@@ -25,6 +25,7 @@ public class RSplashActivity  extends Activity {
 	private TextView tv = null;
 	private boolean bFirst = true;
 	private View view;
+	private RelativeLayout adsParent = null;
 	protected final int MSG_ANIMATION_END = 0;
 	protected final int MSG_AD_END = 1;
 	Handler handler = new Handler(){
@@ -35,10 +36,9 @@ public class RSplashActivity  extends Activity {
 			//super.handleMessage(msg);
 			switch (msg.what) {
 			case MSG_ANIMATION_END :
-				enter();
+				showAd(adsParent);
 				break;
 			case MSG_AD_END:
-				enter();
 			default:
 				break;
 			}
@@ -56,7 +56,7 @@ public class RSplashActivity  extends Activity {
 
 		tv = (TextView)findViewById(R.id.bottonText);
 		tv.setText(getVersion());
-		RelativeLayout adsParent = (RelativeLayout) this
+		adsParent = (RelativeLayout) this
 				.findViewById(R.id.adsRl);
 		
 		//showAd(adsParent);
@@ -64,7 +64,7 @@ public class RSplashActivity  extends Activity {
 	}
 	private void showAnimation() {
 		AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
-		aa.setDuration(3000);
+		aa.setDuration(2000);
 		view.startAnimation(aa);
 		aa.setAnimationListener(new AnimationListener() {
 			@Override
