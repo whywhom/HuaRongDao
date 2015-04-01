@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:baiduadsdk="http://schemas.android.com/apk/res/com.sdkdemo"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="@drawable/bg" >
+	android:background="@android:color/white" >
 	<!-- android:background="#fdfefa" -->
 	<RelativeLayout android:id="@+id/bottomRl"
 	    android:layout_height="wrap_content"
@@ -11,11 +10,6 @@
 	    android:layout_alignParentBottom="true"
 	    android:layout_marginTop="10dp"
 	    android:layout_marginBottom="10dp">
-	    <!-- <ImageView android:id="@+id/bottomIcon"
-	        android:layout_height="70dp"
-	        android:layout_width="200dp"
-	        android:layout_centerHorizontal="true"
-	        android:background="@drawable/yidonglianmeng"/> -->
 	    <TextView android:id="@+id/bottonText"
 	        android:layout_height="wrap_content"
 	        android:layout_width="wrap_content"
@@ -28,6 +22,22 @@
 	    android:layout_width="fill_parent"
 	    android:background="@android:color/transparent"
 	    android:layout_above="@id/bottomRl">
-	    
+	    <TextView
+               android:id="@+id/logo"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_centerInParent="true"
+               android:text="\n华容道古典版\n\nhttp://whywhom.github.io" />
+
+    	<ImageView
+    	    android:id="@+id/imageView1"
+    	    android:layout_width="144px"
+    	    android:layout_height="144px"
+    	    android:layout_above="@id/logo"
+    	    android:layout_centerHorizontal="true"
+    	    android:layout_marginBottom="20dp"
+    	    android:scaleType="centerCrop"
+    	    android:src="@drawable/logo" />
 	</RelativeLayout>
 </RelativeLayout>

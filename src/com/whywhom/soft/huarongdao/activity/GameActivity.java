@@ -119,7 +119,9 @@ public class GameActivity extends Activity{
 					}
 
 					
-				}).show();
+				}).setCancelable(false);
+				AlertDialog dialog = builder.create();
+				dialog.show();
 			}
 		}
 		

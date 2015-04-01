@@ -11,17 +11,46 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class RSplashActivity  extends Activity {
 	private TextView tv = null;
 	private boolean bFirst = true;
+	private View view;
+	protected final int MSG_ANIMATION_END = 0;
+	protected final int MSG_AD_END = 1;
+	Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			//super.handleMessage(msg);
+			switch (msg.what) {
+			case MSG_ANIMATION_END :
+				enter();
+				break;
+			case MSG_AD_END:
+				enter();
+			default:
+				break;
+			}
+		}
+		
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash);
+//		setContentView(R.layout.splash);
+		view = View.inflate(this, R.layout.splash, null);
+		setContentView(view);
 		bFirst = AppContext.sp.getBoolean("FirstStart", true);
 
 
@@ -30,6 +59,30 @@ public class RSplashActivity  extends Activity {
 		RelativeLayout adsParent = (RelativeLayout) this
 				.findViewById(R.id.adsRl);
 		
+		//showAd(adsParent);
+		showAnimation();
+	}
+	private void showAnimation() {
+		AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
+		aa.setDuration(3000);
+		view.startAnimation(aa);
+		aa.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationEnd(Animation arg0) {
+				handler.sendEmptyMessage(MSG_ANIMATION_END);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+
+		});
+	}
+	private void showAd(RelativeLayout adsParent) {
 		SplashAd ad = new SplashAd(this, adsParent, Constants.APPId, Constants.SplashPosId,
 				new SplashAdListener() {
 

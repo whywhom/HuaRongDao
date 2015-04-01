@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">华容道</string>
+    <string name="app_name">华容道古典版</string>
     <string name="menu_gamestart">进入游戏</string>
     <string name="select_gamestart">游戏选关</string>
     <string name="menu_help">游戏说明</string>
