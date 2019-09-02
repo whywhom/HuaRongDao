@@ -1,4 +1,4 @@
-﻿package com.whywhom.soft.huarongdao.activity;
+package com.whywhom.soft.huarongdao.activity;
 
 import com.whywhom.soft.huarongdao.R;
 import com.qq.e.splash.SplashAd;
