@@ -1,122 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.whywhom.soft.huarongdao"
-    android:versionCode="20150401"
-    android:versionName="2.0.0.1" >
-
-    <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
-	<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> 
-	
-    <!-- 请将MTA_APPKEY改为MTA分配的appkey -->
-    <meta-data
-        android:name="TA_APPKEY"
-        android:value="Aqc1104395836" />
-    <!-- 请将CHANNAL改为app的发布渠道 -->
-    <meta-data
-        android:name="InstallChannel"
-        android:value="play" />
+    package="com.whywhom.soft.huarongdao" >
 
     <application
-        android:name="com.whywhom.soft.huarongdao.AppContext"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-
-        <!-- SDK 所需Service和Activity声明 -->
-        <service
-            android:name="com.qq.e.comm.DownloadService"
-            android:exported="false" >
-        </service>
-
-        <activity
-            android:name="com.qq.e.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent" >
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.RSplashActivity" 
-            android:label="@string/app_name"  
-		    android:screenOrientation="portrait"
-		    android:theme="@android:style/Theme.NoTitleBar" >
-		    <intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.GameActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.HelpActivity"
-            android:label="@string/about"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.LevelsActivity"
-            android:label="@string/select_gamestart"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.IntroduceActivity"
-            android:label="@string/menu_introduce"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.DetailActivity"
-            android:label="@string/menu_introduce"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.GameSetting"
-            android:label="@string/menu_gamesetting"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.whywhom.soft.huarongdao.activity.RankActivity"
-            android:label="@string/bt_rank"
-            android:configChanges="orientation|keyboardHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <service android:name="com.whywhom.soft.huarongdao.service.AudioService" />
     </application>
 
 </manifest>
