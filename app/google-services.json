@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "403701586608",
+    "firebase_url": "https://huarongdao-mammoth.firebaseio.com",
+    "project_id": "huarongdao-mammoth",
+    "storage_bucket": "huarongdao-mammoth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403701586608:android:78e551f34da29a6b",
+        "android_client_info": {
+          "package_name": "com.whywhom.soft.huarongdao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403701586608-rqiil77uvsrd4qcoq767lmdd9vefn0l5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb2GXjCWMZXKeauI8Nb-xG41-VRFCPtBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403701586608-rqiil77uvsrd4qcoq767lmdd9vefn0l5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
