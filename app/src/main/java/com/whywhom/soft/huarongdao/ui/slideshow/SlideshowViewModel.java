@@ -1,4 +1,4 @@
-package com.whywhom.soft.huarongdao.ui.main.ui.slideshow;
+package com.whywhom.soft.huarongdao.ui.slideshow;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

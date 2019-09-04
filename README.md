@@ -9,4 +9,4 @@ eclipse-brunch
 
 master
 
->v 2.0.0.0 based on Android Studio
+>v 2.0.0 based on Android Studio
