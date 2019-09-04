@@ -1,16 +1,16 @@
-package com.whywhom.soft.huarongdao.ui.main.ui.home;
+package com.whywhom.soft.huarongdao.ui.send;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class SendViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public SendViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is send fragment");
     }
 
     public LiveData<String> getText() {

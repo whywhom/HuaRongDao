@@ -1,30 +1,28 @@
-package com.whywhom.soft.huarongdao.ui.main.ui.send;
+package com.whywhom.soft.huarongdao.ui.share;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import com.whywhom.soft.huarongdao.R;
 
-import com.whywhom.soft.huarongdao.ui.main.R;
+public class ShareFragment extends Fragment {
 
-public class SendFragment extends Fragment {
-
-    private SendViewModel sendViewModel;
+    private ShareViewModel shareViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_send, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
-        sendViewModel.getText().observe(this, new Observer<String>() {
+            ViewGroup container, Bundle savedInstanceState) {
+        shareViewModel =
+                ViewModelProviders.of(this).get(ShareViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_share, container, false);
+        final TextView textView = root.findViewById(R.id.text_share);
+        shareViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

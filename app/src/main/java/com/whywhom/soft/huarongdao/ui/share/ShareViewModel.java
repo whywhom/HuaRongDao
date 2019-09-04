@@ -1,4 +1,4 @@
-package com.whywhom.soft.huarongdao.ui.main.ui.share;
+package com.whywhom.soft.huarongdao.ui.share;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
