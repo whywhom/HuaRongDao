@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.view.View;
 
 import com.whywhom.soft.huarongdao.R;
-import com.whywhom.soft.huarongdao.MainActivity;
+import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

@@ -8,26 +8,30 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.whywhom.soft.huarongdao.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="@string/select_gamestart"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_page_game"
+            app:destination ="@id/nav_game" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.whywhom.soft.huarongdao.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_help"
+        android:name="com.whywhom.soft.huarongdao.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.whywhom.soft.huarongdao.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_introduce"
+        android:name="com.whywhom.soft.huarongdao.ui.introduce.IntroduceFragment"
+        android:label="@string/menu_introduce"
+        tools:layout="@layout/fragment_introduce" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.whywhom.soft.huarongdao.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/nav_setting"
+        android:name="com.whywhom.soft.huarongdao.ui.setting.SettingFragment"
+        android:label="@string/menu_gamesetting"
+        tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/nav_share"
@@ -40,4 +44,15 @@
         android:name="com.whywhom.soft.huarongdao.ui.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
+
+    <fragment
+        android:id="@+id/nav_game"
+        android:name="com.whywhom.soft.huarongdao.ui.game.GameFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_game">
+        <action
+            android:id="@+id/action_page_home"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
