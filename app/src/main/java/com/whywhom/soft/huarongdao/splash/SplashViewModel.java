@@ -1,11 +1,25 @@
 package com.whywhom.soft.huarongdao.splash;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SplashViewModel extends ViewModel {
+import com.whywhom.soft.huarongdao.AppContext;
+
+import static android.content.Context.MODE_PRIVATE;
+
+public class SplashViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> trigger;
+    private Application application;
+
+    public SplashViewModel(@NonNull Application application) {
+        super(application);
+        this.application = application;
+    }
 
     public LiveData<Boolean> getTrigger() {
         if(trigger == null){

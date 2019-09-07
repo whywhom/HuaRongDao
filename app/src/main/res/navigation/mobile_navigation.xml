@@ -52,7 +52,6 @@
         tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_page_home"
-            app:popUpTo="@id/nav_home"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/nav_home" />
     </fragment>
 </navigation>
