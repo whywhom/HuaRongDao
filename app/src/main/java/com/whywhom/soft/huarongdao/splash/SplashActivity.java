@@ -16,7 +16,7 @@ import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * status bar and navigation/system bar) with User interaction.
  */
 public class SplashActivity extends AppCompatActivity {
 

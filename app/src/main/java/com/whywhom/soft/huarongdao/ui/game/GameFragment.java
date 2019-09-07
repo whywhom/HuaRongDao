@@ -1,6 +1,7 @@
 package com.whywhom.soft.huarongdao.ui.game;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.ComponentName;
@@ -20,6 +21,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -163,6 +165,7 @@ public class GameFragment extends Fragment {
             level = bundle.getInt("level",0);
             Log.d(GameFragment.TAG, String.valueOf(level));
         }
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
     }
 
     @Nullable
