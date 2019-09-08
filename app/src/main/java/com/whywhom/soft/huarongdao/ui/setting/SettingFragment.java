@@ -10,24 +10,47 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceFragmentCompat;
+
+import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 
-public class SettingFragment extends Fragment {
+import butterknife.BindView;
+
+public class SettingFragment extends PreferenceFragmentCompat {
 
     private SettingViewModel settingViewModel;
 
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        //修改配置名
+        getPreferenceManager().setSharedPreferencesName(AppContext.sharedPF);
+        //必须放在修改配置名之后
+        setPreferencesFromResource(R.xml.root_preferences, rootKey);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState) {
         settingViewModel =
                 ViewModelProviders.of(this).get(SettingViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_setting, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
+        View root = super.onCreateView(inflater, container, savedInstanceState);
         settingViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+
             }
         });
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 }

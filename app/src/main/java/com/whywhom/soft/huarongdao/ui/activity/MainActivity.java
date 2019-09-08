@@ -43,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
 
-                    case R.id.action_settings:
-
+                    case R.id.nav_setting:
+                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                        NavigationUI.onNavDestinationSelected(item, navController);
                         break;
                 }
                 return true;

@@ -112,4 +112,28 @@
     <string name="machaojs">马超（176－222），字孟起，扶风茂陵（今陕西兴平）人。三国时期蜀汉名将。马超是东汉初年伏波将军马援的后人，起初随父亲马腾在西凉为一方军阀，后与韩遂一同进攻潼关，被曹操以离间计击败。此后马超又起兵攻杀凉州刺史韦康，不久被韦康故吏杨阜击败，投奔张鲁。刘备入蜀后马超投奔刘备，并为刘备作前驱，进入成都。刘备称汉中王后拜马超为左将军，假节；公元221年刘备称帝，又进马超为骠骑将军，领凉州牧，封斄乡侯。公元222年，马超病逝，终年47岁。</string>
     <string name="huangzhongjs">黄忠（?－220），字汉升（太平御览卷二百三十八引《蜀志》中作“汉叔”），南阳（治今河南南阳）人。东汉末年名将。本为刘表部下中郎将，后归刘备，并助刘备攻益州刘璋。公元219年，黄忠在定军山一战中阵斩曹操部下名将夏侯渊，升任征西将军，刘备称汉中王后改封后将军，赐关内侯。次年，黄忠病逝，谥曰刚侯。黄忠在后世多以勇猛的老将形象出现于各类文学艺术作品中，在小说《三国演义》中是蜀汉五虎大将之一，他的名字在中国也逐渐成为了老当益壮的代名词。</string>
     <string name="zhaoyunjs">赵云（?－229），三国常山真定（今河北正定南）人，字子龙。初从公孙瓒，后归刘备。曹操取荆州，刘备败于当阳长阪，他力战救护甘夫人和备子刘禅。刘备得益州，任为翊军将军，从攻汉中。建兴六年（公元228年），从诸葛亮攻关中，分兵拒曹真主力，以众寡不敌，退回汉中。次年卒。他曾以数十骑拒曹操大军，被刘备誉为“一身都是胆”。——《大辞海》中国古代史卷</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="level_lock">解锁</string>
+    <string name="level_lock_tip">解锁所有已锁定游戏</string>
+    <string name="sound_setting_on">音效已打开</string>
+    <string name="music_setting_on">背景音乐已打开</string>
+    <string name="sound_setting_off">音效已关闭</string>
+    <string name="music_setting_off">背景音乐已关闭</string>
+    <!-- Preference Titles -->
+    <string name="mode_header">Mode</string>
+    <string name="ctrl_header">Control</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync</string>
+    <string name="sound_title">Sound</string>
+    <string name="music_title">Music</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
