@@ -24,6 +24,7 @@ public class AppContext extends Application {
             //editor.putBoolean("FirstStart", false);
             editor.putBoolean("Music", false);
             editor.putBoolean("Sound", false);
+            editor.putBoolean("level_unlock", false);
             editor.commit();
         }
         super.onCreate();
