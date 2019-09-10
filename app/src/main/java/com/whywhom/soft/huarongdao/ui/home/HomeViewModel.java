@@ -8,31 +8,35 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.whywhom.soft.huarongdao.utils.GameHRD;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 
 import java.util.ArrayList;
 
 public class HomeViewModel extends AndroidViewModel {
-
-    private MutableLiveData<ArrayList<String>> dataList;
-    private ArrayList<String> data = new ArrayList<String>();
+    private MutableLiveData<ArrayList<GameHRD>> hrdList;
+    private ArrayList<GameHRD> hrds = new ArrayList<GameHRD>();
+//    private MutableLiveData<ArrayList<String>> dataList;
+//    private ArrayList<String> data = new ArrayList<String>();
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        dataList = new MutableLiveData<ArrayList<String>>();
+        hrdList = new MutableLiveData<ArrayList<GameHRD>>();
         initData(application);
     }
 
     private void initData(Application application) {
-        data.clear();
+        hrds.clear();
         if(GameLevels.chessNameArray != null){
             for(int i = 0; i< GameLevels.chessNameArray.length; i++){
-                data.add(application.getApplicationContext().getString(GameLevels.chessNameArray[i]));
+                String name = application.getApplicationContext().getString(GameLevels.chessNameArray[i]);
+                GameHRD gameHRD = new GameHRD(i,name, i==0?false:true);
+                hrds.add(gameHRD);
             }
-            dataList.postValue(data);
+            hrdList.postValue(hrds);
         }
     }
-    public MutableLiveData<ArrayList<String>> getData() {
-        return dataList;
+    public MutableLiveData<ArrayList<GameHRD>> getData() {
+        return hrdList;
     }
 }
