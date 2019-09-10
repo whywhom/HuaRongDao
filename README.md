@@ -1,4 +1,7 @@
 # HuaRongDao
+
+[![Build Status](https://travis-ci.org/whywhom/HuaRongDao.svg?branch=master)](https://travis-ci.org/whywhom/HuaRongDao)
+
 一个传统的小游戏
 
 # 历史记录

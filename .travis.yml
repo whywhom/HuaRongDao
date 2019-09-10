@@ -13,7 +13,6 @@ android:
     # https://docs.travis-ci.com/user/languages/android/#Installing-a-newer-SDK-Platform-Tools-revision
     - tools
     - platform-tools
-    - tools
 
     # The BuildTools version used by your project
     - build-tools-29.0.2
