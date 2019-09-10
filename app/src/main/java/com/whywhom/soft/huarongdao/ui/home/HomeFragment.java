@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.adapter.LevelAdapter;
+import com.whywhom.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;
 
@@ -35,12 +36,12 @@ public class HomeFragment extends Fragment implements LevelAdapter.OnItemClickLi
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         viewUnbinder = ButterKnife.bind(this,root);
-        homeViewModel.getData().observe(this, new Observer<ArrayList<String>>() {
+        homeViewModel.getData().observe(this, new Observer<ArrayList<GameHRD>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<String> s) {
+            public void onChanged(@Nullable ArrayList<GameHRD> s) {
                 if(levelAdapter == null){
                     levelAdapter = new LevelAdapter(HomeFragment.this.getContext(), HomeFragment.this, homeViewModel.getData());
-                    GridLayoutManager mgr=new GridLayoutManager(HomeFragment.this.getContext(),4);
+                    GridLayoutManager mgr=new GridLayoutManager(HomeFragment.this.getContext(),3);
                     recyclerView.setLayoutManager(mgr);
                     //设置适配器
                     recyclerView.setAdapter(levelAdapter);
@@ -51,7 +52,7 @@ public class HomeFragment extends Fragment implements LevelAdapter.OnItemClickLi
         });
         //navigation 返回重新执行onCreateView，数据不更新，因此需要重新处理recyclerView，否则不显示。
         if(levelAdapter != null){
-            GridLayoutManager mgr=new GridLayoutManager(HomeFragment.this.getContext(),4);
+            GridLayoutManager mgr=new GridLayoutManager(HomeFragment.this.getContext(),3);
             recyclerView.setLayoutManager(mgr);
             recyclerView.setAdapter(levelAdapter);
         }

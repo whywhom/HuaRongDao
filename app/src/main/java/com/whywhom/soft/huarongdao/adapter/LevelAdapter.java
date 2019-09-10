@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -13,20 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.home.HomeFragment;
+import com.whywhom.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;
 
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
 
-    private MutableLiveData<ArrayList<String>> multiLevelData;
-    private ArrayList<String> levelData;
+    private MutableLiveData<ArrayList<GameHRD>> multiLevelData;
+    private ArrayList<GameHRD> levelData;
     private Context context;
     private OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    public LevelAdapter(Context context, OnItemClickListener listener, MutableLiveData<ArrayList<String>> data) {
+    public LevelAdapter(Context context, OnItemClickListener listener, MutableLiveData<ArrayList<GameHRD>> data) {
         multiLevelData = data;
         levelData = multiLevelData.getValue();
         this.context = context;
@@ -42,7 +44,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull LevelAdapter.ViewHolder holder, int position) {
-        String str = levelData.get(position);
+        String str = levelData.get(position).gethName();
         holder.btnName.setText(str);
         holder.btnName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +61,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        Button btnName;
+        TextView btnName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

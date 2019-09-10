@@ -185,7 +185,6 @@ public class GameFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(GameViewModel.class);
-        getActivity().setTitle((GameLevels.chessNameArray[level]));
         // TODO: Use the ViewModel
     }
 
@@ -239,6 +238,8 @@ public class GameFragment extends Fragment {
     @Override
     public void onPause() {
         // TODO Auto-generated method stub
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setSubtitle(null);
         if(bMusic){
             audioService.onPause();
         }
@@ -248,6 +249,8 @@ public class GameFragment extends Fragment {
     @Override
     public void onResume() {
         // TODO Auto-generated method stub
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setSubtitle(GameLevels.chessNameArray[level]);
         if(bMusic){
             if(audioService != null){
                 audioService.onResume();
