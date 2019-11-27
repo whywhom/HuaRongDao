@@ -29,7 +29,20 @@ public class HomeFragment extends Fragment implements LevelAdapter.OnItemClickLi
     private HomeViewModel homeViewModel;
     private LevelAdapter levelAdapter;
     @BindView(R.id.rv_level) RecyclerView recyclerView;
-
+    private static volatile HomeFragment sSoleInstance;
+    private HomeFragment(){
+        if (sSoleInstance != null){
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
+    }
+    public static HomeFragment newInstance() {
+        if (sSoleInstance == null) {
+            synchronized (HomeFragment.class) {
+                if (sSoleInstance == null) sSoleInstance = new HomeFragment();
+            }
+        }
+        return sSoleInstance;
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =

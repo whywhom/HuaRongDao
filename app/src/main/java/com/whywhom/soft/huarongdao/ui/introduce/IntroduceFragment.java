@@ -36,7 +36,20 @@ public class IntroduceFragment extends Fragment {
     boolean bCaoco = false, bGuanyu = false, bZhangfei = false,
             bZhaoyun = false, bMachao = false, bHuangzhong = false;
     private IntroduceViewModel introduceViewModel;
-
+    private static volatile IntroduceFragment sSoleInstance;
+    private IntroduceFragment(){
+        if (sSoleInstance != null){
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
+    }
+    public static IntroduceFragment newInstance() {
+        if (sSoleInstance == null) {
+            synchronized (IntroduceFragment.class) {
+                if (sSoleInstance == null) sSoleInstance = new IntroduceFragment();
+            }
+        }
+        return sSoleInstance;
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         introduceViewModel =

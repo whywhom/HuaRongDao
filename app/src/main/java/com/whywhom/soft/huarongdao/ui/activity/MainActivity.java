@@ -2,23 +2,24 @@ package com.whywhom.soft.huarongdao.ui.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
-import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
-import com.whywhom.soft.huarongdao.ui.game.GameFragment;
+import com.whywhom.soft.huarongdao.ui.help.HelpFragment;
+import com.whywhom.soft.huarongdao.ui.home.HomeFragment;
+import com.whywhom.soft.huarongdao.ui.introduce.IntroduceFragment;
+import com.whywhom.soft.huarongdao.ui.setting.SettingFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -26,12 +27,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SharedPreferences sp = null;
-    private AppBarConfiguration mAppBarConfiguration;
     private boolean bSound = false;
     private boolean bMusic = false;
-
+    private Fragment fragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,27 +42,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-
                     case R.id.nav_setting:
-                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-                        NavigationUI.onNavDestinationSelected(item, navController);
+
                         break;
                 }
                 return true;
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_help, R.id.nav_introduce,
-                R.id.nav_setting, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_level);
+        fragment = HomeFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment).commit();
     }
 
     @Override
@@ -73,10 +70,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -84,4 +84,41 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        // Handle navigation view item clicks here.
+        int id = menuItem.getItemId();
+        switch (id) {
+            case R.id.nav_level:
+                if(!(fragment instanceof HomeFragment)) {
+                    fragment = HomeFragment.newInstance();
+                }
+                break;
+            case R.id.nav_help:
+                if(!(fragment instanceof HelpFragment)) {
+                    fragment = HelpFragment.newInstance();
+                }
+                break;
+            case R.id.nav_introduce:
+                if(!(fragment instanceof IntroduceFragment)) {
+                    fragment = IntroduceFragment.newInstance();
+                }
+                break;
+            case  R.id.nav_setting:
+                if(!(fragment instanceof SettingFragment)) {
+                    fragment = SettingFragment.newInstance();
+                }
+                break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;
+        }
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment).commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
