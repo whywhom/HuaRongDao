@@ -16,14 +16,14 @@ master
 
 >v 2.0.0 based on Android Studio
 
-![](screenshot/01.png)
+![](/screenshot/01.png)
 
-![](screenshot/02.png)
+![](/screenshot/02.png)
 
-![](screenshot/03.png)
+![](/screenshot/03.png)
 
-![](screenshot/04.png)
+![](/screenshot/04.png)
 
-![](screenshot/05.png)
+![](/screenshot/05.png)
 
-![](screenshot/06.png)
+![](/screenshot/06.png)
