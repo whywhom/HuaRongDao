@@ -1,7 +1,7 @@
 package com.whywhom.soft.huarongdao.utils;
 
 /**
- * Created by wuhaoyong on 2019-09-08-09-2019.
+ * Created by wuhaoyong on 08-09-2019.
  */
 public class GameHRD {
     private int hId;

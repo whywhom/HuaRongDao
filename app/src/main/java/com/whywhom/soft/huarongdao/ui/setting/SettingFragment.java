@@ -20,7 +20,20 @@ import butterknife.BindView;
 public class SettingFragment extends PreferenceFragmentCompat {
 
     private SettingViewModel settingViewModel;
-
+    private static volatile SettingFragment sSoleInstance;
+    private SettingFragment(){
+        if (sSoleInstance != null){
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
+    }
+    public static SettingFragment newInstance() {
+        if (sSoleInstance == null) {
+            synchronized (SettingFragment.class) {
+                if (sSoleInstance == null) sSoleInstance = new SettingFragment();
+            }
+        }
+        return sSoleInstance;
+    }
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         //修改配置名

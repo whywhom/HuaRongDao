@@ -20,6 +20,22 @@ public class HelpFragment extends Fragment {
     private Unbinder viewUnbinder;
     private HelpViewModel helpViewModel;
     @BindView(R.id.text_help) TextView tv;
+
+    private static volatile HelpFragment sSoleInstance;
+    private HelpFragment(){
+        if (sSoleInstance != null){
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
+    }
+    public static HelpFragment newInstance() {
+        if (sSoleInstance == null) {
+            synchronized (HelpFragment.class) {
+                if (sSoleInstance == null) sSoleInstance = new HelpFragment();
+            }
+        }
+        return sSoleInstance;
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         helpViewModel =
