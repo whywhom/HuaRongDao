@@ -60,17 +60,16 @@ public class GameFragment extends Fragment {
     @BindView(R.id.tv_exit) TextView tv_exit;
     @BindView(R.id.iv_rank) ImageView iv_rank;
     @BindView(R.id.view1) RelativeLayout view;
-
-    public GameFragment() {
+    private GameFragment() {
 
     }
-    public GameFragment(int level) {
+    private GameFragment(int level) {
         this.level = level;
     }
 
-    public static Fragment newInstance(int level) {
-        GameFragment gameFragment = new GameFragment(level);
-        return gameFragment;
+    public static Fragment getInstance(int level) {
+        GameFragment  fragment = new GameFragment(level);
+        return fragment;
     }
 
     public static interface OnStepListener {
@@ -165,7 +164,7 @@ public class GameFragment extends Fragment {
             level = bundle.getInt("level",0);
             Log.d(GameFragment.TAG, String.valueOf(level));
         }
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
     }
 
     @Nullable
@@ -238,8 +237,8 @@ public class GameFragment extends Fragment {
     @Override
     public void onPause() {
         // TODO Auto-generated method stub
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setSubtitle(null);
+//        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//        toolbar.setSubtitle(null);
         if(bMusic){
             audioService.onPause();
         }
@@ -249,8 +248,8 @@ public class GameFragment extends Fragment {
     @Override
     public void onResume() {
         // TODO Auto-generated method stub
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setSubtitle(GameLevels.chessNameArray[level]);
+//        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//        toolbar.setSubtitle(GameLevels.chessNameArray[level]);
         if(bMusic){
             if(audioService != null){
                 audioService.onResume();

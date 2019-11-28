@@ -5,11 +5,13 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -19,50 +21,49 @@ import com.google.android.material.navigation.NavigationView;
 import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
+import com.whywhom.soft.huarongdao.ui.help.HelpFragment;
+import com.whywhom.soft.huarongdao.ui.main.MainFragment;
+import com.whywhom.soft.huarongdao.ui.setting.SettingFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Button;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sp = null;
-    private AppBarConfiguration mAppBarConfiguration;
     private boolean bSound = false;
     private boolean bMusic = false;
-
+    private int presentedFragmentID;
+    private static final String TAG_PRESENTED_FRAGMENT = "tag_presentedFragment";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.nav_setting:
-                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-                        NavigationUI.onNavDestinationSelected(item, navController);
-                        break;
-                }
-                return true;
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_help, R.id.nav_introduce,
-                R.id.nav_setting, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        if (savedInstanceState == null) {
+            presentFragment(MainFragment.getInstance(),false);
+        }
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//
+//                    case R.id.nav_setting:
+//                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+//                        NavigationUI.onNavDestinationSelected(item, navController);
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
     }
 
     @Override
@@ -73,15 +74,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
     }
 
+    public void presentFragment(Fragment fragment, boolean animated){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if(animated) {
+//            transaction.setCustomAnimations(R.anim.slide_up_in, R.anim.stay, R.anim.stay, R.anim.slide_down_out);
+        }
+        presentedFragmentID = transaction.replace(R.id.host_fragment, fragment, TAG_PRESENTED_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
+        Log.d("Fragment ID",Integer.toString(presentedFragmentID));
+        if(fragment instanceof SettingFragment){
+            getSupportActionBar().setTitle(R.string.menu_gamesetting);
+        } else if(fragment instanceof HelpFragment){
+            getSupportActionBar().setTitle(R.string.menu_help);
+        } else {
+            getSupportActionBar().setTitle(R.string.app_name);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            presentFragment(MainFragment.getInstance(),false);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

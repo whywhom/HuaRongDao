@@ -14,13 +14,21 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
+import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
 
 import butterknife.BindView;
 
 public class SettingFragment extends PreferenceFragmentCompat {
 
     private SettingViewModel settingViewModel;
+    private static SettingFragment fragment = null;
 
+    public static SettingFragment getInstance() {
+        if(fragment == null) {
+            fragment = new SettingFragment();
+        }
+        return fragment;
+    }
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         //修改配置名
@@ -46,6 +54,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
