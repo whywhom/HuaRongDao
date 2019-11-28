@@ -1,5 +1,6 @@
 package com.whywhom.soft.huarongdao.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.adapter.LevelAdapter;
+import com.whywhom.soft.huarongdao.ui.activity.GameActivity;
+import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
 import com.whywhom.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;
@@ -24,24 +27,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class HomeFragment extends Fragment implements LevelAdapter.OnItemClickListener {
+public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClickListener {
     private Unbinder viewUnbinder;
-    private HomeViewModel homeViewModel;
+    private GatewayViewModel gatewayViewModel;
     private LevelAdapter levelAdapter;
+    private static GatewayFragment fragment = null;
     @BindView(R.id.rv_level) RecyclerView recyclerView;
+
+    public static GatewayFragment getInstance() {
+        if(fragment == null) {
+            fragment = new GatewayFragment();
+        }
+        return fragment;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        gatewayViewModel =
+                ViewModelProviders.of(this).get(GatewayViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         viewUnbinder = ButterKnife.bind(this,root);
-        homeViewModel.getData().observe(this, new Observer<ArrayList<GameHRD>>() {
+        gatewayViewModel.getData().observe(this, new Observer<ArrayList<GameHRD>>() {
             @Override
             public void onChanged(@Nullable ArrayList<GameHRD> s) {
                 if(levelAdapter == null){
-                    levelAdapter = new LevelAdapter(HomeFragment.this.getContext(), HomeFragment.this, homeViewModel.getData());
-                    GridLayoutManager mgr=new GridLayoutManager(HomeFragment.this.getContext(),3);
+                    levelAdapter = new LevelAdapter(GatewayFragment.this.getContext(), GatewayFragment.this, gatewayViewModel.getData());
+                    GridLayoutManager mgr=new GridLayoutManager(GatewayFragment.this.getContext(),3);
                     recyclerView.setLayoutManager(mgr);
                     //设置适配器
                     recyclerView.setAdapter(levelAdapter);
@@ -52,13 +63,17 @@ public class HomeFragment extends Fragment implements LevelAdapter.OnItemClickLi
         });
         //navigation 返回重新执行onCreateView，数据不更新，因此需要重新处理recyclerView，否则不显示。
         if(levelAdapter != null){
-            GridLayoutManager mgr=new GridLayoutManager(HomeFragment.this.getContext(),3);
+            GridLayoutManager mgr=new GridLayoutManager(GatewayFragment.this.getContext(),3);
             recyclerView.setLayoutManager(mgr);
             recyclerView.setAdapter(levelAdapter);
         }
         return root;
     }
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
     @Override
     public void onDestroyView() {
         if (viewUnbinder != null) viewUnbinder.unbind();
@@ -66,14 +81,10 @@ public class HomeFragment extends Fragment implements LevelAdapter.OnItemClickLi
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void onItemClick(View view, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("level", position);
-        NavHostFragment.findNavController(this).navigate(R.id.action_page_game,bundle);
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), GameActivity.class);
+        intent.putExtra("level", position);
+        startActivity(intent);
     }
 }

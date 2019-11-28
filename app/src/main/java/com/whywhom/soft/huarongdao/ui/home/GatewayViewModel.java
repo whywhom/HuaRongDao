@@ -13,13 +13,13 @@ import com.whywhom.soft.huarongdao.utils.GameLevels;
 
 import java.util.ArrayList;
 
-public class HomeViewModel extends AndroidViewModel {
+public class GatewayViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<GameHRD>> hrdList;
     private ArrayList<GameHRD> hrds = new ArrayList<GameHRD>();
 //    private MutableLiveData<ArrayList<String>> dataList;
 //    private ArrayList<String> data = new ArrayList<String>();
 
-    public HomeViewModel(@NonNull Application application) {
+    public GatewayViewModel(@NonNull Application application) {
         super(application);
         hrdList = new MutableLiveData<ArrayList<GameHRD>>();
         initData(application);

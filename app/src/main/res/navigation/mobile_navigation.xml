@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.whywhom.soft.huarongdao.ui.home.HomeFragment"
+        android:name="com.whywhom.soft.huarongdao.ui.home.GatewayFragment"
         android:label="@string/select_gamestart"
         tools:layout="@layout/fragment_home" >
         <action
