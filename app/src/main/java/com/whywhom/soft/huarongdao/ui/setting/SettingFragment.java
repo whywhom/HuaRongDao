@@ -14,25 +14,20 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
+import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
 
 import butterknife.BindView;
 
 public class SettingFragment extends PreferenceFragmentCompat {
 
     private SettingViewModel settingViewModel;
-    private static volatile SettingFragment sSoleInstance;
-    private SettingFragment(){
-        if (sSoleInstance != null){
-            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+    private static SettingFragment fragment = null;
+
+    public static SettingFragment getInstance() {
+        if(fragment == null) {
+            fragment = new SettingFragment();
         }
-    }
-    public static SettingFragment newInstance() {
-        if (sSoleInstance == null) {
-            synchronized (SettingFragment.class) {
-                if (sSoleInstance == null) sSoleInstance = new SettingFragment();
-            }
-        }
-        return sSoleInstance;
+        return fragment;
     }
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -59,6 +54,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

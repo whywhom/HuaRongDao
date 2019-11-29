@@ -1,4 +1,4 @@
-package com.whywhom.soft.huarongdao.ui;
+package com.whywhom.soft.huarongdao.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

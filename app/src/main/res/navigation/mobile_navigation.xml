@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_level">
+    app:startDestination="@+id/nav_home">
 
     <fragment
-        android:id="@+id/nav_level"
-        android:name="com.whywhom.soft.huarongdao.ui.home.HomeFragment"
+        android:id="@+id/nav_home"
+        android:name="com.whywhom.soft.huarongdao.ui.home.GatewayFragment"
         android:label="@string/select_gamestart"
         tools:layout="@layout/fragment_home" >
         <action
@@ -52,6 +52,6 @@
         tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_page_home"
-            app:popUpTo="@id/nav_level" />
+            app:popUpTo="@id/nav_home" />
     </fragment>
 </navigation>
