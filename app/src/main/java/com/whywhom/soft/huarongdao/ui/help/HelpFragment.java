@@ -1,6 +1,7 @@
 package com.whywhom.soft.huarongdao.ui.help;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,5 +73,11 @@ public class HelpFragment extends Fragment {
     public void onDestroyView() {
         if (viewUnbinder != null) viewUnbinder.unbind();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(HelpFragment.class.getSimpleName(), HelpFragment.class.getSimpleName() + "onDestroy");
     }
 }

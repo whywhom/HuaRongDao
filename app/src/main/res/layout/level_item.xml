@@ -23,6 +23,6 @@
         android:layout_height="15dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical|left"
-        android:visibility="visible"
-        android:src="@android:drawable/ic_lock_idle_lock"/>
+        android:visibility="gone"
+        android:src="@android:drawable/ic_lock_idle_lock" />
 </FrameLayout>
