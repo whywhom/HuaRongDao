@@ -1,6 +1,7 @@
 package com.whywhom.soft.huarongdao.ui.setting;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,5 +62,10 @@ public class SettingFragment extends PreferenceFragmentCompat {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(SettingFragment.class.getSimpleName(), SettingFragment.class.getSimpleName() + "onDestroy");
     }
 }

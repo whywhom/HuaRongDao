@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean bSound = false;
     private boolean bMusic = false;
     private int presentedFragmentID;
+    private Fragment f = null;
     private static final String TAG_PRESENTED_FRAGMENT = "tag_presentedFragment";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,27 +80,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void presentFragment(Fragment fragment, boolean animated){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(f != fragment) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if(animated) {
+            if (animated) {
 //            transaction.setCustomAnimations(R.anim.slide_up_in, R.anim.stay, R.anim.stay, R.anim.slide_down_out);
-        }
-        presentedFragmentID = transaction.replace(R.id.host_fragment, fragment, TAG_PRESENTED_FRAGMENT)
-                .addToBackStack(null)
-                .commit();
-        Log.d("Fragment ID",Integer.toString(presentedFragmentID));
-        if(fragment instanceof SettingFragment){
-            getSupportActionBar().setTitle(R.string.menu_gamesetting);
-        } else if(fragment instanceof HelpFragment){
-            getSupportActionBar().setTitle(R.string.menu_help);
-        } else {
-            getSupportActionBar().setTitle(R.string.app_name);
+            }
+            transaction.add(R.id.host_fragment, fragment, fragment.getClass().getSimpleName());
+            if(f != null) {
+                transaction.remove(f);
+            }
+//                    .addToBackStack(null)
+            presentedFragmentID = transaction.commit();
+            f = fragment;
+            Log.d("Fragment ID", Integer.toString(presentedFragmentID));
+            if (fragment instanceof SettingFragment) {
+                getSupportActionBar().setTitle(R.string.menu_gamesetting);
+            } else if (fragment instanceof HelpFragment) {
+                getSupportActionBar().setTitle(R.string.menu_help);
+            } else {
+                getSupportActionBar().setTitle(R.string.app_name);
+            }
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if(f != null) {
+            if (f instanceof MainFragment) {
+                f.getActivity().finish();
+            }
+        }
     }
 
     @Override
