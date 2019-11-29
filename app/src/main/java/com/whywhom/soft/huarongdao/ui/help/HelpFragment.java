@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.whywhom.soft.huarongdao.R;
+import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
+import com.whywhom.soft.huarongdao.ui.main.MainFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +21,14 @@ import butterknife.Unbinder;
 public class HelpFragment extends Fragment {
     private Unbinder viewUnbinder;
     private HelpViewModel helpViewModel;
+    private static HelpFragment fragment = null;
+
+    public static HelpFragment getInstance() {
+        if(fragment == null) {
+            fragment = new HelpFragment();
+        }
+        return fragment;
+    }
     @BindView(R.id.text_help) TextView tv;
 
     private static volatile HelpFragment sSoleInstance;
@@ -50,6 +60,12 @@ public class HelpFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
