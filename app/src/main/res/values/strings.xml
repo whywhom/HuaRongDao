@@ -82,8 +82,10 @@
     <string name="level_fm">砝码</string>
     <string name="level_smbf">四面八方</string>
     <string name="level_ybzy">一步之遥</string>
+    <string name="level_test">测试</string>
     <!-- 以上为各个关卡名称 -->
     <string name="username_tip">请输入玩家</string>
+    <string name="unlock_tip">请解锁本关游戏</string>
     <string name="player">玩家1</string>
     <string name="about">游戏介绍</string>
     <string name="double_click_exit">再按一次退出</string>

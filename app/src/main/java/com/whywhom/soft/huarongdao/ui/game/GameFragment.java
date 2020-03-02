@@ -60,6 +60,7 @@ public class GameFragment extends Fragment {
     protected int DATA_OK;
     private HrdView v;
     private Unbinder viewUnbinder;
+    public boolean bWin = false;
     @BindView(R.id.tv_step) TextView tv_step;
     @BindView(R.id.tv_exit) TextView tv_exit;
     @BindView(R.id.iv_rank) ImageView iv_rank;
@@ -102,24 +103,20 @@ public class GameFragment extends Fragment {
                 }
             });
             if(bWin){
-//                new Thread( new Runnable() {
-//                    public void run() {
-//                        SaveRecord(total_step);
-//                    }
-//                }).start();
-                mViewModel.saveRecord(GameFragment.this.getContext(),level,total_step);
+                GameFragment.this.bWin = bWin;
+                mViewModel.saveRecord(GameFragment.this.getContext(),level,total_step, bWin);
                 String a = getResources().getString(R.string.win_msg);
                 String b = String.format(a, step);
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         GameFragment.this.getContext());
                 builder.setTitle(R.string.win_title)
                         .setMessage(b)
-                        .setNegativeButton(R.string.bt_rank,
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
+//                        .setNegativeButton(R.string.bt_rank,
+//                                new DialogInterface.OnClickListener() {
+//
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog,
+//                                                        int which) {
 //                                        Intent intent = new Intent();
 //                                        intent.setClass(GameFragment.this.getContext(),
 //                                                RankActivity.class);
@@ -128,8 +125,8 @@ public class GameFragment extends Fragment {
 //                                        intent.putExtra("score", total_step);
 //                                        GameFragment.this.startActivity(intent);
 //                                        GameFragment.this.getActivity().finish();
-                                    }
-                                })
+//                                    }
+//                                })
                         .setPositiveButton(R.string.bt_ok,
                                 new DialogInterface.OnClickListener() {
 
@@ -251,9 +248,11 @@ public class GameFragment extends Fragment {
         // TODO Auto-generated method stub
 //        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
 //        toolbar.setSubtitle(null);
-        int[][] currentChessBoard = v.getChessBoard();
-        int step = v.getCurrentStep();
-        mViewModel.saveCurrentChessBoard(GameFragment.this.getContext(),level,step, currentChessBoard);
+        if(!bWin){
+            int[][] currentChessBoard = v.getChessBoard();
+            int step = v.getCurrentStep();
+            mViewModel.saveCurrentChessBoard(GameFragment.this.getContext(),level,step, currentChessBoard);
+        }
         if(bMusic){
             audioService.onPause();
         }
@@ -273,6 +272,10 @@ public class GameFragment extends Fragment {
         super.onResume();
     }
 
+    public int getCurrentStep(){
+        int step = v.getCurrentStep();
+        return step;
+    }
     private void initSound() {
         sp = new SoundPool(100, AudioManager.STREAM_MUSIC, 0);
         soundPoolMap.put(0, sp.load(this.getContext(), R.raw.sound2, 0));

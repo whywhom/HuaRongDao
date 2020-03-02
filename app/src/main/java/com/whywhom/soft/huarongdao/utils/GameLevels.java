@@ -62,6 +62,7 @@ public class GameLevels {
             R.string.level_fm,//55
             R.string.level_smbf,//56
             R.string.level_ybzy,//57
+            R.string.level_test,//57
     };
     public static int[][][] chessboardArray = {
             //00
@@ -180,5 +181,7 @@ public class GameLevels {
             {{0, 12, 9, 9, 14}, {4, 6, 1, 1, 2}, {4, 6, 1, 1, 2}, {0, 13, 11, 11, 15}},
             //57
             {{5, 5, 7, 7, 12}, {2, 13, 1, 1, 0}, {2, 14, 1, 1, 0}, {9, 9, 11, 11, 15}},
+            //58 for test
+            {{5, 5, 9, 9, 12},{2, 13, 1, 1, 0},{2, 14, 1, 1, 0},{7, 7, 11, 11, 15}},
     };
 }

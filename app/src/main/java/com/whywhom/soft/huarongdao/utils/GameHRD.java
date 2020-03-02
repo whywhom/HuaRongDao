@@ -98,6 +98,9 @@ public class GameHRD {
         }
         return chessboard;
     }
+    public void restoreMap(String map){
+        this.currentMap = map;
+    }
     public int[][] getIntegerOrigMap(){
         int[][] chessboard = new int[vol][row];
         String str[] = map.split(",");
