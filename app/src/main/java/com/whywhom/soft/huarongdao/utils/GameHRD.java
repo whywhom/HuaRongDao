@@ -21,6 +21,10 @@ public class GameHRD {
     public String map;
     @ColumnInfo(name = "hrd_currentmap")
     public String currentMap;
+    @ColumnInfo(name = "hrd_step")
+    public int step = 0;
+    @ColumnInfo(name = "hrd_record")
+    public int record = -1;
 
     @Ignore
     private int vol = 4;//列数
@@ -93,5 +97,21 @@ public class GameHRD {
             }
         }
         return chessboard;
+    }
+
+    public void sethRecord(int total_step) {
+        this.record = total_step;
+    }
+
+    public int gethRecord() {
+        return this.record;
+    }
+
+    public void sethStep(int i) {
+        this.step = i;
+    }
+
+    public int gethStep() {
+        return this.step;
     }
 }

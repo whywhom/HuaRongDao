@@ -1,4 +1,4 @@
-package com.whywhom.soft.huarongdao.ui.activity;
+package com.whywhom.soft.huarongdao.ui.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
+import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 
 public class GameActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             level = intent.getIntExtra("level",0);
-            this.setTitle(GameLevels.chessNameArray[level]);
+            this.setTitle(CommonFuncs.listGameHRD.get(level).hName);
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.game_container, GameFragment.getInstance(level))

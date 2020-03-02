@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.adapter.LevelAdapter;
-import com.whywhom.soft.huarongdao.ui.activity.GameActivity;
+import com.whywhom.soft.huarongdao.ui.game.GameActivity;
 import com.whywhom.soft.huarongdao.ui.main.MainActivity;
 import com.whywhom.soft.huarongdao.utils.GameHRD;
 
@@ -69,16 +69,19 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
         }
         return root;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     @Override
     public void onDestroyView() {
         if (viewUnbinder != null) viewUnbinder.unbind();
         super.onDestroyView();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
