@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -73,7 +74,7 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -87,6 +88,7 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
         super.onDestroy();
         Log.d(GatewayFragment.class.getSimpleName(), GatewayFragment.class.getSimpleName() + "onDestroy");
     }
+
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent();

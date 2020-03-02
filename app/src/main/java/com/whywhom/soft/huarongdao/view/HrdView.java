@@ -92,10 +92,30 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         mGestureDetector = new GestureDetector(context, (OnGestureListener) this);
         GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
         step = gameHRD.gethStep();
-        createChess(level);
+        createChess(level,false);
         setFocusable(true);
     }
-
+    public void reset() {
+        step = 0;
+        bCaocao = false;
+        bGuanyuH = false;
+        bGuanyuV = false;
+        bZhangfeiH = false;
+        bZhangfeiV = false;
+        bZhaoyunH = false;
+        bZhaoyunV = false;
+        bMachaoH = false;
+        bMachaoV = false;
+        bHuangzhongH = false;
+        bHuangzhongV = false;
+        bSoldier1 = false;
+        bSoldier2 = false;
+        bSoldier3 = false;
+        bSoldier4 = false;
+        createChess(level, true);
+        setFocusable(true);
+        this.invalidate();
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         // TODO Auto-generated method stub
@@ -722,7 +742,7 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         return true;
     }
 
-    private boolean createChess(int Level) {
+    private boolean createChess(int Level, boolean bReset) {
         Resources res = getResources();
         int i = 0;
         int j = 0;
@@ -732,7 +752,11 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
             chessArray[k] = null;
         }
         initChessBoard();
-        chessboard = CommonFuncs.listGameHRD.get(level).getIntegerMap();
+        if(bReset){
+            chessboard = CommonFuncs.listGameHRD.get(level).getIntegerOrigMap();
+        } else {
+            chessboard = CommonFuncs.listGameHRD.get(level).getIntegerMap();
+        }
         k = 0;
         for(i=0;i<chessboard.length;i++){
             for(j=0;j<chessboard[i].length;j++){
