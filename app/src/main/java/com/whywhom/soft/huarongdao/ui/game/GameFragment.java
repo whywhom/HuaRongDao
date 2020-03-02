@@ -76,6 +76,12 @@ public class GameFragment extends Fragment {
         return fragment;
     }
 
+    public void reset() {
+        if(v != null){
+            v.reset();
+        }
+    }
+
     public static interface OnStepListener {
 
         void onEvent(int step, boolean bWin);
@@ -226,7 +232,7 @@ public class GameFragment extends Fragment {
 //		RelativeLayout.LayoutParams relLayoutParams =
 //				new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
         v = new HrdView(view.getContext(), level, onStepListener, onSoundListener);
-//		this.view.addView(v,relLayoutParams);
+
         this.view.addView(v);
     }
     @Override
@@ -267,40 +273,6 @@ public class GameFragment extends Fragment {
         super.onResume();
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                if(event.getRepeatCount() == 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(
-                            GameFragment.this.getContext());
-                    AlertDialog dialog = builder.setTitle(R.string.warn)
-                            .setMessage(R.string.exit)
-                            .setPositiveButton(R.string.bt_yes,
-                                    new DialogInterface.OnClickListener() {
-
-                                        @Override
-                                        public void onClick(DialogInterface dialog,
-                                                            int which) {
-                                            GameFragment.this.getActivity().finish();
-                                        }
-                                    })
-                            .setNegativeButton(R.string.bt_no,
-                                    new DialogInterface.OnClickListener() {
-
-                                        @Override
-                                        public void onClick(DialogInterface dialog,
-                                                            int which) {
-                                            dialog.dismiss();
-                                        }
-                                    }).show();
-                }
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
     private void initSound() {
         sp = new SoundPool(100, AudioManager.STREAM_MUSIC, 0);
         soundPoolMap.put(0, sp.load(this.getContext(), R.raw.sound2, 0));

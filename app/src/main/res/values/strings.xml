@@ -22,6 +22,7 @@
     <string name="menu_gamesetting">游戏设置</string>
     <string name="sound_setting">打开音效</string>
     <string name="music_setting">打开背景音乐</string>
+    <string name="menu_refresh">重新开始</string>
     <!-- 以下为各个关卡名称 -->
     <string name="level_hdlm">横刀立马</string>
     <string name="level_blcy">兵临曹营</string>
@@ -94,7 +95,8 @@
     <string name="bt_rank">排行榜</string>
     <string name="bt_yes">是</string>
     <string name="bt_no">否</string>
-    <string name="exit">是否退出本关？退出后将恢复到初始布局！</string>
+    <string name="exit">是否退出本关？</string>
+    <string name="retry">是否重新开始？</string>
     <string name="warn">提醒</string>
     <string name="step">当前步数:</string>
     <string name="game_exit">出口</string>

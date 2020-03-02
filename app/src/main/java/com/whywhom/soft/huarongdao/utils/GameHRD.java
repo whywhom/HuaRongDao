@@ -98,7 +98,17 @@ public class GameHRD {
         }
         return chessboard;
     }
-
+    public int[][] getIntegerOrigMap(){
+        int[][] chessboard = new int[vol][row];
+        String str[] = map.split(",");
+        for(int i=0;i<chessboard.length;i++){
+            for(int j=0;j<chessboard[i].length;j++){
+                String s = str[i*row+j];
+                chessboard[i][j] = Integer.parseInt(s);
+            }
+        }
+        return chessboard;
+    }
     public void sethRecord(int total_step) {
         this.record = total_step;
     }
