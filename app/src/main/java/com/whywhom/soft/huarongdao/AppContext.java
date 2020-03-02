@@ -1,8 +1,14 @@
 package com.whywhom.soft.huarongdao;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.SoundPool;
+
+import androidx.room.Room;
+
+import com.whywhom.soft.huarongdao.utils.AppDatabase;
+import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 
 public class AppContext extends Application {
     public static String sharedPF = "HrdSharedPreferences";
@@ -10,24 +16,25 @@ public class AppContext extends Application {
     public static String PLAYNAME = "PlayName";
     public static String MUSIC = "Music";
     public static String SOUND = "Sound";
-    public static SharedPreferences sp = null;
+//    public static SharedPreferences sp = null;
     public static String player = "";
     private SoundPool soundpool;
     private int id;
+    private static AppDatabase db;
+
     @Override
     public void onCreate() {
-        // TODO Auto-generated method stub
-        sp = getSharedPreferences(AppContext.sharedPF, MODE_PRIVATE);
-
-        if(sp.getBoolean("FirstStart", true)){
-            SharedPreferences.Editor editor = sp.edit();
-            //editor.putBoolean("FirstStart", false);
-            editor.putBoolean("Music", false);
-            editor.putBoolean("Sound", false);
-            editor.putBoolean("level_unlock", false);
-            editor.commit();
-        }
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "hrd_db").build();
         super.onCreate();
+    }
+
+    static public AppDatabase getGameDatabase(Context context){
+        if(db == null){
+            db = Room.databaseBuilder(context,
+                    AppDatabase.class, "hrd_db").build();
+        }
+        return db;
     }
 
     @Override

@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.service.AudioService;
+import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 import com.whywhom.soft.huarongdao.view.HrdView;
 
@@ -191,8 +192,8 @@ public class GameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initSound();
-        bMusic = AppContext.sp.getBoolean(AppContext.MUSIC, false);
-        bSound = AppContext.sp.getBoolean(AppContext.SOUND, false);
+        bMusic = CommonFuncs.getMusicSet(this.getContext(), false);
+        bSound = CommonFuncs.getSoundSet(this.getContext(), false);
         if(bMusic){
             musicIntent = new Intent();
             musicIntent.setClass(this.getContext(), AudioService.class);

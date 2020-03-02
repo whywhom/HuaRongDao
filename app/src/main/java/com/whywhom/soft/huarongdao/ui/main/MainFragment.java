@@ -1,6 +1,5 @@
 package com.whywhom.soft.huarongdao.ui.main;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.whywhom.soft.huarongdao.R;
-import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
 import com.whywhom.soft.huarongdao.ui.help.HelpFragment;
 import com.whywhom.soft.huarongdao.ui.home.GatewayFragment;
 import com.whywhom.soft.huarongdao.ui.setting.SettingFragment;

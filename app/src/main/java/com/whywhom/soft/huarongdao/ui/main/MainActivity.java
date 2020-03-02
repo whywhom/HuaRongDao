@@ -1,4 +1,4 @@
-package com.whywhom.soft.huarongdao.ui.activity;
+package com.whywhom.soft.huarongdao.ui.main;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
 import com.whywhom.soft.huarongdao.ui.help.HelpFragment;
+import com.whywhom.soft.huarongdao.ui.home.GatewayFragment;
 import com.whywhom.soft.huarongdao.ui.main.MainFragment;
 import com.whywhom.soft.huarongdao.ui.setting.SettingFragment;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (savedInstanceState == null) {
-            presentFragment(MainFragment.getInstance(),false);
+            presentFragment(GatewayFragment.getInstance(),false);
         }
 //        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 //            @Override
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        menu.clear();
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -116,9 +118,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            presentFragment(MainFragment.getInstance(),false);
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home: {
+                presentFragment(GatewayFragment.getInstance(), false);
+                return true;
+            }
+            case R.id.nav_help: {
+                presentFragment(HelpFragment.getInstance(), false);
+                return true;
+            }
+            case R.id.nav_setting: {
+                presentFragment(SettingFragment.getInstance(), false);
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

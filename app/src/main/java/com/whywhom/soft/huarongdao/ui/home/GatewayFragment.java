@@ -12,14 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.adapter.LevelAdapter;
 import com.whywhom.soft.huarongdao.ui.activity.GameActivity;
-import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
+import com.whywhom.soft.huarongdao.ui.main.MainActivity;
 import com.whywhom.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;

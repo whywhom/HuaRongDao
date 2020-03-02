@@ -1,4 +1,4 @@
-package com.whywhom.soft.huarongdao.splash;
+package com.whywhom.soft.huarongdao.ui.splash;
 
 import android.annotation.SuppressLint;
 
@@ -6,13 +6,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
 import com.whywhom.soft.huarongdao.R;
-import com.whywhom.soft.huarongdao.ui.activity.MainActivity;
+import com.whywhom.soft.huarongdao.ui.main.MainActivity;
+import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -53,12 +56,20 @@ public class SplashActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(SplashViewModel.class);
         mContentView = findViewById(R.id.fullscreen_content);
         hide();
-        mViewModel.getTrigger().observe(this, trigger -> {
+        mViewModel.trigger.observe(this, trigger -> {
             if(trigger){
                 SplashActivity.this.startActivity(new Intent(this, MainActivity.class));
                 SplashActivity.this.finish();
             }
         });
+        Boolean isFirstInApp = CommonFuncs.getIsFirstInAppSPFS(this,true);
+        if(isFirstInApp){
+            CommonFuncs.setIsFirstInAppSPFS(this,false);
+            mViewModel.getTrigger(this, isFirstInApp);
+        }
+        else{
+            mViewModel.getData(this);
+        }
     }
 
     private void hide() {
