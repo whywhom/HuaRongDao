@@ -1,9 +1,11 @@
 package com.whywhom.soft.huarongdao.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,8 +43,9 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull LevelAdapter.ViewHolder holder, int position) {
-        String str = levelData.get(position).gethName();
-        holder.btnName.setText(str);
+        GameHRD gameHRD = levelData.get(position);
+        holder.btnName.setText(gameHRD.gethName());
+        holder.imgLock.setVisibility(gameHRD.ishLocked()?View.VISIBLE:View.GONE);
         holder.btnName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,10 +62,11 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
     class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView btnName;
-
+        ImageView imgLock;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             btnName = itemView.findViewById(R.id.btn_name);
+            imgLock = itemView.findViewById(R.id.img_lock);
         }
     }
 }

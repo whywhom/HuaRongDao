@@ -19,6 +19,7 @@ import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
 import com.whywhom.soft.huarongdao.utils.Chess;
+import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 
 public class HrdView extends View implements GestureDetector.OnGestureListener {
@@ -85,8 +86,8 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         this.level = level;
         this.onStepListener = onStepListener;
         this.onSoundListener = onSoundListener;
-        bMusic = AppContext.sp.getBoolean(AppContext.MUSIC, false);
-        bSound = AppContext.sp.getBoolean(AppContext.SOUND, false);
+        bMusic = CommonFuncs.getMusicSet(context, false);
+        bSound = CommonFuncs.getSoundSet(context, false);
         mGestureDetector = new GestureDetector(context, (OnGestureListener) this);
         createChess(level);
         setFocusable(true);
@@ -729,12 +730,7 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
             chessArray[k] = null;
         }
         initChessBoard();
-        chessboard = new int[vol][row];
-        for(i=0;i<chessboard.length;i++){
-            for(j=0;j<chessboard[i].length;j++){
-                chessboard[i][j] = GameLevels.chessboardArray[level][i][j];
-            }
-        }
+        chessboard = CommonFuncs.listGameHRD.get(level).getIntegerMap();
         k = 0;
         for(i=0;i<chessboard.length;i++){
             for(j=0;j<chessboard[i].length;j++){

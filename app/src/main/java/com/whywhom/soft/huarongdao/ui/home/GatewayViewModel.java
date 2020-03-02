@@ -30,7 +30,10 @@ public class GatewayViewModel extends AndroidViewModel {
         if(GameLevels.chessNameArray != null){
             for(int i = 0; i< GameLevels.chessNameArray.length; i++){
                 String name = application.getApplicationContext().getString(GameLevels.chessNameArray[i]);
-                GameHRD gameHRD = new GameHRD(i,name, i==0?false:true);
+                GameHRD gameHRD = new GameHRD();
+                gameHRD.sethId(i);
+                gameHRD.sethName(name);
+                gameHRD.sethLocked(i==0?false:true);
                 hrds.add(gameHRD);
             }
             hrdList.postValue(hrds);
