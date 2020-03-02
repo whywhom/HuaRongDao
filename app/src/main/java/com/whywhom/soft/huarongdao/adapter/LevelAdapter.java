@@ -44,7 +44,13 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull LevelAdapter.ViewHolder holder, int position) {
         GameHRD gameHRD = levelData.get(position);
+        Context context = holder.itemView.getContext();
         holder.btnName.setText(gameHRD.gethName());
+        if(gameHRD.ishLocked()){
+            holder.btnName.setBackgroundColor(context.getResources().getColor(R.color.hrd_orange_darker));
+        } else{
+            holder.btnName.setBackgroundColor(context.getResources().getColor(R.color.hrd_blue));
+        }
         holder.imgLock.setVisibility(gameHRD.ishLocked()?View.VISIBLE:View.GONE);
         holder.btnName.setOnClickListener(new View.OnClickListener() {
             @Override

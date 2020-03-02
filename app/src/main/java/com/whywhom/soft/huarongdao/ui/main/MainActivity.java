@@ -1,5 +1,6 @@
 package com.whywhom.soft.huarongdao.ui.main;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
+import com.whywhom.soft.huarongdao.ui.help.HelpActivity;
 import com.whywhom.soft.huarongdao.ui.help.HelpFragment;
 import com.whywhom.soft.huarongdao.ui.home.GatewayFragment;
 import com.whywhom.soft.huarongdao.ui.main.MainFragment;
@@ -95,10 +97,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if(f != null) {
             if (f instanceof MainFragment) {
                 f.getActivity().finish();
+                super.onBackPressed();
+            } else{
+                presentFragment(GatewayFragment.getInstance(), false);
             }
         }
     }
@@ -112,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.nav_help: {
                 presentFragment(HelpFragment.getInstance(), false);
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, HelpActivity.class);
+//                startActivity(intent);
                 return true;
             }
             case R.id.nav_setting: {

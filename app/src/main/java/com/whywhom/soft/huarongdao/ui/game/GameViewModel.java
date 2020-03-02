@@ -10,17 +10,22 @@ import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 import com.whywhom.soft.huarongdao.utils.GameHRD;
 
 public class GameViewModel extends ViewModel {
-    public void saveRecord(Context context, int level, int total_step) {
+    public void saveRecord(Context context, int level, int total_step, boolean bWin) {
         new Thread( new Runnable() {
             public void run() {
                 long id = 0;
                 GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
                 int record = gameHRD.gethRecord();
-                if(total_step<record){
-                    gameHRD.sethRecord(total_step);
+                if(bWin){
+                    gameHRD.restoreMap(gameHRD.gethMap());
                     gameHRD.sethStep(0);
-                    AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);
                 }
+                if(record<0 && total_step>0){
+                    gameHRD.sethRecord(total_step);
+                } else if(total_step<record){
+                    gameHRD.sethRecord(total_step);
+                }
+                AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);
                 if(id < 0){
                     Log.e("GameView", "write to database err!");
                 }

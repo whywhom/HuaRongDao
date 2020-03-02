@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
 import com.whywhom.soft.huarongdao.utils.CommonFuncs;
+import com.whywhom.soft.huarongdao.utils.GameHRD;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 
 public class GameActivity extends AppCompatActivity {
@@ -48,7 +49,12 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                showInfoDialog(android.R.id.home, R.string.warn,R.string.exit);
+                GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+                if(((GameFragment)f).getCurrentStep() != gameHRD.step) {
+                    showInfoDialog(android.R.id.home, R.string.warn, R.string.exit);
+                }else{
+                    GameActivity.this.finish();
+                }
                 break;
             case R.id.nav_refresh:
                 showInfoDialog(R.id.nav_refresh, R.string.warn, R.string.retry);
@@ -63,7 +69,12 @@ public class GameActivity extends AppCompatActivity {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if(event.getRepeatCount() == 0){
-                    showInfoDialog(android.R.id.home, R.string.warn,R.string.exit);
+                    GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+                    if(((GameFragment)f).getCurrentStep() != gameHRD.step) {
+                        showInfoDialog(android.R.id.home, R.string.warn, R.string.exit);
+                    } else{
+                        GameActivity.this.finish();
+                    }
                 }
                 break;
             default:

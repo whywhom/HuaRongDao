@@ -16,10 +16,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.adapter.LevelAdapter;
 import com.whywhom.soft.huarongdao.ui.game.GameActivity;
 import com.whywhom.soft.huarongdao.ui.main.MainActivity;
+import com.whywhom.soft.huarongdao.utils.CommonFuncs;
 import com.whywhom.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
                 ViewModelProviders.of(this).get(GatewayViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         viewUnbinder = ButterKnife.bind(this,root);
-        gatewayViewModel.getData().observe(this, new Observer<ArrayList<GameHRD>>() {
+        gatewayViewModel.hrdList.observe(this, new Observer<ArrayList<GameHRD>>() {
             @Override
             public void onChanged(@Nullable ArrayList<GameHRD> s) {
                 if(levelAdapter == null){
@@ -68,7 +70,13 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
             recyclerView.setLayoutManager(mgr);
             recyclerView.setAdapter(levelAdapter);
         }
+        gatewayViewModel.initData(GatewayFragment.this.getContext());
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -91,9 +99,21 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), GameActivity.class);
-        intent.putExtra("level", position);
-        startActivity(intent);
+        GameHRD gameHRD = CommonFuncs.listGameHRD.get(position);
+        if(gameHRD.ishLocked()){
+            Snackbar sb = Snackbar.make(recyclerView, getString(R.string.unlock_tip), Snackbar.LENGTH_SHORT);
+            sb.setAction(getString(R.string.bt_ok), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sb.dismiss();
+                        }
+                    })
+                    .show();
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), GameActivity.class);
+            intent.putExtra("level", position);
+            startActivity(intent);
+        }
     }
 }
