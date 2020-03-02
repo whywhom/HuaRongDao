@@ -20,6 +20,7 @@ import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.ui.game.GameFragment;
 import com.whywhom.soft.huarongdao.utils.Chess;
 import com.whywhom.soft.huarongdao.utils.CommonFuncs;
+import com.whywhom.soft.huarongdao.utils.GameHRD;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 
 public class HrdView extends View implements GestureDetector.OnGestureListener {
@@ -89,6 +90,8 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         bMusic = CommonFuncs.getMusicSet(context, false);
         bSound = CommonFuncs.getSoundSet(context, false);
         mGestureDetector = new GestureDetector(context, (OnGestureListener) this);
+        GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+        step = gameHRD.gethStep();
         createChess(level);
         setFocusable(true);
     }
@@ -724,7 +727,6 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         int i = 0;
         int j = 0;
         int k = 0;
-        step = 0;
         chessArray = new Chess[10];
         for(k =0;k<chessArray.length;k++){
             chessArray[k] = null;
@@ -966,6 +968,9 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         return true;
     }
 
+    public int[][] getChessBoard(){
+        return chessboard;
+    }
     private void initChessBoard() {
         for(int i=0;i<chessboard.length;i++){
             for(int j=0;j<chessboard[0].length;j++){
@@ -1047,4 +1052,7 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         return isFound;
     }
 
+    public int getCurrentStep() {
+        return step;
+    }
 }

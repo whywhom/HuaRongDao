@@ -32,6 +32,7 @@ import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.service.AudioService;
 import com.whywhom.soft.huarongdao.utils.CommonFuncs;
+import com.whywhom.soft.huarongdao.utils.GameHRD;
 import com.whywhom.soft.huarongdao.utils.GameLevels;
 import com.whywhom.soft.huarongdao.view.HrdView;
 
@@ -52,10 +53,12 @@ public class GameFragment extends Fragment {
     private SoundPool sp;
     private AudioService audioService;
     private boolean bMusic = false;
+    private GameHRD gameHRD;
     private boolean bSound = false;
     private Intent musicIntent = null;
     private Map<Integer, Integer> soundPoolMap = new HashMap<Integer, Integer>();
     protected int DATA_OK;
+    private HrdView v;
     private Unbinder viewUnbinder;
     @BindView(R.id.tv_step) TextView tv_step;
     @BindView(R.id.tv_exit) TextView tv_exit;
@@ -93,11 +96,12 @@ public class GameFragment extends Fragment {
                 }
             });
             if(bWin){
-                new Thread( new Runnable() {
-                    public void run() {
-                        SaveRecord(total_step);
-                    }
-                }).start();
+//                new Thread( new Runnable() {
+//                    public void run() {
+//                        SaveRecord(total_step);
+//                    }
+//                }).start();
+                mViewModel.saveRecord(GameFragment.this.getContext(),level,total_step);
                 String a = getResources().getString(R.string.win_msg);
                 String b = String.format(a, step);
                 AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -192,6 +196,7 @@ public class GameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initSound();
+        gameHRD = CommonFuncs.listGameHRD.get(level);
         bMusic = CommonFuncs.getMusicSet(this.getContext(), false);
         bSound = CommonFuncs.getSoundSet(this.getContext(), false);
         if(bMusic){
@@ -220,7 +225,7 @@ public class GameFragment extends Fragment {
 
 //		RelativeLayout.LayoutParams relLayoutParams =
 //				new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-        HrdView v = new HrdView(view.getContext(), level, onStepListener, onSoundListener);
+        v = new HrdView(view.getContext(), level, onStepListener, onSoundListener);
 //		this.view.addView(v,relLayoutParams);
         this.view.addView(v);
     }
@@ -240,6 +245,9 @@ public class GameFragment extends Fragment {
         // TODO Auto-generated method stub
 //        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
 //        toolbar.setSubtitle(null);
+        int[][] currentChessBoard = v.getChessBoard();
+        int step = v.getCurrentStep();
+        mViewModel.saveCurrentChessBoard(GameFragment.this.getContext(),level,step, currentChessBoard);
         if(bMusic){
             audioService.onPause();
         }
@@ -308,14 +316,14 @@ public class GameFragment extends Fragment {
     private void releaseSound(){
         sp.release();
     }
-    private long SaveRecord(int total_step) {
-        // TODO Auto-generated method stub
-        long id = 0;
-        if(id < 0){
-            Log.e(TAG, "write to database err!");
-        }
-        return id;
-    }
+//    private long SaveRecord(int total_step) {
+//        // TODO Auto-generated method stub
+//        long id = 0;
+//        if(id < 0){
+//            Log.e(TAG, "write to database err!");
+//        }
+//        return id;
+//    }
     private ServiceConnection conn = new ServiceConnection() {
 
         @Override
