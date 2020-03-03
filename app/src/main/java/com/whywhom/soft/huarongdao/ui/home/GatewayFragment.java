@@ -1,6 +1,8 @@
 package com.whywhom.soft.huarongdao.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +15,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.adapter.LevelAdapter;
 import com.whywhom.soft.huarongdao.ui.game.GameActivity;
@@ -103,6 +107,13 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
     @Override
     public void onItemClick(View view, int position) {
         GameHRD gameHRD = CommonFuncs.listGameHRD.get(position);
+        SharedPreferences preferences = GatewayFragment.this.getContext().getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
+        if(preferences.getBoolean("level_unlock",false)){  //第二个参数指找不到该key的preference时，返回的默认值
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), GameActivity.class);
+            intent.putExtra("level", position);
+            startActivity(intent);
+        }
         if(gameHRD.ishLocked()){
             Snackbar sb = Snackbar.make(recyclerView, getString(R.string.unlock_tip), Snackbar.LENGTH_SHORT);
             sb.setAction(getString(R.string.bt_ok), new View.OnClickListener() {

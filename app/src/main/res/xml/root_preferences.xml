@@ -51,7 +51,7 @@
 
             app:key="level_unlock"
             app:summaryOff="@string/level_lock_tip"
-            app:summaryOn="@string/level_lock_tip"
+            app:summaryOn="@string/level_unlock_tip"
             app:title="@string/level_lock" />
 
     </PreferenceCategory>

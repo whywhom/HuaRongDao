@@ -217,6 +217,8 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                RankDialogFragment rankDialogFragment = RankDialogFragment.newInstance(level);
+                rankDialogFragment.show(getFragmentManager(), "rankdialog_fragment");
 
             }
 

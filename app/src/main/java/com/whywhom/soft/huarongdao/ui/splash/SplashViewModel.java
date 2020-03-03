@@ -62,6 +62,11 @@ public class SplashViewModel extends AndroidViewModel {
                     trigger = new MutableLiveData<Boolean>();
                 }
                 CommonFuncs.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 trigger.postValue(true);
             }
         }).start();
@@ -75,6 +80,11 @@ public class SplashViewModel extends AndroidViewModel {
                     trigger = new MutableLiveData<Boolean>();
                 }
                 CommonFuncs.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 trigger.postValue(true);
             }
         }).start();
