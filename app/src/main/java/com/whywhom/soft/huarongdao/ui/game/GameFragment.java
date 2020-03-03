@@ -200,6 +200,9 @@ public class GameFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initSound();
         gameHRD = CommonFuncs.listGameHRD.get(level);
+        if(gameHRD.gethRecord()<0){
+            iv_rank.setVisibility(View.GONE);
+        }
         bMusic = CommonFuncs.getMusicSet(this.getContext(), false);
         bSound = CommonFuncs.getSoundSet(this.getContext(), false);
         if(bMusic){
@@ -214,14 +217,7 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-//				SaveRecord(total_step);
-//                Intent intent = new Intent();
-//                intent.setClass(GameFragment.this.getContext(),
-//                        RankActivity.class);
-//                intent.putExtra("level", level);
-//                intent.putExtra("player", AppContext.player);
-//                intent.putExtra("score", total_step);
-//                GameFragment.this.startActivity(intent);
+
             }
 
         });

@@ -26,6 +26,11 @@ public class GameViewModel extends ViewModel {
                     gameHRD.sethRecord(total_step);
                 }
                 AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);
+                if(level<CommonFuncs.listGameHRD.size()-1){
+                    GameHRD gameHRDUnlock = CommonFuncs.listGameHRD.get(level+1);
+                    gameHRDUnlock.sethLocked(false);
+                    AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);
+                }
                 if(id < 0){
                     Log.e("GameView", "write to database err!");
                 }
