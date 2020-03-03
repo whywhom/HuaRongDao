@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.whywhom.soft.huarongdao"
+        applicationId "com.mammoth.soft.huarongdao"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 200203
