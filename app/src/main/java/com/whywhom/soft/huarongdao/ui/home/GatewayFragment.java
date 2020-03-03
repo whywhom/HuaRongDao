@@ -77,6 +77,9 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
     @Override
     public void onResume() {
         super.onResume();
+        if(levelAdapter != null) {
+            levelAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

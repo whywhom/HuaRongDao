@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(f != null) {
-            if (f instanceof MainFragment) {
+            if (f instanceof GatewayFragment) {
                 f.getActivity().finish();
                 super.onBackPressed();
             } else{
@@ -116,9 +116,6 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.nav_help: {
                 presentFragment(HelpFragment.getInstance(), false);
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, HelpActivity.class);
-//                startActivity(intent);
                 return true;
             }
             case R.id.nav_setting: {
