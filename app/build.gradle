@@ -7,13 +7,23 @@ android {
         applicationId "com.whywhom.soft.huarongdao"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
+        versionCode 200203
         versionName "2.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        sign {
+            keyAlias 'huarongdao'
+            keyPassword 'mammothhuarongdao'
+            storeFile file('keystore/huarongdao.jks')
+            storePassword 'mammothhuarongdao'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.sign
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

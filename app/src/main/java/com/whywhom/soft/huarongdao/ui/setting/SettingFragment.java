@@ -58,7 +58,6 @@ public class SettingFragment extends PreferenceFragmentCompat {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
     @Override
     public void onDestroy() {

@@ -1,6 +1,7 @@
 package com.whywhom.soft.huarongdao.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.whywhom.soft.huarongdao.AppContext;
 import com.whywhom.soft.huarongdao.R;
 import com.whywhom.soft.huarongdao.utils.GameHRD;
 
@@ -46,12 +49,18 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
         GameHRD gameHRD = levelData.get(position);
         Context context = holder.itemView.getContext();
         holder.btnName.setText(gameHRD.gethName());
-        if(gameHRD.ishLocked()){
-            holder.btnName.setBackgroundColor(context.getResources().getColor(R.color.hrd_orange_darker));
-        } else{
-            holder.btnName.setBackgroundColor(context.getResources().getColor(R.color.hrd_blue));
+        SharedPreferences preferences = context.getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
+        if(preferences.getBoolean("level_unlock",false)){  //第二个参数指找不到该key的preference时，返回的默认值
+            holder.imgLock.setVisibility(View.GONE);
+        } else {
+            if (gameHRD.ishLocked()) {
+                holder.btnName.setBackgroundColor(context.getResources().getColor(R.color.hrd_orange));
+            } else {
+                holder.btnName.setBackgroundColor(context.getResources().getColor(R.color.hrd_orange_darker));
+            }
+            holder.imgLock.setVisibility(gameHRD.ishLocked()?View.VISIBLE:View.GONE);
         }
-        holder.imgLock.setVisibility(gameHRD.ishLocked()?View.VISIBLE:View.GONE);
+
         holder.btnName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
