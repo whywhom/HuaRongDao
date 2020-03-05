@@ -142,4 +142,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="tip_rank">当前最佳成绩：%d步完成本关。</string>
+    <string name="runtime_excption">Use getInstance() method to get the single instance of this class.</string>
 </resources>

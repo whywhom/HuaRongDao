@@ -39,24 +39,27 @@ public class HelpFragment extends Fragment {
     @BindView(R.id.zhaoyun_detail) protected TextView tv_zyjs;
     @BindView(R.id.machao_detail) protected TextView tv_mcjs;
     @BindView(R.id.huangzhong_detail) protected TextView tv_hzjs;
-    private boolean bCaoco = false, bGuanyu = false, bZhangfei = false,
-            bZhaoyun = false, bMachao = false, bHuangzhong = false;
-
+    private boolean bCaoco = false;
+    private boolean bGuanyu = false;
+    private boolean bZhangfei = false;
+    private boolean bZhaoyun = false;
+    private boolean bMachao = false;
+    private boolean bHuangzhong = false;
+    @BindView(R.id.text_help) protected  TextView tv;
+    private static volatile HelpFragment sSoleInstance;
     public static HelpFragment getInstance() {
         if(fragment == null) {
             fragment = new HelpFragment();
         }
         return fragment;
     }
-    @BindView(R.id.text_help) TextView tv;
 
-    private static volatile HelpFragment sSoleInstance;
     private HelpFragment(){
         if (sSoleInstance != null){
-            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+            throw new RuntimeException(getString(R.string.runtime_excption));
         }
     }
-    static HelpFragment newInstance() {
+    public static HelpFragment newInstance() {
         if (sSoleInstance == null) {
             synchronized (HelpFragment.class) {
                 if (sSoleInstance == null) sSoleInstance = new HelpFragment();
@@ -74,7 +77,7 @@ public class HelpFragment extends Fragment {
         helpViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-
+                Log.d(HelpFragment.class.getName(), s);
             }
         });
         return root;

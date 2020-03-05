@@ -14,8 +14,6 @@ import com.mammoth.soft.huarongdao.R;
 
 public class DetailFragment extends Fragment {
 
-    private DetailViewModel mViewModel;
-
     public static DetailFragment newInstance() {
         return new DetailFragment();
     }
@@ -30,7 +28,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
+//        DetailViewModel mViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         // TODO: Use the ViewModel
     }
 

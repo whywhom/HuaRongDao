@@ -16,9 +16,10 @@ import com.mammoth.soft.huarongdao.AppContext;
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.ui.main.MainActivity;
 
+import java.util.Objects;
+
 public class SettingFragment extends PreferenceFragmentCompat {
 
-    private SettingViewModel settingViewModel;
     private static SettingFragment fragment = null;
 
     public static SettingFragment getInstance() {
@@ -37,13 +38,12 @@ public class SettingFragment extends PreferenceFragmentCompat {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        settingViewModel =
-                ViewModelProviders.of(this).get(SettingViewModel.class);
+        SettingViewModel settingViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);
         View root = super.onCreateView(inflater, container, savedInstanceState);
         settingViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-
+                Log.d(SettingFragment.class.getName(), s);
             }
         });
         return root;
@@ -52,7 +52,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
