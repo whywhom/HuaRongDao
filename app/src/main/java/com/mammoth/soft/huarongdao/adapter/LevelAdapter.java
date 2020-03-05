@@ -20,18 +20,14 @@ import java.util.ArrayList;
 
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
 
-    private MutableLiveData<ArrayList<GameHRD>> multiLevelData;
     private ArrayList<GameHRD> levelData;
-    private Context context;
     private OnItemClickListener listener;
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
     public LevelAdapter(Context context, OnItemClickListener listener, MutableLiveData<ArrayList<GameHRD>> data) {
-        multiLevelData = data;
-        levelData = multiLevelData.getValue();
-        this.context = context;
+        levelData = data.getValue();
         this.listener = listener;
     }
 

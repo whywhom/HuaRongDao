@@ -20,12 +20,8 @@ import com.mammoth.soft.huarongdao.ui.setting.SettingFragment;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    private SharedPreferences sp = null;
-    private boolean bSound = false;
-    private boolean bMusic = false;
-    private int presentedFragmentID;
     private Fragment f = null;
-    private static final String TAG_PRESENTED_FRAGMENT = "tag_presentedFragment";
+//    private static final String TAG_PRESENTED_FRAGMENT = "tag_presentedFragment";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +48,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void presentFragment(Fragment fragment, boolean animated){
-        if(f != fragment) {
+        if(!fragment.equals(f)) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (animated) {
+//            if (animated) {
 //            transaction.setCustomAnimations(R.anim.slide_up_in, R.anim.stay, R.anim.stay, R.anim.slide_down_out);
-            }
+//            }
             transaction.add(R.id.host_fragment, fragment, fragment.getClass().getSimpleName());
             if(f != null) {
                 transaction.remove(f);
             }
 //                    .addToBackStack(null)
-            presentedFragmentID = transaction.commit();
+            //    private SharedPreferences sp = null;
+            //    private boolean bSound = false;
+            //    private boolean bMusic = false;
+            int presentedFragmentID = transaction.commit();
             f = fragment;
             Log.d("Fragment ID", Integer.toString(presentedFragmentID));
             if (fragment instanceof SettingFragment) {
@@ -103,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 presentFragment(SettingFragment.getInstance(), false);
                 return true;
             }
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
