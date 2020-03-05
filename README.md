@@ -20,14 +20,9 @@ master
 >v 2.0.4 all functions are available
 
 ![Feature](/screenshot/huarongdao-feature-graphic.png)
-
 ![Splash](/screenshot/01.png)
-
 ![Main](/screenshot/02.png)
-
 ![Game](/screenshot/03.png)
-
 ![Introduction](/screenshot/04.png)
-
 ![Settings](/screenshot/05.png)
 
