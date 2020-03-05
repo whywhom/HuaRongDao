@@ -3,6 +3,7 @@
 ## 游戏介绍
 
 [![Build Status](https://travis-ci.org/whywhom/HuaRongDao.svg?branch=master)](https://travis-ci.org/whywhom/HuaRongDao)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c356f59ac6d14c69b52c820b0e22fbec)](https://www.codacy.com/manual/whywhom/HuaRongDao?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=whywhom/HuaRongDao&amp;utm_campaign=Badge_Grade)
 
 一个传统的小游戏
 
