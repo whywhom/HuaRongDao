@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by wuhaoyong on 2/03/20.
  */
-public class CommonFuncs {
+public class CommonFuncsUtils {
     public static ArrayList<GameHRD> listGameHRD = new ArrayList<GameHRD>();
 
     public static Boolean getIsFirstInAppSPFS(Context context, boolean init) {

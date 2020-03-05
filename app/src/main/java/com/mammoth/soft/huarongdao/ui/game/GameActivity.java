@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mammoth.soft.huarongdao.R;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 public class GameActivity extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             level = intent.getIntExtra("level",0);
-            this.setTitle(CommonFuncs.listGameHRD.get(level).hName);
+            this.setTitle(CommonFuncsUtils.listGameHRD.get(level).hName);
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         f = GameFragment.getInstance(level);
@@ -46,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+                GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
                 if(((GameFragment)f).getCurrentStep() != gameHRD.step) {
                     showInfoDialog(android.R.id.home, R.string.warn, R.string.exit);
                 }else{
@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if(event.getRepeatCount() == 0){
-                    GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+                    GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
                     if(((GameFragment)f).getCurrentStep() != gameHRD.step) {
                         showInfoDialog(android.R.id.home, R.string.warn, R.string.exit);
                     } else{
@@ -89,12 +89,18 @@ public class GameActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                if(id == android.R.id.home) {
-                                    GameActivity.this.finish();
-                                } else if(id == R.id.nav_refresh){
-                                    if(f instanceof GameFragment){
-                                        ((GameFragment)f).reset();
+                                switch(id){
+                                    case android.R.id.home:
+                                        GameActivity.this.finish();
+                                        break;
+                                    case R.id.nav_refresh: {
+                                        if(f instanceof GameFragment){
+                                            ((GameFragment)f).reset();
+                                        }
+                                        break;
                                     }
+                                    default:
+                                        break;
                                 }
                             }
                         })

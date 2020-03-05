@@ -25,10 +25,10 @@ import butterknife.OnClick;
 
 public class MainFragment extends Fragment {
 
-    private MainViewModel mViewModel;
-    @BindView(R.id.btn_gamestart) Button btnGamestart;
-    @BindView(R.id.btn_help) Button btnGamehelp;
-    @BindView(R.id.btn_gamesetting) Button btnGamesetting;
+//    private MainViewModel mViewModel;
+//    @BindView(R.id.btn_gamestart) private Button btnGamestart;
+//    @BindView(R.id.btn_help) private Button btnGamehelp;
+//    @BindView(R.id.btn_gamesetting) private Button btnGamesetting;
     private static MainFragment fragment = null;
     public static MainFragment getInstance() {
         if(fragment == null) {
@@ -54,7 +54,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+//        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         // TODO: Use the ViewModel
     }
 

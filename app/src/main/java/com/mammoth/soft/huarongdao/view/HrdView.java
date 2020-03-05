@@ -18,7 +18,7 @@ import android.view.View;
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.ui.game.GameFragment;
 import com.mammoth.soft.huarongdao.utils.Chess;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 public class HrdView extends View implements GestureDetector.OnGestureListener {
@@ -85,10 +85,10 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         this.level = level;
         this.onStepListener = onStepListener;
         this.onSoundListener = onSoundListener;
-        bMusic = CommonFuncs.getMusicSet(context, false);
-        bSound = CommonFuncs.getSoundSet(context, false);
+        bMusic = CommonFuncsUtils.getMusicSet(context, false);
+        bSound = CommonFuncsUtils.getSoundSet(context, false);
         mGestureDetector = new GestureDetector(context, (OnGestureListener) this);
-        GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+        GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
         step = gameHRD.gethStep();
         createChess(level,false);
         setFocusable(true);
@@ -751,9 +751,9 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         }
         initChessBoard();
         if(bReset){
-            chessboard = CommonFuncs.listGameHRD.get(level).getIntegerOrigMap();
+            chessboard = CommonFuncsUtils.listGameHRD.get(level).getIntegerOrigMap();
         } else {
-            chessboard = CommonFuncs.listGameHRD.get(level).getIntegerMap();
+            chessboard = CommonFuncsUtils.listGameHRD.get(level).getIntegerMap();
         }
         k = 0;
         for(i=0;i<chessboard.length;i++){

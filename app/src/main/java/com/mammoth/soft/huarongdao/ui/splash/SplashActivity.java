@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.ui.main.MainActivity;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -60,9 +60,9 @@ public class SplashActivity extends AppCompatActivity {
                 SplashActivity.this.finish();
             }
         });
-        Boolean isFirstInApp = CommonFuncs.getIsFirstInAppSPFS(this,true);
+        Boolean isFirstInApp = CommonFuncsUtils.getIsFirstInAppSPFS(this,true);
         if(isFirstInApp){
-            CommonFuncs.setIsFirstInAppSPFS(this,false);
+            CommonFuncsUtils.setIsFirstInAppSPFS(this,false);
             mViewModel.getTrigger(this, isFirstInApp);
         }
         else{

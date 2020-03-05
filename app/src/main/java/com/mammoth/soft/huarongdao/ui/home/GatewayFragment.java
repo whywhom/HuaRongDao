@@ -23,7 +23,7 @@ import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.adapter.LevelAdapter;
 import com.mammoth.soft.huarongdao.ui.game.GameActivity;
 import com.mammoth.soft.huarongdao.ui.main.MainActivity;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
 
     @Override
     public void onItemClick(View view, int position) {
-        GameHRD gameHRD = CommonFuncs.listGameHRD.get(position);
+        GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(position);
         SharedPreferences preferences = GatewayFragment.this.getContext().getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
         if(preferences.getBoolean("level_unlock",false)){  //第二个参数指找不到该key的preference时，返回的默认值
             Intent intent = new Intent();

@@ -31,8 +31,8 @@ public class HelpFragment extends Fragment {
     @BindView(R.id.huangzhong) TextView tv_hz;
 
     @BindView(R.id.caocao_detail) TextView tv_ccjs;
-    @BindView(R.id.guanyu_detail) TextView tv_gyjs;
-    @BindView(R.id.zhangfei_detail) TextView tv_zfjs;
+    @BindView(R.id.guanyu_detail) private TextView tv_gyjs;
+    @BindView(R.id.zhangfei_detail) private TextView tv_zfjs;
     @BindView(R.id.zhaoyun_detail) TextView tv_zyjs;
     @BindView(R.id.machao_detail) TextView tv_mcjs;
     @BindView(R.id.huangzhong_detail) TextView tv_hzjs;

@@ -74,8 +74,8 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder>{
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView btnName;
-        ImageView imgLock;
+        public TextView btnName;
+        public ImageView imgLock;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             btnName = itemView.findViewById(R.id.btn_name);

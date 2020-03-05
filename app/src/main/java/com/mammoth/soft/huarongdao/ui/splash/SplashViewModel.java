@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.mammoth.soft.huarongdao.AppContext;
 import com.mammoth.soft.huarongdao.utils.AppDatabase;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 import com.mammoth.soft.huarongdao.utils.GameLevels;
 
@@ -59,7 +59,7 @@ public class SplashViewModel extends AndroidViewModel {
                 if(trigger == null) {
                     trigger = new MutableLiveData<Boolean>();
                 }
-                CommonFuncs.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
+                CommonFuncsUtils.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -77,7 +77,7 @@ public class SplashViewModel extends AndroidViewModel {
                 if(trigger == null) {
                     trigger = new MutableLiveData<Boolean>();
                 }
-                CommonFuncs.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
+                CommonFuncsUtils.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {

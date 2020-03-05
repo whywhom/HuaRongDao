@@ -10,14 +10,14 @@ import com.mammoth.soft.huarongdao.utils.AppDatabase;
 
 public class AppContext extends Application {
     public static String sharedPF = "HrdSharedPreferences";
-    public static String FIRSTSTART = "FirstStart";
-    public static String PLAYNAME = "PlayName";
+//    public static String FIRSTSTART = "FirstStart";
+//    public static String PLAYNAME = "PlayName";
     public static String MUSIC = "Music";
     public static String SOUND = "Sound";
 //    public static SharedPreferences sp = null;
     public static String player = "";
-    private SoundPool soundpool;
-    private int id;
+//    private SoundPool soundpool;
+//    private int id;
     private static AppDatabase db;
 
     @Override
