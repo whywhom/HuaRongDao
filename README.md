@@ -18,6 +18,7 @@ eclipse-brunch
 master
 
 >v 2.0.0 based on Android Studio
+
 >v 2.0.4 all functions are available
 
 ![Feature](/screenshot/huarongdao-feature-graphic.png)
