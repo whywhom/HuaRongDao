@@ -4,16 +4,29 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.whywhom.soft.huarongdao"
+        applicationId "com.mammoth.soft.huarongdao"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "2.0.1"
+        versionCode 200204
+        versionName "2.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        sign {
+            keyAlias 'huarongdao'
+            keyPassword 'mammothhuarongdao'
+            storeFile file('keystore/huarongdao.jks')
+            storePassword 'mammothhuarongdao'
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            //资源缩减
+            shrinkResources true
+            //代码缩减
+            minifyEnabled true
+            signingConfig signingConfigs.sign
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -37,10 +50,15 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0-alpha05'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
-
-    //butterknife
+    // room
+    def room_version = "2.2.4"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    
+    // butterknife
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }
