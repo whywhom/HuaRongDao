@@ -16,6 +16,8 @@ master
 
 >v 2.0.0 based on Android Studio
 
+>v 2.0.4 all functions are available
+
 ![](/screenshot/01.png)
 
 ![](/screenshot/02.png)
