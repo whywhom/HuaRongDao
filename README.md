@@ -18,16 +18,15 @@ master
 
 >v 2.0.4 all functions are available
 
-![](/screenshot/huarongdao-feature-graphic.png =250x)
+![](/screenshot/huarongdao-feature-graphic.png)
 
-![](/screenshot/01.png | width=250x)
+![](/screenshot/01.png)
 
-![](/screenshot/02.png =250x)
+![](/screenshot/02.png)
 
-![](/screenshot/03.png =250x)
+![](/screenshot/03.png)
 
-![](/screenshot/04.png =250x)
+![](/screenshot/04.png)
 
-![](/screenshot/05.png =250x)
+![](/screenshot/05.png)
 
-<img src="/screenshot/huarongdao-feature-graphic.png" data-canonical-src="/screenshot/huarongdao-feature-graphic.png" width="540" height="960" />
