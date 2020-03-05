@@ -7,8 +7,8 @@ android {
         applicationId "com.mammoth.soft.huarongdao"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 200203
-        versionName "2.0.1"
+        versionCode 200204
+        versionName "2.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -21,7 +21,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            //资源缩减
+            shrinkResources true
+            //代码缩减
+            minifyEnabled true
             signingConfig signingConfigs.sign
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
