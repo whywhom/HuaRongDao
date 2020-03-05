@@ -1,15 +1,14 @@
 package com.mammoth.soft.huarongdao.ui.splash;
 
 import android.annotation.SuppressLint;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.ui.main.MainActivity;

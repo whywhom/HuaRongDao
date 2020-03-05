@@ -1,8 +1,5 @@
 package com.mammoth.soft.huarongdao.ui.game;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,11 +8,6 @@ import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.service.AudioService;

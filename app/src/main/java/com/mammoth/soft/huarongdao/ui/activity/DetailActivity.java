@@ -1,8 +1,8 @@
 package com.mammoth.soft.huarongdao.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.ui.detail.DetailFragment;
