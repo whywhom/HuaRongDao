@@ -62,7 +62,7 @@ public class GameLevels {
             R.string.level_fm,//55
             R.string.level_smbf,//56
             R.string.level_ybzy,//57
-            R.string.level_test,//57
+//            R.string.level_test,//58
     };
     public static int[][][] chessboardArray = {
             //00
