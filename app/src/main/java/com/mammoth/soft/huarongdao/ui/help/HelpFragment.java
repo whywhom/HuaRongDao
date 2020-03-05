@@ -16,29 +16,30 @@ import androidx.lifecycle.ViewModelProviders;
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.ui.main.MainActivity;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class HelpFragment extends Fragment {
     private Unbinder viewUnbinder;
-    private HelpViewModel helpViewModel;
     private static HelpFragment fragment = null;
 
-    @BindView(R.id.caocao) TextView tv_cc;
-    @BindView(R.id.guanyu) TextView tv_gy;
-    @BindView(R.id.zhangfei) TextView tv_zf;
-    @BindView(R.id.zhaoyun) TextView tv_zy;
-    @BindView(R.id.machao) TextView tv_mc;
-    @BindView(R.id.huangzhong) TextView tv_hz;
+    @BindView(R.id.caocao) protected TextView tv_cc;
+    @BindView(R.id.guanyu) protected TextView tv_gy;
+    @BindView(R.id.zhangfei) protected TextView tv_zf;
+    @BindView(R.id.zhaoyun) protected TextView tv_zy;
+    @BindView(R.id.machao) protected TextView tv_mc;
+    @BindView(R.id.huangzhong) protected TextView tv_hz;
 
-    @BindView(R.id.caocao_detail) TextView tv_ccjs;
-    @BindView(R.id.guanyu_detail) private TextView tv_gyjs;
-    @BindView(R.id.zhangfei_detail) private TextView tv_zfjs;
-    @BindView(R.id.zhaoyun_detail) TextView tv_zyjs;
-    @BindView(R.id.machao_detail) TextView tv_mcjs;
-    @BindView(R.id.huangzhong_detail) TextView tv_hzjs;
-    boolean bCaoco = false, bGuanyu = false, bZhangfei = false,
+    @BindView(R.id.caocao_detail) protected TextView tv_ccjs;
+    @BindView(R.id.guanyu_detail) protected TextView tv_gyjs;
+    @BindView(R.id.zhangfei_detail) protected TextView tv_zfjs;
+    @BindView(R.id.zhaoyun_detail) protected TextView tv_zyjs;
+    @BindView(R.id.machao_detail) protected TextView tv_mcjs;
+    @BindView(R.id.huangzhong_detail) protected TextView tv_hzjs;
+    private boolean bCaoco = false, bGuanyu = false, bZhangfei = false,
             bZhaoyun = false, bMachao = false, bHuangzhong = false;
 
     public static HelpFragment getInstance() {
@@ -55,7 +56,7 @@ public class HelpFragment extends Fragment {
             throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
         }
     }
-    public static HelpFragment newInstance() {
+    static HelpFragment newInstance() {
         if (sSoleInstance == null) {
             synchronized (HelpFragment.class) {
                 if (sSoleInstance == null) sSoleInstance = new HelpFragment();
@@ -66,8 +67,7 @@ public class HelpFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        helpViewModel =
-                ViewModelProviders.of(this).get(HelpViewModel.class);
+        HelpViewModel helpViewModel = ViewModelProviders.of(this).get(HelpViewModel.class);
         View root = inflater.inflate(R.layout.fragment_help, container, false);
         viewUnbinder = ButterKnife.bind(this,root);
         tv.setText(getString(R.string.doc));
@@ -83,7 +83,7 @@ public class HelpFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

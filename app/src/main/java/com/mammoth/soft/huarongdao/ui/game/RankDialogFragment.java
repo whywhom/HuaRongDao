@@ -22,9 +22,9 @@ public class RankDialogFragment extends DialogFragment {
 
 //    private RankDialogViewModel mViewModel;
     private Unbinder viewUnbinder;
-    @BindView(R.id.title) private TextView tv_title;
-    @BindView(R.id.rank) private TextView tv_rank;
-    @BindView(R.id.btn_ok) private TextView btnOk;
+    @BindView(R.id.title) protected TextView tv_title;
+    @BindView(R.id.rank) protected TextView tv_rank;
+    @BindView(R.id.btn_ok) protected TextView btnOk;
     private static int level = 0;
     public static RankDialogFragment newInstance(int level) {
         RankDialogFragment.level = level;

@@ -23,9 +23,13 @@ import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 public class HrdView extends View implements GestureDetector.OnGestureListener {
 
+    private static final int DIRECTION_LEFT = 0;
+    private static final int DIRECTION_RIGHT = 1;
+    private static final int DIRECTION_UP = 2;
+    private static final int DIRECTION_DOWN = 3;
     private static String TAG = "HrdView";
     private GameFragment.OnStepListener onStepListener = null;
-    private Context context = null;
+//    private Context context = null;
 
     private int measureHeight = 0;
     private int measureWidth = 0;
@@ -46,8 +50,8 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
     private boolean bSoldier3 = false;
     private boolean bSoldier4 = false;
 
-    private static int time = 0;
-    private static int step = 0;
+//    private static int time = 0;
+    private int step = 0;
     private static int vol = 4;//列数
     private static int row = 5;//行数
     public static final int MOVE_TO_LEFT = 0;
@@ -57,12 +61,12 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
 
     private static final int FLING_MIN_DISTANCE = 20;
     private static final int FLING_MIN_VELOCITY = 50;
-    float x1 = 0;
-    float x2 = 0;
-    float y1 = 0;
-    float y2 = 0;
-    int currPos_x = 0;
-    int currPos_y = 0;
+    private float x1 = 0;
+    private float x2 = 0;
+    private float y1 = 0;
+    private float y2 = 0;
+    private int currPos_x = 0;
+    private int currPos_y = 0;
     private int derection = MOVE_TO_LEFT;
     private int level = 0;// 游戏选关，第一关：横刀立马
     private int[][] chessboard = new int[vol][row];// 四列五行的棋盘
@@ -71,21 +75,19 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
     private int orig_x = 0;
     private int orig_y = 0;
     private int unit = 120;//一个单元格的像素尺寸
-    private int frame= 5;//一个单元格的像素尺寸
 
     private int piontPos = 0;//用户点中的位置
     private GameFragment.OnSoundListener onSoundListener;
-    private boolean bMusic = false;
-    private boolean bSound = true;
+    private boolean bSound;
     private boolean bWin = false;
     public HrdView(Context context, int level, GameFragment.OnStepListener onStepListener, GameFragment.OnSoundListener onSoundListener) {
         super(context);
         // TODO Auto-generated constructor stub
-        this.context = context;
+//        this.context = context;
         this.level = level;
         this.onStepListener = onStepListener;
         this.onSoundListener = onSoundListener;
-        bMusic = CommonFuncsUtils.getMusicSet(context, false);
+        boolean bMusic = CommonFuncsUtils.getMusicSet(context, false);
         bSound = CommonFuncsUtils.getSoundSet(context, false);
         mGestureDetector = new GestureDetector(context, (OnGestureListener) this);
         GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
@@ -227,6 +229,8 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
                 }
                 endGesture();
                 break;
+            default:
+                break;
         }
         return false;
     }
@@ -246,127 +250,58 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         piontPos  = getPosition();
         if(derection ==  MOVE_TO_LEFT){
             Log.e(TAG, "AA:A" + "derection ==  MOVE_TO_LEFT");
-            moveLeft();
+            move(DIRECTION_LEFT);
+//            moveLeft();
         } else if(derection ==  MOVE_TO_RIGHT){
             Log.e(TAG, "AA:A" + "derection ==  MOVE_TO_RIGHT");
-            moveRight();
+            move(DIRECTION_RIGHT);
+//            moveRight();
         } else if(derection ==  MOVE_TO_UP){
             Log.e(TAG, "AA:A" + "derection ==  MOVE_TO_UP");
-            moveUp();
+            move(DIRECTION_UP);
+//            moveUp();
         } else if(derection ==  MOVE_TO_DOWN){
             Log.e(TAG, "AA:A" + "derection ==  MOVE_TO_DOWN");
-            moveDown();
+            move(DIRECTION_DOWN);
+//            moveDown();
         }
     }
-
-    private void moveLeft() {
+    private void move(int DIRECTION) {
         // TODO Auto-generated method stub
         int i = 0;
         boolean isFound = false;
-        if(currPos_x == 0){
+        if(currPos_x == 0 && DIRECTION == DIRECTION_LEFT){
+            return;
+        } else if(currPos_x == 3 && DIRECTION == DIRECTION_RIGHT){
+            return;
+        } else if(currPos_y == 0 && DIRECTION == DIRECTION_UP){
+            return;
+        } else if(currPos_y == 4 && DIRECTION == DIRECTION_DOWN){
             return;
         } else{
             switch(piontPos){
                 case Chess.CHESS_TYPE_CAOCAO:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X-1][temp_Y] == 0
-                                && chessboard[temp_X-1][temp_Y+1] == 0){
-                            chessboard[temp_X+1][temp_Y] = 0;
-                            chessboard[temp_X+1][temp_Y+1] = 0;
-                            chessboard[temp_X-1][temp_Y] = piontPos;
-                            chessboard[temp_X-1][temp_Y+1] = piontPos;
-                            chessArray[i].setXPos(temp_X-1);
-                            step ++;
-                        }
-                    }
+                    caocaoMove(DIRECTION);
                     break;
                 case Chess.CHESS_TYPE_GUANYU_H:
                 case Chess.CHESS_TYPE_ZHANGFEI_H:
                 case Chess.CHESS_TYPE_ZHAOYUN_H:
                 case Chess.CHESS_TYPE_MACHAO_H:
                 case Chess.CHESS_TYPE_HUANGZHONG_H:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X-1][temp_Y] == 0){
-                            chessboard[temp_X+1][temp_Y] = 0;
-                            chessboard[temp_X-1][temp_Y] = piontPos;
-                            chessArray[i].setXPos(temp_X-1);
-                            step ++;
-                        }
-                    }
+                    hMove(DIRECTION);
                     break;
                 case Chess.CHESS_TYPE_ZHANGFEI_V:
                 case Chess.CHESS_TYPE_ZHAOYUN_V:
                 case Chess.CHESS_TYPE_MACHAO_V:
                 case Chess.CHESS_TYPE_HUANGZHONG_V:
                 case Chess.CHESS_TYPE_GUANYU_V:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X-1][temp_Y] == 0
-                                && chessboard[temp_X-1][temp_Y+1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+1] = 0;
-                            chessboard[temp_X-1][temp_Y] = piontPos;
-                            chessboard[temp_X-1][temp_Y+1] = piontPos;
-                            chessArray[i].setXPos(temp_X-1);
-                            step ++;
-                        }
-                    }
+                    vMove(DIRECTION);
                     break;
                 case Chess.CHESS_TYPE_SOLDIER1:
                 case Chess.CHESS_TYPE_SOLDIER2:
                 case Chess.CHESS_TYPE_SOLDIER3:
                 case Chess.CHESS_TYPE_SOLDIER4:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X-1][temp_Y] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X-1][temp_Y] = piontPos;
-                            chessArray[i].setXPos(temp_X-1);
-                            step ++;
-                        }
-                    }
+                    soldierMove(DIRECTION);
                     break;
                 default:
                     break;
@@ -374,352 +309,526 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
             postInvalidate();
         }
     }
+//    private void moveLeft() {
+//        // TODO Auto-generated method stub
+//        int i = 0;
+//        boolean isFound = false;
+//        if(currPos_x == 0){
+//            return;
+//        } else{
+//            switch(piontPos){
+//                case Chess.CHESS_TYPE_CAOCAO:
+//                     caocaoMove(DIRECTION_LEFT);
+//                    break;
+//                case Chess.CHESS_TYPE_GUANYU_H:
+//                case Chess.CHESS_TYPE_ZHANGFEI_H:
+//                case Chess.CHESS_TYPE_ZHAOYUN_H:
+//                case Chess.CHESS_TYPE_MACHAO_H:
+//                case Chess.CHESS_TYPE_HUANGZHONG_H:
+//                    hMove(DIRECTION_LEFT);
+//                    break;
+//                case Chess.CHESS_TYPE_ZHANGFEI_V:
+//                case Chess.CHESS_TYPE_ZHAOYUN_V:
+//                case Chess.CHESS_TYPE_MACHAO_V:
+//                case Chess.CHESS_TYPE_HUANGZHONG_V:
+//                case Chess.CHESS_TYPE_GUANYU_V:
+//                    vMove(DIRECTION_LEFT);
+//                    break;
+//                case Chess.CHESS_TYPE_SOLDIER1:
+//                case Chess.CHESS_TYPE_SOLDIER2:
+//                case Chess.CHESS_TYPE_SOLDIER3:
+//                case Chess.CHESS_TYPE_SOLDIER4:
+//                    soldierMove(DIRECTION_LEFT);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            postInvalidate();
+//        }
+//    }
+//
+//    private void moveRight() {
+//        // TODO Auto-generated method stub
+//        int i = 0;
+//        boolean isFound = false;
+//        if(currPos_x == 3){
+//            return;
+//        } else{
+//            switch(piontPos){
+//                case Chess.CHESS_TYPE_CAOCAO:
+//                    caocaoMove(DIRECTION_RIGHT);
+//                    break;
+//                case Chess.CHESS_TYPE_GUANYU_H:
+//                case Chess.CHESS_TYPE_ZHANGFEI_H:
+//                case Chess.CHESS_TYPE_ZHAOYUN_H:
+//                case Chess.CHESS_TYPE_MACHAO_H:
+//                case Chess.CHESS_TYPE_HUANGZHONG_H:
+//                    hMove(DIRECTION_RIGHT);
+//                    break;
+//                case Chess.CHESS_TYPE_ZHANGFEI_V:
+//                case Chess.CHESS_TYPE_ZHAOYUN_V:
+//                case Chess.CHESS_TYPE_MACHAO_V:
+//                case Chess.CHESS_TYPE_HUANGZHONG_V:
+//                case Chess.CHESS_TYPE_GUANYU_V:
+//                    vMove(DIRECTION_RIGHT);
+//                    break;
+//                case Chess.CHESS_TYPE_SOLDIER1:
+//                case Chess.CHESS_TYPE_SOLDIER2:
+//                case Chess.CHESS_TYPE_SOLDIER3:
+//                case Chess.CHESS_TYPE_SOLDIER4:
+//                    soldierMove(DIRECTION_RIGHT);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            postInvalidate();
+//        }
+//    }
 
-    private void moveRight() {
-        // TODO Auto-generated method stub
-        int i = 0;
+//    private void moveUp() {
+//        // TODO Auto-generated method stub
+//        int i = 0;
+//        boolean isFound = false;
+//        if(currPos_y == 0){
+//            return;
+//        } else{
+//            switch(piontPos){
+//                case Chess.CHESS_TYPE_CAOCAO:
+//                    caocaoMove(DIRECTION_UP);
+//                    break;
+//                case Chess.CHESS_TYPE_GUANYU_H:
+//                case Chess.CHESS_TYPE_ZHANGFEI_H:
+//                case Chess.CHESS_TYPE_ZHAOYUN_H:
+//                case Chess.CHESS_TYPE_MACHAO_H:
+//                case Chess.CHESS_TYPE_HUANGZHONG_H:
+//                    hMove(DIRECTION_UP);
+//                    break;
+//                case Chess.CHESS_TYPE_ZHANGFEI_V:
+//                case Chess.CHESS_TYPE_ZHAOYUN_V:
+//                case Chess.CHESS_TYPE_MACHAO_V:
+//                case Chess.CHESS_TYPE_HUANGZHONG_V:
+//                case Chess.CHESS_TYPE_GUANYU_V:
+//                    vMove(DIRECTION_UP);
+//                    break;
+//                case Chess.CHESS_TYPE_SOLDIER1:
+//                case Chess.CHESS_TYPE_SOLDIER2:
+//                case Chess.CHESS_TYPE_SOLDIER3:
+//                case Chess.CHESS_TYPE_SOLDIER4:
+//                    soldierMove(DIRECTION_UP);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            postInvalidate();
+//        }
+//    }
+//
+//    private void moveDown() {
+//        // TODO Auto-generated method stub
+//        int i = 0;
+//        boolean isFound = false;
+//        if(currPos_y == 4){
+//            return;
+//        } else{
+//            switch(piontPos){
+//                case Chess.CHESS_TYPE_CAOCAO:
+//                    caocaoMove(DIRECTION_DOWN);
+//                    break;
+//                case Chess.CHESS_TYPE_GUANYU_H:
+//                case Chess.CHESS_TYPE_ZHANGFEI_H:
+//                case Chess.CHESS_TYPE_ZHAOYUN_H:
+//                case Chess.CHESS_TYPE_MACHAO_H:
+//                case Chess.CHESS_TYPE_HUANGZHONG_H:
+//                    hMove(DIRECTION_DOWN);
+//                    break;
+//                case Chess.CHESS_TYPE_ZHANGFEI_V:
+//                case Chess.CHESS_TYPE_ZHAOYUN_V:
+//                case Chess.CHESS_TYPE_MACHAO_V:
+//                case Chess.CHESS_TYPE_HUANGZHONG_V:
+//                case Chess.CHESS_TYPE_GUANYU_V:
+//                    vMove(DIRECTION_DOWN);
+//                    break;
+//                case Chess.CHESS_TYPE_SOLDIER1:
+//                case Chess.CHESS_TYPE_SOLDIER2:
+//                case Chess.CHESS_TYPE_SOLDIER3:
+//                case Chess.CHESS_TYPE_SOLDIER4:
+//                    soldierMove(DIRECTION_DOWN);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            postInvalidate();
+//        }
+//    }
+
+    private void soldierMove(int DIRECTION) {
         boolean isFound = false;
-        if(currPos_x == 3){
-            return;
-        } else{
-            switch(piontPos){
-                case Chess.CHESS_TYPE_CAOCAO:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X >= 2){
-                            return;
-                        }
-                        if(chessboard[temp_X+2][temp_Y] == 0
-                                && chessboard[temp_X+2][temp_Y+1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+1] = 0;
-                            chessboard[temp_X+2][temp_Y] = piontPos;
-                            chessboard[temp_X+2][temp_Y+1] = piontPos;
-                            chessArray[i].setXPos(temp_X+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_GUANYU_H:
-                case Chess.CHESS_TYPE_ZHANGFEI_H:
-                case Chess.CHESS_TYPE_ZHAOYUN_H:
-                case Chess.CHESS_TYPE_MACHAO_H:
-                case Chess.CHESS_TYPE_HUANGZHONG_H:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X >= 2){
-                            return;
-                        }
-                        if(chessboard[temp_X+2][temp_Y] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X+2][temp_Y] = piontPos;
-                            chessArray[i].setXPos(temp_X+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_ZHANGFEI_V:
-                case Chess.CHESS_TYPE_ZHAOYUN_V:
-                case Chess.CHESS_TYPE_MACHAO_V:
-                case Chess.CHESS_TYPE_HUANGZHONG_V:
-                case Chess.CHESS_TYPE_GUANYU_V:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X >= 3){
-                            return;
-                        }
-                        if(chessboard[temp_X+1][temp_Y] == 0
-                                && chessboard[temp_X+1][temp_Y+1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+1] = 0;
-                            chessboard[temp_X+1][temp_Y] = piontPos;
-                            chessboard[temp_X+1][temp_Y+1] = piontPos;
-                            chessArray[i].setXPos(temp_X+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_SOLDIER1:
-                case Chess.CHESS_TYPE_SOLDIER2:
-                case Chess.CHESS_TYPE_SOLDIER3:
-                case Chess.CHESS_TYPE_SOLDIER4:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_X >= 3){
-                            return;
-                        }
-                        if(chessboard[temp_X+1][temp_Y] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X+1][temp_Y] = piontPos;
-                            chessArray[i].setXPos(temp_X+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                default:
-                    break;
+        int i = 0;
+        for(i=0;i<chessArray.length;i++){
+            if(chessArray[i].getType() == piontPos){
+                isFound = true;
+                break;
             }
-            postInvalidate();
+        }
+        switch (DIRECTION){
+            case DIRECTION_LEFT:
+                soldierMoveLeft(i,isFound);
+                break;
+            case DIRECTION_RIGHT:
+                soldierMoveRight(i,isFound);
+                break;
+            case DIRECTION_UP:
+                soldierMoveUp(i,isFound);
+                break;
+            case DIRECTION_DOWN:
+                soldierMoveDown(i,isFound);
+                break;
+            default:
+                break;
         }
     }
-
-    private void moveUp() {
-        // TODO Auto-generated method stub
-        int i = 0;
+    private void soldierMoveLeft(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X <= 0){
+                return;
+            }
+            if(chessboard[temp_X-1][temp_Y] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X-1][temp_Y] = piontPos;
+                chessArray[i].setXPos(temp_X-1);
+                step ++;
+            }
+        }
+    }
+    private void soldierMoveRight(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X >= 3){
+                return;
+            }
+            if(chessboard[temp_X+1][temp_Y] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X+1][temp_Y] = piontPos;
+                chessArray[i].setXPos(temp_X+1);
+                step ++;
+            }
+        }
+    }
+    private void soldierMoveUp(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y <= 0){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y-1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X][temp_Y-1] = piontPos;
+                chessArray[i].setYPos(temp_Y-1);
+                step ++;
+            }
+        }
+    }
+    private void soldierMoveDown(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y >= 4){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y+1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+1] = piontPos;
+                chessArray[i].setYPos(temp_Y+1);
+                step ++;
+            }
+        }
+    }
+    private void vMove(int DIRECTION) {
         boolean isFound = false;
-        if(currPos_y == 0){
-            return;
-        } else{
-            switch(piontPos){
-                case Chess.CHESS_TYPE_CAOCAO:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y-1] == 0
-                                && chessboard[temp_X+1][temp_Y-1] == 0){
-                            chessboard[temp_X][temp_Y+1] = 0;
-                            chessboard[temp_X+1][temp_Y+1] = 0;
-                            chessboard[temp_X][temp_Y-1] = piontPos;
-                            chessboard[temp_X+1][temp_Y-1] = piontPos;
-                            chessArray[i].setYPos(temp_Y-1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_GUANYU_H:
-                case Chess.CHESS_TYPE_ZHANGFEI_H:
-                case Chess.CHESS_TYPE_ZHAOYUN_H:
-                case Chess.CHESS_TYPE_MACHAO_H:
-                case Chess.CHESS_TYPE_HUANGZHONG_H:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y-1] == 0
-                                && chessboard[temp_X+1][temp_Y-1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X+1][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y-1] = piontPos;
-                            chessboard[temp_X+1][temp_Y-1] = piontPos;
-                            chessArray[i].setYPos(temp_Y-1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_ZHANGFEI_V:
-                case Chess.CHESS_TYPE_ZHAOYUN_V:
-                case Chess.CHESS_TYPE_MACHAO_V:
-                case Chess.CHESS_TYPE_HUANGZHONG_V:
-                case Chess.CHESS_TYPE_GUANYU_V:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y-1] == 0){
-                            chessboard[temp_X][temp_Y+1] = 0;
-                            chessboard[temp_X][temp_Y-1] = piontPos;
-                            chessArray[i].setYPos(temp_Y-1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_SOLDIER1:
-                case Chess.CHESS_TYPE_SOLDIER2:
-                case Chess.CHESS_TYPE_SOLDIER3:
-                case Chess.CHESS_TYPE_SOLDIER4:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFound = true;
-                            break;
-                        }
-                    }
-                    if(isFound){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y <= 0){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y-1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y-1] = piontPos;
-                            chessArray[i].setYPos(temp_Y-1);
-                            step ++;
-                        }
-                    }
-                    break;
-                default:
-                    break;
+        int i = 0;
+        for(i=0;i<chessArray.length;i++){
+            if(chessArray[i].getType() == piontPos){
+                isFound = true;
+                break;
             }
-            postInvalidate();
+        }
+        switch (DIRECTION){
+            case DIRECTION_LEFT:
+                vMoveLeft(i,isFound);
+                break;
+            case DIRECTION_RIGHT:
+                vMoveRight(i,isFound);
+                break;
+            case DIRECTION_UP:
+                vMoveUp(i,isFound);
+                break;
+            case DIRECTION_DOWN:
+                vMoveDown(i,isFound);
+                break;
+            default:
+                break;
+        }
+    }
+    private void vMoveLeft(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X <= 0){
+                return;
+            }
+            if(chessboard[temp_X-1][temp_Y] == 0
+                    && chessboard[temp_X-1][temp_Y+1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+1] = 0;
+                chessboard[temp_X-1][temp_Y] = piontPos;
+                chessboard[temp_X-1][temp_Y+1] = piontPos;
+                chessArray[i].setXPos(temp_X-1);
+                step ++;
+            }
         }
     }
 
-    private void moveDown() {
-        // TODO Auto-generated method stub
-        int i = 0;
-        boolean isFoun = false;
-        if(currPos_y == 4){
-            return;
-        } else{
-            switch(piontPos){
-                case Chess.CHESS_TYPE_CAOCAO:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFoun = true;
-                            break;
-                        }
-                    }
-                    if(isFoun){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y >= 3){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y+2] == 0
-                                && chessboard[temp_X+1][temp_Y+2] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X+1][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+2] = piontPos;
-                            chessboard[temp_X+1][temp_Y+2] = piontPos;
-                            chessArray[i].setYPos(temp_Y+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_GUANYU_H:
-                case Chess.CHESS_TYPE_ZHANGFEI_H:
-                case Chess.CHESS_TYPE_ZHAOYUN_H:
-                case Chess.CHESS_TYPE_MACHAO_H:
-                case Chess.CHESS_TYPE_HUANGZHONG_H:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFoun = true;
-                            break;
-                        }
-                    }
-                    if(isFoun){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y >= 4){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y+1] == 0
-                                && chessboard[temp_X+1][temp_Y+1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X+1][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+1] = piontPos;
-                            chessboard[temp_X+1][temp_Y+1] = piontPos;
-                            chessArray[i].setYPos(temp_Y+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_ZHANGFEI_V:
-                case Chess.CHESS_TYPE_ZHAOYUN_V:
-                case Chess.CHESS_TYPE_MACHAO_V:
-                case Chess.CHESS_TYPE_HUANGZHONG_V:
-                case Chess.CHESS_TYPE_GUANYU_V:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFoun = true;
-                            break;
-                        }
-                    }
-                    if(isFoun){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y >= 3){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y+2] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+2] = piontPos;
-                            chessArray[i].setYPos(temp_Y+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                case Chess.CHESS_TYPE_SOLDIER1:
-                case Chess.CHESS_TYPE_SOLDIER2:
-                case Chess.CHESS_TYPE_SOLDIER3:
-                case Chess.CHESS_TYPE_SOLDIER4:
-                    for(i=0;i<chessArray.length;i++){
-                        if(chessArray[i].getType() == piontPos){
-                            isFoun = true;
-                            break;
-                        }
-                    }
-                    if(isFoun){
-                        int temp_X = chessArray[i].getXPos();
-                        int temp_Y = chessArray[i].getYPos();
-                        if(temp_Y >= 4){
-                            return;
-                        }
-                        if(chessboard[temp_X][temp_Y+1] == 0){
-                            chessboard[temp_X][temp_Y] = 0;
-                            chessboard[temp_X][temp_Y+1] = piontPos;
-                            chessArray[i].setYPos(temp_Y+1);
-                            step ++;
-                        }
-                    }
-                    break;
-                default:
-                    break;
+    private void vMoveRight(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X >= 3){
+                return;
             }
-            postInvalidate();
+            if(chessboard[temp_X+1][temp_Y] == 0
+                    && chessboard[temp_X+1][temp_Y+1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+1] = 0;
+                chessboard[temp_X+1][temp_Y] = piontPos;
+                chessboard[temp_X+1][temp_Y+1] = piontPos;
+                chessArray[i].setXPos(temp_X+1);
+                step ++;
+            }
+        }
+    }
+    private void vMoveUp(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y <= 0){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y-1] == 0){
+                chessboard[temp_X][temp_Y+1] = 0;
+                chessboard[temp_X][temp_Y-1] = piontPos;
+                chessArray[i].setYPos(temp_Y-1);
+                step ++;
+            }
+        }
+    }
+    private void vMoveDown(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y >= 3){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y+2] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+2] = piontPos;
+                chessArray[i].setYPos(temp_Y+1);
+                step ++;
+            }
+        }
+    }
+    private void hMove(int DIRECTION){
+        boolean isFound = false;
+        int i = 0;
+        for(i=0;i<chessArray.length;i++){
+            if(chessArray[i].getType() == piontPos){
+                isFound = true;
+                break;
+            }
+        }
+        switch (DIRECTION){
+            case DIRECTION_LEFT:
+                hMoveLeft(i,isFound);
+                break;
+            case DIRECTION_RIGHT:
+                hMoveRight(i,isFound);
+                break;
+            case DIRECTION_UP:
+                hMoveUp(i,isFound);
+                break;
+            case DIRECTION_DOWN:
+                hMoveDown(i,isFound);
+                break;
+            default:
+                break;
+        }
+    }
+    private void hMoveLeft(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X <= 0){
+                return;
+            }
+            if(chessboard[temp_X-1][temp_Y] == 0){
+                chessboard[temp_X+1][temp_Y] = 0;
+                chessboard[temp_X-1][temp_Y] = piontPos;
+                chessArray[i].setXPos(temp_X-1);
+                step ++;
+            }
+        }
+    }
+    private void hMoveRight(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X >= 2){
+                return;
+            }
+            if(chessboard[temp_X+2][temp_Y] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X+2][temp_Y] = piontPos;
+                chessArray[i].setXPos(temp_X+1);
+                step ++;
+            }
+        }
+    }
+    private void hMoveUp(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y <= 0){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y-1] == 0
+                    && chessboard[temp_X+1][temp_Y-1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X+1][temp_Y] = 0;
+                chessboard[temp_X][temp_Y-1] = piontPos;
+                chessboard[temp_X+1][temp_Y-1] = piontPos;
+                chessArray[i].setYPos(temp_Y-1);
+                step ++;
+            }
+        }
+    }
+    private void hMoveDown(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y >= 4){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y+1] == 0
+                    && chessboard[temp_X+1][temp_Y+1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X+1][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+1] = piontPos;
+                chessboard[temp_X+1][temp_Y+1] = piontPos;
+                chessArray[i].setYPos(temp_Y+1);
+                step ++;
+            }
+        }
+    }
+    private void caocaoMove(int DIRECTION){
+        boolean isFound = false;
+        int i = 0;
+        for(i=0;i<chessArray.length;i++){
+            if(chessArray[i].getType() == piontPos){
+                isFound = true;
+                break;
+            }
+        }
+        switch (DIRECTION){
+            case DIRECTION_LEFT:
+                caoaoMoveLeft(i, isFound);
+                break;
+            case DIRECTION_RIGHT:
+                caocaoMoveRight(i, isFound);
+                break;
+            case DIRECTION_UP:
+                caocaoMoveUp(i, isFound);
+                break;
+            case DIRECTION_DOWN:
+                caocaoMoveDown(i, isFound);
+                break;
+            default:
+                break;
+        }
+    }
+    private void caoaoMoveLeft(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X <= 0){
+                return;
+            }
+            if(chessboard[temp_X-1][temp_Y] == 0
+                    && chessboard[temp_X-1][temp_Y+1] == 0){
+                chessboard[temp_X+1][temp_Y] = 0;
+                chessboard[temp_X+1][temp_Y+1] = 0;
+                chessboard[temp_X-1][temp_Y] = piontPos;
+                chessboard[temp_X-1][temp_Y+1] = piontPos;
+                chessArray[i].setXPos(temp_X-1);
+                step ++;
+            }
+        }
+    }
+
+    private void caocaoMoveRight(int i, boolean isFound) {
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_X >= 2){
+                return;
+            }
+            if(chessboard[temp_X+2][temp_Y] == 0
+                    && chessboard[temp_X+2][temp_Y+1] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+1] = 0;
+                chessboard[temp_X+2][temp_Y] = piontPos;
+                chessboard[temp_X+2][temp_Y+1] = piontPos;
+                chessArray[i].setXPos(temp_X+1);
+                step ++;
+            }
+        }
+    }
+    private void caocaoMoveUp(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y <= 0){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y-1] == 0
+                    && chessboard[temp_X+1][temp_Y-1] == 0){
+                chessboard[temp_X][temp_Y+1] = 0;
+                chessboard[temp_X+1][temp_Y+1] = 0;
+                chessboard[temp_X][temp_Y-1] = piontPos;
+                chessboard[temp_X+1][temp_Y-1] = piontPos;
+                chessArray[i].setYPos(temp_Y-1);
+                step ++;
+            }
+        }
+    }
+    private void caocaoMoveDown(int i, boolean isFound){
+        if(isFound){
+            int temp_X = chessArray[i].getXPos();
+            int temp_Y = chessArray[i].getYPos();
+            if(temp_Y >= 3){
+                return;
+            }
+            if(chessboard[temp_X][temp_Y+2] == 0
+                    && chessboard[temp_X+1][temp_Y+2] == 0){
+                chessboard[temp_X][temp_Y] = 0;
+                chessboard[temp_X+1][temp_Y] = 0;
+                chessboard[temp_X][temp_Y+2] = piontPos;
+                chessboard[temp_X+1][temp_Y+2] = piontPos;
+                chessArray[i].setYPos(temp_Y+1);
+                step ++;
+            }
         }
     }
 
@@ -1008,7 +1117,9 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
         paint.setColor(Color.RED);
         int width = measureWidth;
         int height = measureHeight;
-        unit = Math.min((width-frame*2)/4 ,(height-frame*2-20)/5);
+        //一个单元格的像素尺寸
+        int frame = 5;
+        unit = Math.min((width- frame *2)/4 ,(height- frame *2-20)/5);
         orig_x = width/2 - unit*2;
         orig_y = (height-20)/2 - unit*2 - unit/2;
         for(int i=0;i<chessArray.length;i++)
@@ -1029,11 +1140,11 @@ public class HrdView extends View implements GestureDetector.OnGestureListener {
             canvas.drawBitmap(bitmap, src, dst, paint);//(chessArray[i].getBitmap(), orig_x+chessArray[i].getXPos()*unit,orig_y+chessArray[i].getYPos()*unit, paint);
         }
 
-        canvas.drawRect(orig_x-frame, orig_y+unit*5, orig_x+unit, orig_y+unit*5+frame, paint);
-        canvas.drawRect(orig_x+unit*3, orig_y+unit*5, orig_x+unit*4+frame, orig_y+unit*5+frame, paint);
-        canvas.drawRect(orig_x-frame, orig_y-frame, orig_x, orig_y+unit*5+frame, paint);
-        canvas.drawRect(orig_x-frame, orig_y-frame, orig_x+unit*4+frame, orig_y, paint);
-        canvas.drawRect(orig_x+unit*4, orig_y-frame, orig_x+unit*4+frame, orig_y+unit*5+frame, paint);
+        canvas.drawRect(orig_x- frame, orig_y+unit*5, orig_x+unit, orig_y+unit*5+ frame, paint);
+        canvas.drawRect(orig_x+unit*3, orig_y+unit*5, orig_x+unit*4+ frame, orig_y+unit*5+ frame, paint);
+        canvas.drawRect(orig_x- frame, orig_y- frame, orig_x, orig_y+unit*5+ frame, paint);
+        canvas.drawRect(orig_x- frame, orig_y- frame, orig_x+unit*4+ frame, orig_y, paint);
+        canvas.drawRect(orig_x+unit*4, orig_y- frame, orig_x+unit*4+ frame, orig_y+unit*5+ frame, paint);
     }
 
     private boolean checkWin() {
