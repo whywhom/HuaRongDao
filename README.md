@@ -25,4 +25,3 @@ master
 ![Game](/screenshot/03.png)
 ![Introduction](/screenshot/04.png)
 ![Settings](/screenshot/05.png)
-
