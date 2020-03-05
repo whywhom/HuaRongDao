@@ -18,6 +18,8 @@ master
 
 >v 2.0.4 all functions are available
 
+![](/screenshot/huarongdao-feature-graphic.png)
+
 ![](/screenshot/01.png)
 
 ![](/screenshot/02.png)
@@ -28,4 +30,3 @@ master
 
 ![](/screenshot/05.png)
 
-![](/screenshot/06.png)
