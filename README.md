@@ -15,11 +15,12 @@ eclipse-brunch
 master
 
 >v 2.0.0 based on Android Studio
+
 >v 2.0.4 all functions are available
 
 ![](/screenshot/huarongdao-feature-graphic.png =250x)
 
-![](/screenshot/01.png =250x)
+![](/screenshot/01.png | width=250x)
 
 ![](/screenshot/02.png =250x)
 
@@ -28,5 +29,3 @@ master
 ![](/screenshot/04.png =250x)
 
 ![](/screenshot/05.png =250x)
-
-![](/screenshot/06.png)
