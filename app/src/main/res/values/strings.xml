@@ -22,6 +22,7 @@
     <string name="menu_gamesetting">游戏设置</string>
     <string name="sound_setting">打开音效</string>
     <string name="music_setting">打开背景音乐</string>
+    <string name="menu_refresh">重新开始</string>
     <!-- 以下为各个关卡名称 -->
     <string name="level_hdlm">横刀立马</string>
     <string name="level_blcy">兵临曹营</string>
@@ -81,8 +82,10 @@
     <string name="level_fm">砝码</string>
     <string name="level_smbf">四面八方</string>
     <string name="level_ybzy">一步之遥</string>
+    <string name="level_test">测试</string>
     <!-- 以上为各个关卡名称 -->
     <string name="username_tip">请输入玩家</string>
+    <string name="unlock_tip">请解锁本关游戏</string>
     <string name="player">玩家1</string>
     <string name="about">游戏介绍</string>
     <string name="double_click_exit">再按一次退出</string>
@@ -94,7 +97,8 @@
     <string name="bt_rank">排行榜</string>
     <string name="bt_yes">是</string>
     <string name="bt_no">否</string>
-    <string name="exit">是否退出本关？退出后将恢复到初始布局！</string>
+    <string name="exit">是否退出本关？</string>
+    <string name="retry">是否重新开始？</string>
     <string name="warn">提醒</string>
     <string name="step">当前步数:</string>
     <string name="game_exit">出口</string>
@@ -115,7 +119,8 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="level_lock">解锁</string>
-    <string name="level_lock_tip">解锁所有已锁定游戏</string>
+    <string name="level_unlock_tip">解锁所有已锁定游戏</string>
+    <string name="level_lock_tip">锁定所有已锁定游戏</string>
     <string name="sound_setting_on">音效已打开</string>
     <string name="music_setting_on">背景音乐已打开</string>
     <string name="sound_setting_off">音效已关闭</string>
@@ -136,4 +141,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="tip_rank">当前最佳成绩：%d步完成本关。</string>
 </resources>

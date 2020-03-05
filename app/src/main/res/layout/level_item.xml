@@ -13,16 +13,18 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:textColor="@android:color/white"
-        android:background="@color/hrd_blue"
+        android:background="@color/hrd_orange_darker"
         android:layout_margin="5dp"
         android:padding="15dp"
         android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
         android:textSize="16sp" />
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginLeft="10dp"
+        android:id="@+id/img_lock"
         android:layout_gravity="center_vertical|left"
-        android:visibility="visible"
-        android:src="@android:drawable/ic_lock_idle_lock"/>
+        android:visibility="gone"
+        android:src="@android:drawable/ic_lock_idle_lock" />
 </FrameLayout>
