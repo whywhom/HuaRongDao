@@ -54,10 +54,10 @@ public class GameFragment extends Fragment {
     private HrdView v;
     private Unbinder viewUnbinder;
     public boolean bWin = false;
-    @BindView(R.id.tv_step) private TextView tv_step;
-    @BindView(R.id.tv_exit) private TextView tv_exit;
-    @BindView(R.id.iv_rank) private ImageView iv_rank;
-    @BindView(R.id.view1) private RelativeLayout view;
+    @BindView(R.id.tv_step) protected TextView tv_step;
+    @BindView(R.id.tv_exit) protected TextView tv_exit;
+    @BindView(R.id.iv_rank) protected ImageView iv_rank;
+    @BindView(R.id.view1) protected RelativeLayout view;
     private GameFragment() {
 
     }

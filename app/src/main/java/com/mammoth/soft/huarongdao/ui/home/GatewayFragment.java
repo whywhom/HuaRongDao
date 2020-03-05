@@ -37,7 +37,7 @@ public class GatewayFragment extends Fragment implements LevelAdapter.OnItemClic
     private GatewayViewModel gatewayViewModel;
     private LevelAdapter levelAdapter;
     private static GatewayFragment fragment = null;
-    @BindView(R.id.rv_level) RecyclerView recyclerView;
+    @BindView(R.id.rv_level) protected RecyclerView recyclerView;
 
     public static GatewayFragment getInstance() {
         if(fragment == null) {
