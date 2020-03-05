@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import com.mammoth.soft.huarongdao.R;
 import com.mammoth.soft.huarongdao.service.AudioService;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 import com.mammoth.soft.huarongdao.view.HrdView;
 
@@ -56,10 +56,10 @@ public class GameFragment extends Fragment {
     private HrdView v;
     private Unbinder viewUnbinder;
     public boolean bWin = false;
-    @BindView(R.id.tv_step) TextView tv_step;
-    @BindView(R.id.tv_exit) TextView tv_exit;
-    @BindView(R.id.iv_rank) ImageView iv_rank;
-    @BindView(R.id.view1) RelativeLayout view;
+    @BindView(R.id.tv_step) private TextView tv_step;
+    @BindView(R.id.tv_exit) private TextView tv_exit;
+    @BindView(R.id.iv_rank) private ImageView iv_rank;
+    @BindView(R.id.view1) private RelativeLayout view;
     private GameFragment() {
 
     }
@@ -194,12 +194,12 @@ public class GameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initSound();
-        gameHRD = CommonFuncs.listGameHRD.get(level);
+        gameHRD = CommonFuncsUtils.listGameHRD.get(level);
         if(gameHRD.gethRecord()<0){
             iv_rank.setVisibility(View.GONE);
         }
-        bMusic = CommonFuncs.getMusicSet(this.getContext(), false);
-        bSound = CommonFuncs.getSoundSet(this.getContext(), false);
+        bMusic = CommonFuncsUtils.getMusicSet(this.getContext(), false);
+        bSound = CommonFuncsUtils.getSoundSet(this.getContext(), false);
         if(bMusic){
             musicIntent = new Intent();
             musicIntent.setClass(this.getContext(), AudioService.class);

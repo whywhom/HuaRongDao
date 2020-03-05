@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import com.mammoth.soft.huarongdao.AppContext;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 public class GameViewModel extends ViewModel {
@@ -14,7 +14,7 @@ public class GameViewModel extends ViewModel {
         new Thread( new Runnable() {
             public void run() {
                 long id = 0;
-                GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+                GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
                 int record = gameHRD.gethRecord();
                 if(bWin){
                     gameHRD.restoreMap(gameHRD.gethMap());
@@ -26,8 +26,8 @@ public class GameViewModel extends ViewModel {
                     gameHRD.sethRecord(total_step);
                 }
                 AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);
-                if(level<CommonFuncs.listGameHRD.size()-1){
-                    GameHRD gameHRDUnlock = CommonFuncs.listGameHRD.get(level+1);
+                if(level< CommonFuncsUtils.listGameHRD.size()-1){
+                    GameHRD gameHRDUnlock = CommonFuncsUtils.listGameHRD.get(level+1);
                     gameHRDUnlock.sethLocked(false);
                     AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);
                 }
@@ -43,7 +43,7 @@ public class GameViewModel extends ViewModel {
             new Runnable(){
                 @Override
                 public void run() {
-                    GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+                    GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
                     gameHRD.setIntegerMap(currentChessBoard);
                     gameHRD.sethStep(step);
                     AppContext.getGameDatabase(context).gameHRDDao().updateGame(gameHRD);

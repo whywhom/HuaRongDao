@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.mammoth.soft.huarongdao.AppContext;
 import com.mammoth.soft.huarongdao.utils.AppDatabase;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ public class GatewayViewModel extends AndroidViewModel {
         AppDatabase appDatabase = AppContext.getGameDatabase(context);
         new Thread( new Runnable() {
             public void run() {
-                CommonFuncs.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
-                hrdList.postValue(CommonFuncs.listGameHRD);
+                CommonFuncsUtils.listGameHRD = new ArrayList<GameHRD>(appDatabase.gameHRDDao().getAll());
+                hrdList.postValue(CommonFuncsUtils.listGameHRD);
             }
         }).start();
     }

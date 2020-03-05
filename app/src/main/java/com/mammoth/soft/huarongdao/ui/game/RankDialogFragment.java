@@ -9,10 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.mammoth.soft.huarongdao.R;
-import com.mammoth.soft.huarongdao.utils.CommonFuncs;
+import com.mammoth.soft.huarongdao.utils.CommonFuncsUtils;
 import com.mammoth.soft.huarongdao.utils.GameHRD;
 
 import butterknife.BindView;
@@ -21,11 +20,11 @@ import butterknife.Unbinder;
 
 public class RankDialogFragment extends DialogFragment {
 
-    private RankDialogViewModel mViewModel;
+//    private RankDialogViewModel mViewModel;
     private Unbinder viewUnbinder;
-    @BindView(R.id.title) TextView tv_title;
-    @BindView(R.id.rank) TextView tv_rank;
-    @BindView(R.id.btn_ok) TextView btnOk;
+    @BindView(R.id.title) private TextView tv_title;
+    @BindView(R.id.rank) private TextView tv_rank;
+    @BindView(R.id.btn_ok) private TextView btnOk;
     private static int level = 0;
     public static RankDialogFragment newInstance(int level) {
         RankDialogFragment.level = level;
@@ -48,9 +47,9 @@ public class RankDialogFragment extends DialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(RankDialogViewModel.class);
+//        mViewModel = ViewModelProviders.of(this).get(RankDialogViewModel.class);
         // TODO: Use the ViewModel
-        GameHRD gameHRD = CommonFuncs.listGameHRD.get(level);
+        GameHRD gameHRD = CommonFuncsUtils.listGameHRD.get(level);
         tv_title.setText(gameHRD.gethName());
         String tip = String.format(getString(R.string.tip_rank),gameHRD.gethRecord());
         tv_rank.setText(tip);
