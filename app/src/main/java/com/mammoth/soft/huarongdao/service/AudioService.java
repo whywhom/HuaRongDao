@@ -1,11 +1,12 @@
 package com.mammoth.soft.huarongdao.service;
 
-import com.mammoth.soft.huarongdao.R;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
+
+import com.mammoth.soft.huarongdao.R;
 
 /** 
  * 为了可以使得在后台播放音乐，我们需要Service 
