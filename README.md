@@ -29,3 +29,5 @@ master
 ![](/screenshot/04.png =250x)
 
 ![](/screenshot/05.png =250x)
+
+<img src="/screenshot/huarongdao-feature-graphic.png" data-canonical-src="/screenshot/huarongdao-feature-graphic.png" width="540" height="960" />
