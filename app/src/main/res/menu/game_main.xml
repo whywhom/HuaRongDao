@@ -7,4 +7,10 @@
         android:icon="@android:drawable/stat_notify_sync"
         android:title="@string/menu_refresh"
         app:showAsAction="always"/>
+
+<!--    <item-->
+<!--        android:id="@+id/nav_mode_day_night"-->
+<!--        android:icon="@drawable/mode_night"-->
+<!--        android:title="@string/menu_refresh"-->
+<!--        app:showAsAction="always"/>-->
 </menu>

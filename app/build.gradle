@@ -7,8 +7,8 @@ android {
         applicationId "com.mammoth.soft.huarongdao"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 200204
-        versionName "2.0.2"
+        versionCode 200206
+        versionName "2.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {

@@ -5,6 +5,10 @@
     <color name="colorAccent">@color/hrd_orange</color>
     <color name="black_overlay">#66000000</color>
 
+    <color name="colorPrimaryNight">#212121</color>
+    <color name="colorPrimaryDarkNight">#031624</color>
+    <color name="colorAccentNight">#031624</color>
+
     <color name="hrd_blue">#72B1CE</color>
     <color name="hrd_blue_lighter">#89d4f7</color>
     <color name="hrd_orange">#F6A418</color>

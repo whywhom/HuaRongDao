@@ -3,6 +3,8 @@ package com.mammoth.soft.huarongdao.ui.setting;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.mammoth.soft.huarongdao.AppContext;
@@ -18,7 +21,7 @@ import com.mammoth.soft.huarongdao.ui.main.MainActivity;
 
 import java.util.Objects;
 
-public class SettingFragment extends PreferenceFragmentCompat {
+public class SettingFragment extends PreferenceFragmentCompat{
 
     private static SettingFragment fragment = null;
 
@@ -35,7 +38,16 @@ public class SettingFragment extends PreferenceFragmentCompat {
         //必须放在修改配置名之后
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
     }
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         SettingViewModel settingViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);

@@ -21,10 +21,11 @@ public class CommonFuncsUtils {
     public static void setIsFirstInAppSPFS(Context context, boolean value) {
         SharedPreferences sharedPreferences= context.getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isFirstInApp", value);
-        editor.putBoolean("Music", false);
-        editor.putBoolean("Sound", false);
-        editor.putBoolean("level_unlock", false);
+        editor.putBoolean(AppContext.FIRSTSTART, value);
+        editor.putBoolean(AppContext.MUSIC, false);
+        editor.putBoolean(AppContext.SOUND, false);
+        editor.putBoolean(AppContext.MODE_DAY_NIGHT, false);
+        editor.putBoolean(AppContext.LEVEL_UNLOCK, false);
         editor.commit();
     }
 
@@ -36,5 +37,16 @@ public class CommonFuncsUtils {
     public static boolean getSoundSet(Context context, boolean b) {
         SharedPreferences sharedPreferences= context.getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(AppContext.SOUND, b);
+    }
+
+    public static boolean getDayNightModeSet(Context context, boolean b) {
+        SharedPreferences sharedPreferences= context.getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(AppContext.MODE_DAY_NIGHT, b);
+    }
+    public static void setDayNightModeSet(Context context, boolean b) {
+        SharedPreferences sharedPreferences= context.getSharedPreferences(AppContext.sharedPF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(AppContext.MODE_DAY_NIGHT, b);
+        editor.commit();
     }
 }
