@@ -3,6 +3,8 @@ package com.mammoth.soft.huarongdao.ui.help;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -68,8 +70,14 @@ public class HelpFragment extends Fragment {
         return sSoleInstance;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState) {
         HelpViewModel helpViewModel = ViewModelProviders.of(this).get(HelpViewModel.class);
         View root = inflater.inflate(R.layout.fragment_help, container, false);
         viewUnbinder = ButterKnife.bind(this,root);
@@ -90,6 +98,11 @@ public class HelpFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         if (viewUnbinder != null) viewUnbinder.unbind();
         super.onDestroyView();
@@ -99,6 +112,12 @@ public class HelpFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d(HelpFragment.class.getSimpleName(), HelpFragment.class.getSimpleName() + "onDestroy");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     @Override
