@@ -9,6 +9,10 @@
 
 Huarong Pass (Huarong dao 华容道) is a sliding block puzzle that's popular throughout China. Its story is based on a well known encounter during the Eastern Han dynasty (25–220) between Cao Cao, the shrewd and clever strategist for the Wei Kingdom, and Guan Yu, a commander in the Shu Kingdom army who had once served under Cao Cao.
 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+      alt="Get it on Google Play"
+      height="70">](https://play.google.com/store/apps/details?id=com.mammoth.soft.huarongdao)
+
 ## 历史记录
 
 eclipse-brunch
