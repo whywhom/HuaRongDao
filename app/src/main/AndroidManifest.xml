@@ -35,6 +35,7 @@
         </activity>
         <activity android:name="com.mammoth.soft.huarongdao.ui.help.HelpActivity"/>
         <service android:name="com.mammoth.soft.huarongdao.service.AudioService" />
+        <service android:name="com.mammoth.soft.huarongdao.service.TestService" />
     </application>
 
 </manifest>
