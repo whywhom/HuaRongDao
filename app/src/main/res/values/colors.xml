@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/hrd_orange</color>
-    <color name="colorPrimaryDark">@color/hrd_orange_darker</color>
-    <color name="colorAccent">@color/hrd_orange</color>
-    <color name="black_overlay">#66000000</color>
-
-    <color name="colorPrimaryNight">#212121</color>
-    <color name="colorPrimaryDarkNight">#031624</color>
-    <color name="colorAccentNight">#031624</color>
-
-    <color name="hrd_blue">#72B1CE</color>
-    <color name="hrd_blue_lighter">#89d4f7</color>
-    <color name="hrd_orange">#F6A418</color>
-    <color name="hrd_orange_lighter">#ffc51d</color>
-    <color name="hrd_orange_darker">#c58313</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

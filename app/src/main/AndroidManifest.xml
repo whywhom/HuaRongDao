@@ -1,41 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.mammoth.soft.huarongdao">
 
-    <dist:module dist:instant="true" />
-
     <application
-        android:name="com.mammoth.soft.huarongdao.AppContext"
+        android:name=".HrdApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.mammoth.soft.huarongdao.ui.game.GameActivity"></activity>
+        android:theme="@style/Theme.ComposeHrd">
         <activity
-            android:name="com.mammoth.soft.huarongdao.ui.main.MainActivity"
+            android:name=".ui.MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.mammoth.soft.huarongdao.ui.splash.SplashActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/Theme.ComposeHrd.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mammoth.soft.huarongdao.ui.help.HelpActivity"/>
-        <service android:name="com.mammoth.soft.huarongdao.service.AudioService" />
-        <service android:name="com.mammoth.soft.huarongdao.service.TestService" />
     </application>
 
 </manifest>
