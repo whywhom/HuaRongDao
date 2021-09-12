@@ -54,9 +54,7 @@ fun GameScreen(gameViewModel: GameViewModel, openDrawer: () -> Unit) {
                     }
                 }
             }
-
             Spacer(Modifier.height(20.dp))
-
         }
     }
 }

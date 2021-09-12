@@ -8,10 +8,9 @@ import kotlin.math.min
 const val boardGridPx = 200
 const val boardWidth = boardGridPx * 4
 const val boardHeight = boardGridPx * 5
-
 data class Chess(
     val name: String,
-    val assets: @Composable () -> Int,
+    val imageResource: Int,
     val w: Int,
     val h: Int,
     val offset: IntOffset = IntOffset(0, 0)

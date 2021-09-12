@@ -30,16 +30,6 @@ object DarkChess : ChessAssets {
     override val zu = R.drawable.zu
 }
 
-object LightChess : ChessAssets {
-    override val huangzhong = R.drawable.huagnzhong_2
-    override val caocao = R.drawable.caocao_2
-    override val zhaoyun = R.drawable.zhaoyun_2
-    override val zhangfei = R.drawable.zhangfei_2
-    override val guanyu = R.drawable.guanyu_2
-    override val machao = R.drawable.machao_2
-    override val zu = R.drawable.zu_2
-}
-
 object WoodChess : ChessAssets {
     override val huangzhong = R.drawable.huangzhong_3
     override val caocao = R.drawable.caocao_3
