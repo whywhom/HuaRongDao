@@ -3,10 +3,7 @@ package com.mammoth.soft.huarongdao.ui.game
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
-import androidx.compose.foundation.gestures.draggable
-import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -56,22 +53,27 @@ fun Density.ChessBoard(
                         .width(chess.width.toDp())
                         .height(chess.height.toDp())
                         .border(1.dp, Color.Black)
-                        .draggable( //demonstration draggable
-                            orientation = Orientation.Horizontal,
-                            state = rememberDraggableState(onDelta = {
-                                onMove(chess.name, it.roundToInt(), 0)
-                            })
-                        )
+//                        .draggable( //demonstration draggable
+//                            orientation = Orientation.Horizontal,
+//                            state = rememberDraggableState(onDelta = {
+//                                onMove(chess.name, it.roundToInt(), 0)
+//                            })
+//                        )
                         .pointerInput(Unit) {
+                            scope.launch {//demonstrate detectDragGestures
+                                detectHorizontalDragGestures { change, dragAmount ->
+                                    change.consumeAllChanges()
+                                    onMove(chess.name, dragAmount.roundToInt(), 0)
+                                }
+                            }
                             scope.launch {//demonstrate detectDragGestures
                                 detectVerticalDragGestures { change, dragAmount ->
                                     change.consumeAllChanges()
                                     onMove(chess.name, 0, dragAmount.roundToInt())
                                 }
                             }
-
                         },
-                    painter = painterResource(id = chess.assets()),
+                    painter = painterResource(id = chess.imageResource),
                     contentDescription = chess.name
                 )
             }

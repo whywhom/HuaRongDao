@@ -22,9 +22,7 @@ fun Hrd() {
         val navController = rememberNavController()
         val coroutineScope = rememberCoroutineScope()
         val drawerState = rememberDrawerState(DrawerValue.Closed)
-        // This top level scaffold contains the app drawer, which needs to be accessible
-        // from multiple screens. An event to open the drawer is passed down to each
-        // screen that needs it.
+        // This top level scaffold contains the app drawer, which needs to be accessible from multiple screens.
         val scaffoldState = rememberScaffoldState()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Game.route
@@ -32,11 +30,10 @@ fun Hrd() {
         Scaffold(
             bottomBar = {
                 BottomNavigation {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
                     btvItems.forEach { screen ->
                         BottomNavigationItem(
-                            icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+                            icon = { Icon(Icons.Filled.Favorite, contentDescription = "") },
                             label = { Text(stringResource(screen.resourceId)) },
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                             onClick = {

@@ -62,7 +62,11 @@ fun Drawer(
                             onClick = {
                                 selectedItem = if (selectedItem != screen)
                                     screen else -1
-                                navController.navigate(Screen.Game.route)
+                                if(selectedItem > 0) {
+                                    navController.navigate(Screen.Game.route) {
+                                        popUpTo(Screen.Game.route) { inclusive = true }
+                                    }
+                                }
                                 closeDrawer
                             })
                 )
