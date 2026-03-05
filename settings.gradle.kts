@@ -1,15 +1,11 @@
-rootProject.name = "huarongdao"
+rootProject.name = "HuaRongDao"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
+        // Alpha/snapshot androidx artifacts (Room 2.7+, SQLite 2.5+)
+        maven("https://androidx.dev/snapshots/builds/12691961/artifacts/repository")
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -17,19 +13,11 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
+        // Alpha/snapshot androidx artifacts (Room 2.7+, SQLite 2.5+)
+        maven("https://androidx.dev/snapshots/builds/12691961/artifacts/repository")
+        google()
         mavenCentral()
     }
-}
-
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 include(":composeApp")
