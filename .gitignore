@@ -24,3 +24,6 @@ Pods/
 DerivedData/
 /build/
 /composeApp/build/
+/.kotlin/
+/.idea/
+/.gradle/
