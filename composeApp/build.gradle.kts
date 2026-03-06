@@ -108,11 +108,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.huarongdao"
+    namespace = "com.mammoth.huarongdao"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.huarongdao"
+        applicationId = "com.mammoth.huarongdao"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -136,7 +136,7 @@ android {
 
 compose.desktop {
     application {
-        mainClass = "com.huarongdao.MainKt"
+        mainClass = "com.mammoth.huarongdao.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "HuaRongDao"
