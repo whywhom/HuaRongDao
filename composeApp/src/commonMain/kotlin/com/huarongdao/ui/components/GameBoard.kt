@@ -2,6 +2,7 @@ package com.huarongdao.ui.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -21,12 +22,15 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
 import com.huarongdao.domain.model.*
 import com.huarongdao.ui.theme.HuaRongColors
+import huarongdao.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.painterResource
 import kotlin.math.abs
 
 @Composable
@@ -39,7 +43,7 @@ fun GameBoard(
     onPieceDrag: (Int, Int, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val boardWidth = cellSize * BOARD_COLS
+    val boardWidth  = cellSize * BOARD_COLS
     val boardHeight = cellSize * BOARD_ROWS
     val isDark = MaterialTheme.colorScheme.background == HuaRongColors.BgDark
 
@@ -59,12 +63,9 @@ fun GameBoard(
             .border(3.dp, HuaRongColors.BoardBorder, RoundedCornerShape(12.dp))
             .padding(4.dp)
     ) {
-        // Grid lines
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawBoardGrid(cellSize.toPx())
         }
-
-        // Pieces
         gameState.pieces.forEach { piece ->
             if (piece.type != PieceType.EMPTY) {
                 PieceItem(
@@ -77,15 +78,12 @@ fun GameBoard(
                 )
             }
         }
-
-        // Exit indicator at bottom center
         ExitIndicator(cellSize = cellSize, boardHeight = boardHeight)
     }
 }
 
 @Composable
 private fun ExitIndicator(cellSize: Dp, boardHeight: Dp) {
-    // Arrow at the bottom center showing exit
     Box(
         modifier = Modifier
             .offset(x = cellSize, y = boardHeight - 4.dp)
@@ -124,13 +122,13 @@ fun PieceItem(
         animationSpec = spring(dampingRatio = 0.7f, stiffness = 300f),
         label = "row_${piece.id}"
     )
-
     val selectedElevation by animateDpAsState(
         targetValue = if (isSelected) 8.dp else 3.dp,
         label = "elevation_${piece.id}"
     )
 
-    val cellPx = with(LocalDensity.current) { cellSize.toPx() }
+    val density = LocalDensity.current
+    val cellPx: Float = with(density) { cellSize.toPx() }
     var dragAccumX by remember { mutableStateOf(0f) }
     var dragAccumY by remember { mutableStateOf(0f) }
 
@@ -145,33 +143,26 @@ fun PieceItem(
             .shadow(selectedElevation, RoundedCornerShape(10.dp))
             .clip(RoundedCornerShape(10.dp))
             .pointerInput(piece.id, isDemoMode) {
-                if (!isDemoMode) {
-                    detectTapGestures { onPieceClick(piece.id) }
-                }
+                if (!isDemoMode) detectTapGestures { onPieceClick(piece.id) }
             }
-            .pointerInput(piece.id, isDemoMode) {
+            .pointerInput(piece.id, isDemoMode, cellPx) {
                 if (!isDemoMode) {
                     detectDragGestures(
-                        onDragStart = {
-                            dragAccumX = 0f
-                            dragAccumY = 0f
-                        },
+                        onDragStart = { dragAccumX = 0f; dragAccumY = 0f },
                         onDrag = { _, dragAmount ->
                             dragAccumX += dragAmount.x
                             dragAccumY += dragAmount.y
-                            val threshold = cellPx * 0.4f
+                            val threshold: Float = cellPx * 0.4f
+                            val ax: Float = abs(dragAccumX)
+                            val ay: Float = abs(dragAccumY)
                             when {
-                                abs(dragAccumX) > abs(dragAccumY) && abs(dragAccumX) > threshold -> {
-                                    val dc = if (dragAccumX > 0) 1 else -1
-                                    onPieceDrag(piece.id, dc, 0)
-                                    dragAccumX = 0f
-                                    dragAccumY = 0f
+                                ax > ay && ax > threshold -> {
+                                    onPieceDrag(piece.id, if (dragAccumX > 0f) 1 else -1, 0)
+                                    dragAccumX = 0f; dragAccumY = 0f
                                 }
-                                abs(dragAccumY) > abs(dragAccumX) && abs(dragAccumY) > threshold -> {
-                                    val dr = if (dragAccumY > 0) 1 else -1
-                                    onPieceDrag(piece.id, 0, dr)
-                                    dragAccumX = 0f
-                                    dragAccumY = 0f
+                                ay > ax && ay > threshold -> {
+                                    onPieceDrag(piece.id, 0, if (dragAccumY > 0f) 1 else -1)
+                                    dragAccumX = 0f; dragAccumY = 0f
                                 }
                             }
                         }
@@ -204,116 +195,96 @@ fun PieceContent(piece: Piece, isSelected: Boolean) {
             ),
         contentAlignment = Alignment.Center
     ) {
-        // Cartoon decoration via Canvas
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawPieceDecoration(piece.type, config, size)
         }
 
-        // Name label
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // Emoji / character face
-            Text(
-                text = config.emoji,
-                fontSize = when {
-                    piece.type == PieceType.CAO_CAO -> 28.sp
-                    piece.width == 2 || piece.height == 2 -> 20.sp
-                    else -> 16.sp
-                },
-                textAlign = TextAlign.Center
-            )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Avatar image fills most of the piece
+            val avatarRes = getPieceAvatarRes(piece.type)
+            if (avatarRes != null) {
+                androidx.compose.foundation.Image(
+                    painter = painterResource(avatarRes),
+                    contentDescription = config.nameZh,
+                    contentScale = if (piece.type == PieceType.CAO_CAO)
+                        ContentScale.Fit else ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(2.dp)
+                )
+            } else {
+                Spacer(Modifier.weight(1f))
+            }
+            // Name label at bottom
             Text(
                 text = config.nameZh,
                 color = config.textColor,
-                fontSize = when {
-                    piece.type == PieceType.CAO_CAO -> 13.sp
-                    piece.type == PieceType.SOLDIER -> 10.sp
-                    else -> 11.sp
+                fontSize = when (piece.type) {
+                    PieceType.CAO_CAO -> 12.sp
+                    PieceType.SOLDIER -> 9.sp
+                    else -> 10.sp
                 },
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(config.colorDark.copy(alpha = 0.55f))
+                    .padding(vertical = 1.dp)
             )
         }
     }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Resource mapping
+// ─────────────────────────────────────────────────────────────────────────────
+
+@Composable
+fun getPieceAvatarRes(type: PieceType): org.jetbrains.compose.resources.DrawableResource? =
+    when (type) {
+        PieceType.CAO_CAO      -> Res.drawable.avatar_caocao
+        PieceType.GUAN_YU      -> Res.drawable.avatar_guanyu
+        PieceType.ZHANG_FEI    -> Res.drawable.avatar_zhangfei
+        PieceType.ZHAO_YUN     -> Res.drawable.avatar_zhaoyun
+        PieceType.HUANG_ZHONG  -> Res.drawable.avatar_huangzhong
+        PieceType.MA_CHAO      -> Res.drawable.avatar_machao
+        PieceType.SOLDIER      -> Res.drawable.avatar_soldier
+        PieceType.EMPTY        -> null
+    }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Visual config (colours + labels)
+// ─────────────────────────────────────────────────────────────────────────────
+
 data class PieceVisualConfig(
     val colorLight: Color,
-    val colorDark: Color,
-    val textColor: Color,
+    val colorDark:  Color,
+    val textColor:  Color,
     val nameZh: String,
     val nameEn: String,
-    val emoji: String
+    val emoji:  String
 )
 
 fun getPieceVisualConfig(type: PieceType): PieceVisualConfig = when (type) {
-    PieceType.CAO_CAO -> PieceVisualConfig(
-        colorLight = Color(0xFFFFD700),
-        colorDark = Color(0xFFB8860B),
-        textColor = Color(0xFF5D4037),
-        nameZh = "曹操",
-        nameEn = "Cao Cao",
-        emoji = "👑"
-    )
-    PieceType.GUAN_YU -> PieceVisualConfig(
-        colorLight = Color(0xFF4CAF50),
-        colorDark = Color(0xFF1B5E20),
-        textColor = Color.White,
-        nameZh = "关羽",
-        nameEn = "Guan Yu",
-        emoji = "🗡️"
-    )
-    PieceType.ZHANG_FEI -> PieceVisualConfig(
-        colorLight = Color(0xFF546E7A),
-        colorDark = Color(0xFF263238),
-        textColor = Color.White,
-        nameZh = "张飞",
-        nameEn = "Zhang Fei",
-        emoji = "⚔️"
-    )
-    PieceType.ZHAO_YUN -> PieceVisualConfig(
-        colorLight = Color(0xFFECEFF1),
-        colorDark = Color(0xFF90A4AE),
-        textColor = Color(0xFF263238),
-        nameZh = "赵云",
-        nameEn = "Zhao Yun",
-        emoji = "🏹"
-    )
-    PieceType.HUANG_ZHONG -> PieceVisualConfig(
-        colorLight = Color(0xFFFF8F00),
-        colorDark = Color(0xFFE65100),
-        textColor = Color.White,
-        nameZh = "黄忠",
-        nameEn = "Huang Zhong",
-        emoji = "🏹"
-    )
-    PieceType.MA_CHAO -> PieceVisualConfig(
-        colorLight = Color(0xFF9C27B0),
-        colorDark = Color(0xFF4A148C),
-        textColor = Color.White,
-        nameZh = "马超",
-        nameEn = "Ma Chao",
-        emoji = "🐴"
-    )
-    PieceType.SOLDIER -> PieceVisualConfig(
-        colorLight = Color(0xFF42A5F5),
-        colorDark = Color(0xFF1565C0),
-        textColor = Color.White,
-        nameZh = "卒",
-        nameEn = "Soldier",
-        emoji = "🛡️"
-    )
-    PieceType.EMPTY -> PieceVisualConfig(
-        colorLight = Color.Transparent,
-        colorDark = Color.Transparent,
-        textColor = Color.Transparent,
-        nameZh = "",
-        nameEn = "",
-        emoji = ""
-    )
+    PieceType.CAO_CAO     -> PieceVisualConfig(Color(0xFFFFD700), Color(0xFFB8860B), Color(0xFF5D4037), "曹操", "Cao Cao",     "👑")
+    PieceType.GUAN_YU     -> PieceVisualConfig(Color(0xFF4CAF50), Color(0xFF1B5E20), Color.White,       "关羽", "Guan Yu",     "🗡️")
+    PieceType.ZHANG_FEI   -> PieceVisualConfig(Color(0xFF546E7A), Color(0xFF263238), Color.White,       "张飞", "Zhang Fei",   "⚔️")
+    PieceType.ZHAO_YUN    -> PieceVisualConfig(Color(0xFFECEFF1), Color(0xFF90A4AE), Color(0xFF263238), "赵云", "Zhao Yun",    "🏹")
+    PieceType.HUANG_ZHONG -> PieceVisualConfig(Color(0xFFFF8F00), Color(0xFFE65100), Color.White,       "黄忠", "Huang Zhong", "🏹")
+    PieceType.MA_CHAO     -> PieceVisualConfig(Color(0xFF9C27B0), Color(0xFF4A148C), Color.White,       "马超", "Ma Chao",     "🐴")
+    PieceType.SOLDIER     -> PieceVisualConfig(Color(0xFF42A5F5), Color(0xFF1565C0), Color.White,       "卒",   "Soldier",     "🛡️")
+    PieceType.EMPTY       -> PieceVisualConfig(Color.Transparent, Color.Transparent, Color.Transparent, "",    "",            "")
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Canvas decorations
+// ─────────────────────────────────────────────────────────────────────────────
+
 private fun DrawScope.drawPieceDecoration(type: PieceType, config: PieceVisualConfig, sz: Size) {
-    // Draw decorative border inside piece
     drawRoundRect(
         color = config.textColor.copy(alpha = 0.2f),
         topLeft = Offset(4f, 4f),
@@ -321,19 +292,13 @@ private fun DrawScope.drawPieceDecoration(type: PieceType, config: PieceVisualCo
         cornerRadius = androidx.compose.ui.geometry.CornerRadius(16f, 16f),
         style = Stroke(width = 2f)
     )
-
-    // Special decoration for Cao Cao - dragon pattern corners
     if (type == PieceType.CAO_CAO) {
-        val cornerSize = sz.width * 0.12f
+        val r = sz.width * 0.08f
         listOf(
-            Offset(8f, 8f), Offset(sz.width - 8f, 8f),
-            Offset(8f, sz.height - 8f), Offset(sz.width - 8f, sz.height - 8f)
-        ).forEach { corner ->
-            drawCircle(
-                color = Color(0xFFB8860B),
-                radius = cornerSize,
-                center = corner
-            )
+            Offset(10f, 10f), Offset(sz.width - 10f, 10f),
+            Offset(10f, sz.height - 10f), Offset(sz.width - 10f, sz.height - 10f)
+        ).forEach { center ->
+            drawCircle(color = Color(0xFFB8860B), radius = r, center = center)
         }
     }
 }
