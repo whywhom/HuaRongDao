@@ -29,6 +29,7 @@ data class Strings(
     val continueGame: String,
     val newGame: String,
 
+
     // Game
     val moves: String,
     val demoButton: String,
@@ -116,7 +117,7 @@ val EnglishStrings = Strings(
     langChinese = "中文",
     langEnglish = "English",
     sound = "Sound Effects",
-    vibration = "Vibration",
+    vibration = "Vibration"
 )
 
 val ChineseStrings = Strings(
@@ -172,5 +173,5 @@ val ChineseStrings = Strings(
     langChinese = "中文",
     langEnglish = "English",
     sound = "音效",
-    vibration = "震动",
+    vibration = "震动"
 )

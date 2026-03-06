@@ -32,12 +32,14 @@ actual fun AppContent() {
                 onNavigateToLevelSelect = { currentScreen = Screen.LevelSelect }
             )
             is Screen.LevelSelect -> LevelSelectScreen(
+                lan = settings.language,
                 strings = strings,
                 onSelectLevel = { levelId -> currentScreen = Screen.Game(levelId) },
                 onNavigateSettings = { currentScreen = Screen.Settings },
                 onNavigateHelp = { currentScreen = Screen.Help }
             )
             is Screen.Game -> GameScreen(
+                lan = settings.language,
                 levelId = screen.levelId, strings = strings,
                 onNavigateBack = { currentScreen = Screen.LevelSelect }
             )

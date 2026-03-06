@@ -29,6 +29,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LevelSelectScreen(
+    lan: String,
     strings: Strings,
     onSelectLevel: (Int) -> Unit,
     onNavigateSettings: () -> Unit,
@@ -84,6 +85,7 @@ fun LevelSelectScreen(
             items(uiState.levels) { level ->
                 val progress = uiState.progressMap[level.id]
                 LevelCard(
+                    lan = lan,
                     level = level,
                     progress = progress,
                     strings = strings,
@@ -96,6 +98,7 @@ fun LevelSelectScreen(
 
 @Composable
 fun LevelCard(
+    lan: String,
     level: Level,
     progress: LevelProgress?,
     strings: Strings,
@@ -152,7 +155,7 @@ fun LevelCard(
 
                 // Level name
                 Text(
-                    text = level.nameZh,
+                    text = if(lan == "zh") level.nameZh else level.nameEn,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
                     textAlign = TextAlign.Center,

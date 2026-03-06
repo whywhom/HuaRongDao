@@ -35,6 +35,7 @@ import kotlin.math.abs
 
 @Composable
 fun GameBoard(
+    lan: String,
     gameState: GameState,
     selectedPieceId: Int?,
     cellSize: Dp,
@@ -69,6 +70,7 @@ fun GameBoard(
         gameState.pieces.forEach { piece ->
             if (piece.type != PieceType.EMPTY) {
                 PieceItem(
+                    lan = lan,
                     piece = piece,
                     cellSize = cellSize,
                     isSelected = piece.id == selectedPieceId,
@@ -105,6 +107,7 @@ private fun DrawScope.drawBoardGrid(cellPx: Float) {
 
 @Composable
 fun PieceItem(
+    lan: String,
     piece: Piece,
     cellSize: Dp,
     isSelected: Boolean,
@@ -170,12 +173,12 @@ fun PieceItem(
                 }
             }
     ) {
-        PieceContent(piece = piece, isSelected = isSelected)
+        PieceContent(lan = lan, piece = piece, isSelected = isSelected)
     }
 }
 
 @Composable
-fun PieceContent(piece: Piece, isSelected: Boolean) {
+fun PieceContent(lan: String, piece: Piece, isSelected: Boolean) {
     val config = getPieceVisualConfig(piece.type)
 
     Box(
@@ -208,7 +211,7 @@ fun PieceContent(piece: Piece, isSelected: Boolean) {
             if (avatarRes != null) {
                 androidx.compose.foundation.Image(
                     painter = painterResource(avatarRes),
-                    contentDescription = config.nameZh,
+                    contentDescription = if(lan == "zh") config.nameZh else config.nameEn,
                     contentScale = if (piece.type == PieceType.CAO_CAO)
                         ContentScale.Fit else ContentScale.Crop,
                     modifier = Modifier
@@ -221,7 +224,7 @@ fun PieceContent(piece: Piece, isSelected: Boolean) {
             }
             // Name label at bottom
             Text(
-                text = config.nameZh,
+                text = if(lan == "zh") config.nameZh else config.nameEn,
                 color = config.textColor,
                 fontSize = when (piece.type) {
                     PieceType.CAO_CAO -> 12.sp

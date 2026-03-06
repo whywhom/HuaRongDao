@@ -87,7 +87,7 @@ object LevelData {
             initialState = GameState(
                 pieces = listOf(
                     Piece(0, PieceType.CAO_CAO,      col=1, row=0),
-                    Piece(1, PieceType.GUAN_YU,      col=0, row=3),
+                    Piece(1, PieceType.GUAN_YU,      col=0, row=4),
                     Piece(2, PieceType.ZHANG_FEI,    col=0, row=0),
                     Piece(3, PieceType.ZHAO_YUN,     col=3, row=0),
                     Piece(4, PieceType.HUANG_ZHONG,  col=0, row=2),  // moved
@@ -134,7 +134,7 @@ object LevelData {
                     Piece(3, PieceType.ZHAO_YUN,     col=3, row=0),
                     Piece(4, PieceType.HUANG_ZHONG,  col=3, row=2),
                     Piece(5, PieceType.MA_CHAO,      col=1, row=3),
-                    Piece(6, PieceType.SOLDIER,      col=1, row=2),
+                    Piece(6, PieceType.SOLDIER,      col=2, row=3),
                     Piece(7, PieceType.SOLDIER,      col=2, row=2),
                     Piece(8, PieceType.SOLDIER,      col=0, row=4),
                     Piece(9, PieceType.SOLDIER,      col=3, row=4),
@@ -171,7 +171,7 @@ object LevelData {
             initialState = GameState(
                 pieces = listOf(
                     Piece(0, PieceType.CAO_CAO,      col=1, row=0),
-                    Piece(1, PieceType.GUAN_YU,      col=0, row=3),
+                    Piece(1, PieceType.GUAN_YU,      col=1, row=4),
                     Piece(2, PieceType.ZHANG_FEI,    col=0, row=0),
                     Piece(3, PieceType.ZHAO_YUN,     col=3, row=0),
                     Piece(4, PieceType.HUANG_ZHONG,  col=0, row=2),

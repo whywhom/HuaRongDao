@@ -20,6 +20,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameScreen(
+    lan: String,
     levelId: Int,
     strings: Strings,
     onNavigateBack: () -> Unit,
@@ -105,7 +106,8 @@ fun GameScreen(
                 title = {
                     Column {
                         Text(
-                            text = uiState.level?.nameZh ?: "",
+                            text = if(lan == "zh") uiState.level?.nameZh+"" else uiState.level?.nameEn+"",
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
                         )
                         uiState.currentState?.let { state ->
@@ -172,11 +174,11 @@ fun GameScreen(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.Center
             ) {
-                val boardSize = minOf(maxWidth, maxHeight - 80.dp)
-                val cellSize = boardSize / 4
+                val cellSize = minOf(maxWidth / 4, maxHeight / 5)
 
                 uiState.currentState?.let { state ->
                     GameBoard(
+                        lan = lan,
                         gameState = state,
                         selectedPieceId = uiState.selectedPieceId,
                         cellSize = cellSize,
