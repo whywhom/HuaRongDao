@@ -100,6 +100,8 @@ kotlin {
         }
 
         desktopMain.dependencies {
+            // Dispatchers.Main 在 Desktop 上需要 Swing 的事件循环来驱动，没有这个依赖就找不到 Main dispatcher
+            implementation(libs.kotlinx.coroutines.swing)
             implementation(compose.desktop.currentOs)
         }
     }
