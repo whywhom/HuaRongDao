@@ -24,22 +24,24 @@ data class Piece(
     val col: Int,     // left column (0-based)
     val row: Int,     // top row (0-based)
 ) {
-    val width: Int get() = when (type) {
-        PieceType.CAO_CAO -> 2
-        PieceType.GUAN_YU -> 2
-        PieceType.ZHANG_FEI, PieceType.ZHAO_YUN,
-        PieceType.HUANG_ZHONG, PieceType.MA_CHAO -> 1
-        PieceType.SOLDIER -> 1
-        PieceType.EMPTY -> 1
-    }
-    val height: Int get() = when (type) {
-        PieceType.CAO_CAO -> 2
-        PieceType.GUAN_YU -> 1
-        PieceType.ZHANG_FEI, PieceType.ZHAO_YUN,
-        PieceType.HUANG_ZHONG, PieceType.MA_CHAO -> 2
-        PieceType.SOLDIER -> 1
-        PieceType.EMPTY -> 1
-    }
+    val width: Int
+        get() = when (type) {
+            PieceType.CAO_CAO -> 2
+            PieceType.GUAN_YU -> 2
+            PieceType.ZHANG_FEI, PieceType.ZHAO_YUN,
+            PieceType.HUANG_ZHONG, PieceType.MA_CHAO -> 1
+            PieceType.SOLDIER -> 1
+            PieceType.EMPTY -> 1
+        }
+    val height: Int
+        get() = when (type) {
+            PieceType.CAO_CAO -> 2
+            PieceType.GUAN_YU -> 1
+            PieceType.ZHANG_FEI, PieceType.ZHAO_YUN,
+            PieceType.HUANG_ZHONG, PieceType.MA_CHAO -> 2
+            PieceType.SOLDIER -> 1
+            PieceType.EMPTY -> 1
+        }
 }
 
 @Serializable
