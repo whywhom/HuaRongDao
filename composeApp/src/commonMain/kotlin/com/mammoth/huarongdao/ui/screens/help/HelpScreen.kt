@@ -1,5 +1,6 @@
 package com.mammoth.huarongdao.ui.screens.help
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,11 +13,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import com.mammoth.huarongdao.domain.model.PieceType
 import com.mammoth.huarongdao.ui.components.getPieceVisualConfig
 import com.mammoth.huarongdao.utils.Strings
+import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,7 +109,14 @@ fun HelpScreen(
                                 .background(config.colorLight, RoundedCornerShape(8.dp)),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(config.emoji, fontSize = 24.sp)
+                            if (config.avatar != null) {
+                                Image(
+                                    painter = painterResource(config.avatar),
+                                    contentDescription = null,
+                                    modifier = Modifier.fillMaxSize().padding(4.dp),
+                                    contentScale = ContentScale.Fit
+                                )
+                            }
                         }
                         Column {
                             Text(

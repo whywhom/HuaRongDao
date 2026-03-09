@@ -143,7 +143,7 @@ val ChineseStrings = Strings(
     bestMoves = "最佳: %d 步",
     difficulty = "难度",
     continueGame = "继续游戏",
-    newGame = "重新开始",
+    newGame = "开始",
 
     moves = "步数: %d",
     demoButton = "演示通关",

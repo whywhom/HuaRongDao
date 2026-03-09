@@ -30,7 +30,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "HuaRongDao"
             isStatic = true
         }
     }
@@ -38,18 +38,10 @@ kotlin {
     jvm("desktop")
 
     wasmJs {
-        outputModuleName.set("composeApp")
+        outputModuleName.set("huarongdao")
         browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
             commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
+                outputFileName = "huarongdao.js"
             }
         }
         binaries.executable()
@@ -75,7 +67,7 @@ kotlin {
         val nonWebMain by getting
 
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.android)
@@ -155,6 +147,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    applicationVariants.all {
+        if (buildType.name == "release") {
+            outputs.all {
+                val output = this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
+                output.outputFileName = "HuaRongDao-KMP.apk"
+            }
+        }
+    }
 }
 
 compose.desktop {
@@ -162,8 +163,24 @@ compose.desktop {
         mainClass = "com.mammoth.huarongdao.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "HuaRongDao"
+            packageName = "HuaRongDao-KMP"
             packageVersion = "1.0.0"
+
+            macOS {
+                bundleID = "com.mammoth.huarongdao"
+                dockName = "HuaRongDao-KMP"
+                // iconFile.set(project.file("icon.icns")) // Ensure you have an .icns file
+
+                // Required for distributing outside the App Store
+                signing {
+                    // identity.set("Developer ID Application: Your Name (ID)")
+                }
+                notarization {
+                    // appleID.set("your@apple.id")
+                    // password.set(project.findProperty("appleAppSpecificPassword")?.toString())
+                    // teamID.set("YOUR_TEAM_ID")
+                }
+            }
         }
     }
 }
