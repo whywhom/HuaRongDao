@@ -40,7 +40,8 @@ actual fun AppContent() {
             )
             is Screen.Game -> GameScreen(
                 lan = settings.language,
-                levelId = screen.levelId, strings = strings,
+                levelId = screen.levelId,
+                strings = strings,
                 onNavigateBack = { currentScreen = Screen.LevelSelect }
             )
             is Screen.Help -> HelpScreen(
