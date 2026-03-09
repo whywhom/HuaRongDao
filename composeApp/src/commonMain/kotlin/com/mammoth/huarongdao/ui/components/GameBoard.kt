@@ -68,7 +68,7 @@ fun GameBoard(
                 shape = RoundedCornerShape(12.dp)
             )
             .border(3.dp, HuaRongColors.BoardBorder, RoundedCornerShape(12.dp))
-            .padding(4.dp)
+            .padding(1.dp)
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawBoardGrid(cellSize.toPx())

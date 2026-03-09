@@ -8,6 +8,23 @@ A cross-platform implementation of the classic Hua Rong Dao (Klotski) puzzle. Mo
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/Welcome.png" width="23%" />
+  <img src="screenshots/Select.png" width="23%" />
+  <img src="screenshots/Game.png" width="23%" />
+  <img src="screenshots/Win.png" width="23%" />
+</p>
+<p align="center">
+  <img src="screenshots/Demo.png" width="23%" />
+  <img src="screenshots/How.png" width="23%" />
+  <img src="screenshots/How2.png" width="23%" />
+  <img src="screenshots/Setting.png" width="23%" />
+</p>
+
+---
+
 ## Platform Support
 
 | Platform | Entry Point | Build Command |
@@ -318,4 +335,4 @@ open iosApp/iosApp.xcodeproj
 
 ## License
 
-MIT License
+MIT
