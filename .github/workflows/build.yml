@@ -1,14 +1,18 @@
-name: Build and Test
+name: Build and Release
 
 on:
   push:
     branches: [ master ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ master ]
 
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      contents: write # 必须赋予写权限才能创建 Release
     
     steps:
       - name: Checkout code
@@ -38,7 +42,22 @@ jobs:
       - name: Build Web Wasm
         run: ./gradlew :composeApp:wasmJsBrowserDistribution
 
-      - name: Upload Artifacts
+      # 仅在非 PR（即直接 Push 或 Merge）时执行发布
+      - name: Create Release and Upload Assets
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'latest' }}
+          name: ${{ github.ref_type == 'tag' && github.ref_name || 'Latest Build' }}
+          draft: false
+          prerelease: ${{ github.ref_type != 'tag' }}
+          files: |
+            composeApp/build/outputs/apk/release/HuaRongDao-KMP.apk
+            composeApp/build/compose/binaries/main/dmg/HuaRongDao-KMP.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifacts (Actions Tab)
         uses: actions/upload-artifact@v4
         with:
           name: HuaRongDao-Build-Artifacts
