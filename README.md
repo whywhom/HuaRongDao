@@ -298,6 +298,10 @@ cd HuaRongDao
 
 # Android
 ./gradlew :composeApp:installDebug
+./gradlew assembleRelease
+./gradlew :composeApp:bundleRelease
+
+
 
 # Desktop
 ./gradlew :composeApp:run

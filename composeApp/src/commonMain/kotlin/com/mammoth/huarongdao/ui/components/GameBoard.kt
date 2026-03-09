@@ -213,7 +213,7 @@ fun PieceContent(lan: String, piece: Piece, isSelected: Boolean) {
             modifier = Modifier.fillMaxSize()
         ) {
             // Avatar image fills most of the piece
-            val avatarRes = getPieceAvatarRes(piece.type)
+            val avatarRes = config.avatar
             if (avatarRes != null) {
                 Image(
                     painter = painterResource(avatarRes),
@@ -249,23 +249,6 @@ fun PieceContent(lan: String, piece: Piece, isSelected: Boolean) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Resource mapping
-// ─────────────────────────────────────────────────────────────────────────────
-
-@Composable
-fun getPieceAvatarRes(type: PieceType): DrawableResource? =
-    when (type) {
-        PieceType.CAO_CAO      -> Res.drawable.avatar_caocao
-        PieceType.GUAN_YU      -> Res.drawable.avatar_guanyu
-        PieceType.ZHANG_FEI    -> Res.drawable.avatar_zhangfei
-        PieceType.ZHAO_YUN     -> Res.drawable.avatar_zhaoyun
-        PieceType.HUANG_ZHONG  -> Res.drawable.avatar_huangzhong
-        PieceType.MA_CHAO      -> Res.drawable.avatar_machao
-        PieceType.SOLDIER      -> Res.drawable.avatar_soldier
-        PieceType.EMPTY        -> null
-    }
-
-// ─────────────────────────────────────────────────────────────────────────────
 // Visual config (colours + labels)
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -275,18 +258,18 @@ data class PieceVisualConfig(
     val textColor:  Color,
     val nameZh: String,
     val nameEn: String,
-    val emoji:  String
+    val avatar: DrawableResource?
 )
 
 fun getPieceVisualConfig(type: PieceType): PieceVisualConfig = when (type) {
-    PieceType.CAO_CAO     -> PieceVisualConfig(Color(0xFFFFD700), Color(0xFFB8860B), Color(0xFF5D4037), "曹操", "Cao Cao",     "👑")
-    PieceType.GUAN_YU     -> PieceVisualConfig(Color(0xFF4CAF50), Color(0xFF1B5E20), Color.White,       "关羽", "Guan Yu",     "🗡️")
-    PieceType.ZHANG_FEI   -> PieceVisualConfig(Color(0xFF546E7A), Color(0xFF263238), Color.White,       "张飞", "Zhang Fei",   "⚔️")
-    PieceType.ZHAO_YUN    -> PieceVisualConfig(Color(0xFFECEFF1), Color(0xFF90A4AE), Color(0xFF263238), "赵云", "Zhao Yun",    "🏹")
-    PieceType.HUANG_ZHONG -> PieceVisualConfig(Color(0xFFFF8F00), Color(0xFFE65100), Color.White,       "黄忠", "Huang Zhong", "🏹")
-    PieceType.MA_CHAO     -> PieceVisualConfig(Color(0xFF9C27B0), Color(0xFF4A148C), Color.White,       "马超", "Ma Chao",     "🐴")
-    PieceType.SOLDIER     -> PieceVisualConfig(Color(0xFF42A5F5), Color(0xFF1565C0), Color.White,       "卒",   "Soldier",     "🛡️")
-    PieceType.EMPTY       -> PieceVisualConfig(Color.Transparent, Color.Transparent, Color.Transparent, "",    "",            "")
+    PieceType.CAO_CAO     -> PieceVisualConfig(Color(0xFFFFD700), Color(0xFFB8860B), Color(0xFF5D4037), "曹操", "Cao Cao",     Res.drawable.avatar_caocao)
+    PieceType.GUAN_YU     -> PieceVisualConfig(Color(0xFF4CAF50), Color(0xFF1B5E20), Color.White,       "关羽", "Guan Yu",     Res.drawable.avatar_guanyu)
+    PieceType.ZHANG_FEI   -> PieceVisualConfig(Color(0xFF546E7A), Color(0xFF263238), Color.White,       "张飞", "Zhang Fei",   Res.drawable.avatar_zhangfei)
+    PieceType.ZHAO_YUN    -> PieceVisualConfig(Color(0xFFECEFF1), Color(0xFF90A4AE), Color(0xFF263238), "赵云", "Zhao Yun",    Res.drawable.avatar_zhaoyun)
+    PieceType.HUANG_ZHONG -> PieceVisualConfig(Color(0xFFFF8F00), Color(0xFFE65100), Color.White,       "黄忠", "Huang Zhong", Res.drawable.avatar_huangzhong)
+    PieceType.MA_CHAO     -> PieceVisualConfig(Color(0xFF9C27B0), Color(0xFF4A148C), Color.White,       "马超", "Ma Chao",     Res.drawable.avatar_machao)
+    PieceType.SOLDIER     -> PieceVisualConfig(Color(0xFF42A5F5), Color(0xFF1565C0), Color.White,       "卒",   "Soldier",     Res.drawable.avatar_soldier)
+    PieceType.EMPTY       -> PieceVisualConfig(Color.Transparent, Color.Transparent, Color.Transparent, "",    "",            null)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

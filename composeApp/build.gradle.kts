@@ -1,6 +1,10 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -26,27 +30,18 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "HuaRongDao"
             isStatic = true
         }
     }
 
     jvm("desktop")
 
-    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "composeApp"
+        outputModuleName.set("huarongdao")
         browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
             commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
+                outputFileName = "huarongdao.js"
             }
         }
         binaries.executable()
@@ -72,19 +67,20 @@ kotlin {
         val nonWebMain by getting
 
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.runtime)
+            implementation(libs.jetbrains.foundation)
+            implementation(libs.material3)
+            implementation(libs.ui)
+            implementation(libs.jetbrains.components.resources)
+            implementation(libs.ui.tooling.preview)
+            implementation(libs.material.icons.core)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
@@ -107,6 +103,12 @@ kotlin {
     }
 }
 
+val keystorePropertiesFile = rootProject.file("local.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
+
 android {
     namespace = "com.mammoth.huarongdao"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -123,14 +125,36 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    signingConfigs {
+        create("release") {
+            storeFile = rootProject.file(keystoreProperties["signing.storeFile"] ?: "")
+            storePassword = keystoreProperties["signing.storePassword"] as String?
+            keyAlias = keystoreProperties["signing.keyAlias"] as String?
+            keyPassword = keystoreProperties["signing.keyPassword"] as String?
+        }
+    }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    applicationVariants.all {
+        if (buildType.name == "release") {
+            outputs.all {
+                val output = this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
+                output.outputFileName = "HuaRongDao-KMP.apk"
+            }
+        }
     }
 }
 
@@ -139,8 +163,24 @@ compose.desktop {
         mainClass = "com.mammoth.huarongdao.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "HuaRongDao"
+            packageName = "HuaRongDao-KMP"
             packageVersion = "1.0.0"
+
+            macOS {
+                bundleID = "com.mammoth.huarongdao"
+                dockName = "HuaRongDao-KMP"
+                // iconFile.set(project.file("icon.icns")) // Ensure you have an .icns file
+
+                // Required for distributing outside the App Store
+                signing {
+                    // identity.set("Developer ID Application: Your Name (ID)")
+                }
+                notarization {
+                    // appleID.set("your@apple.id")
+                    // password.set(project.findProperty("appleAppSpecificPassword")?.toString())
+                    // teamID.set("YOUR_TEAM_ID")
+                }
+            }
         }
     }
 }

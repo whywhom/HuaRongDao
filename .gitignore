@@ -27,3 +27,5 @@ DerivedData/
 /.kotlin/
 /.idea/
 /.gradle/
+*.jks
+*.keystore
