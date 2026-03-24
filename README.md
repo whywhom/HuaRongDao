@@ -2,6 +2,8 @@
 
 > Three Kingdoms sliding puzzle · Kotlin Multiplatform · Compose Multiplatform
 
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.mammoth.huarongdao)
+
 [**中文文档 →**](README_ZH.md)
 
 A cross-platform implementation of the classic Hua Rong Dao (Klotski) puzzle. Move Cao Cao through the surrounding generals to the exit — with a built-in A\* solver that finds the optimal solution and plays it back frame by frame.
